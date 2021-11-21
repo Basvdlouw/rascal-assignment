@@ -5,10 +5,10 @@ import lang::java::m3::AST;
 	Calculates the cyclomatic complexity (CC) of a unit
 	
 	Parameters:
-	- Statement impl: An implementation (i.e. method) of the src code
+	- Statement impl: An implementation (i.e. method)
 	
 	Returns
-	- int: The calculated CC.
+	- int: The calculated CC of the unit.
 		
 	https://stackoverflow.com/a/40069656
 }
