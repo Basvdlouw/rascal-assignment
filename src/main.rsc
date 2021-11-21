@@ -1,15 +1,15 @@
 module main
 
 import IO;
-import lang::java::jdt::m3::Core;
-import util::project_utils;
 import metrics::volume;
+import lang::java::jdt::m3::Core;
+import utils::project_utils;
 
 public loc DEFAULT_SMALL_SQL_LOC = |project://smallsql|;
 public loc DEFAULT_HSQL_DB_LOC = |project://hsqldb|;
 
 public void main() {
-	M3 model = createM3Model(DEFAULT_HSQL_DB_LOC);
+	M3 model = createM3Model(DEFAULT_SMALL_SQL_LOC);
 	calcVolume(model);
 }
 

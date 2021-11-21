@@ -1,6 +1,6 @@
 module metrics::volume
 
-import util::string_utils;
+import utils::string_utils;
 
 
 @doc{

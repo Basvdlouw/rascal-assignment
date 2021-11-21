@@ -1,4 +1,4 @@
-module util::project_utils
+module utils::project_utils
 
 import IO;
 import lang::java::jdt::m3::Core;
@@ -24,6 +24,11 @@ public M3 createM3Model(loc projectLocation) {
 	
 	Returns:
 	- Map of files
+	
+	TODO: 
+	use java+class or java+compilationUnit scheme?
+	should probably use compilationUnit to count package statements, imports (interfaces?) as well
+	https://github.com/usethesource/rascal/blob/master/src/org/rascalmpl/library/lang/java/m3/Core.rsc
 }
 map[loc, list[str]] retrieveJavaFiles(M3 model) {
 	map[loc, list[str]] files = ();
