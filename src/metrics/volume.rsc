@@ -1,13 +1,19 @@
 module metrics::volume
 
-import String;
+import util::string_utils;
+
+
 @doc{
 	Calculates volume based on a list of files. 
-	Volume excludes whitespace and documentation.
+	Volume excludes whitespace and comments.
 	
-	Params: 
+	Params:
+	- map files: List of files
+	
+	Return: 
+	- int calculatedVolume
 }
-int calculateVolume(map[loc locations, list[str] lines] files) {
+public int calculateVolume(map[loc locations, list[str] lines] files) {
 	int volume = 0;
 	for (lines <- files.lines) {
 		for (line <- lines, !isBlank(line), !isComment(line)) {
