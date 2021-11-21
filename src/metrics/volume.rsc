@@ -13,7 +13,7 @@ import util::string_utils;
 	Return: 
 	- int calculatedVolume
 }
-public int calculateVolume(map[loc locations, list[str] lines] files) {
+public int calculateVolume(map[loc location, list[str] lines] files) {
 	int volume = 0;
 	for (lines <- files.lines) {
 		for (line <- lines, !isBlank(line), !isComment(line)) {
