@@ -1,1 +1,1 @@
-module metrics::duplication
+module metrics::Duplication

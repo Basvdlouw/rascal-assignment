@@ -3,14 +3,14 @@
 	> import unit_tests::metrics::volumeTest
 	> :test
 }
-module unit_tests::metrics::volumeTest
+module unit_tests::metrics::VolumeTest
 
 import lang::java::jdt::m3::Core;
-import utils::project_utils;
-import metrics::volume;
+import utils::ProjectUtils;
+import metrics::Volume;
 
-private loc TEST_FILE_LOC = |project://SIG-maintainability-analyzer/src/unit_tests/resources/ExampleFile.java|;
-private int TEST_FILE_VOLUME = 28;
+private loc TEST_FILE_LOC = |project://SIG-maintainability-analyzer/src/unit_tests/resources/VolumeExampleTest.java|;
+private int TEST_FILE_VOLUME = 18;
 
 @doc{
 	Tests if volume is being counted properly based on ExampleFile.java

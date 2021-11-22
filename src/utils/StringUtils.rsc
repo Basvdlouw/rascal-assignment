@@ -1,4 +1,4 @@
-module utils::string_utils
+module utils::StringUtils
 
 import String;
 

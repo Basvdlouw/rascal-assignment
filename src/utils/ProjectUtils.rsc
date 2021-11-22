@@ -1,4 +1,4 @@
-module utils::project_utils
+module utils::ProjectUtils
 
 import IO;
 import lang::java::jdt::m3::Core;

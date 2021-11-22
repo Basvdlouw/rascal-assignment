@@ -1,7 +1,7 @@
-module main
+module Main
 
 import lang::java::jdt::m3::Core;
-import utils::project_utils;
+import utils::ProjectUtils;
 
 public loc DEFAULT_SMALL_SQL_LOC = |project://smallsql|;
 public loc DEFAULT_HSQL_DB_LOC = |project://hsqldb|;

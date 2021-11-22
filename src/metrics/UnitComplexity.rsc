@@ -1,4 +1,4 @@
-module metrics::unit_complexity
+module metrics::UnitComplexity
 import lang::java::m3::AST;
 
 @doc{
