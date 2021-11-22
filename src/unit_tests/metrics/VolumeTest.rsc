@@ -1,6 +1,6 @@
 @doc{
 	Run unit tests with 
-	> import unit_tests::metrics::volumeTest
+	> import unit_tests::metrics::VolumeTest;
 	> :test
 }
 module unit_tests::metrics::VolumeTest
