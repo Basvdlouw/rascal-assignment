@@ -1,15 +1,23 @@
 module Main
 
-import lang::java::jdt::m3::Core;
-import utils::ProjectUtils;
+import configuration::Constants;
+import reporting::ReportGenerator;
 
-public loc DEFAULT_SMALL_SQL_LOC = |project://smallsql|;
-public loc DEFAULT_HSQL_DB_LOC = |project://hsqldb|;
+ public void main() {
+ 	generateReportSmallSQL();
+	// generateReportHsqlDb();
+ }
 
 @doc{
-	Run main to see if projects can be properly loaded.
+	Generate report for SmallSQL project
 }
-public void main() {
-	M3 smallSQLModel = createM3Model(DEFAULT_SMALL_SQL_LOC);
-	M3 hsqlDBModel = createM3Model(DEFAULT_HSQL_DB_LOC);
+public void generateReportSmallSQL() {
+	printReportToConsole(DEFAULT_SMALL_SQL_LOC);
+}
+
+@doc{
+	Generate report for HsqlDb project
+}
+public void generateReportHsqlDb() {
+	printReportToConsole(DEFAULT_HSQL_DB_LOC);
 }

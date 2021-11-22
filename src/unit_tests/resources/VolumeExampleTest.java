@@ -24,7 +24,7 @@ class VolumeExampleTest {
 		return a;
 	}
 	
-	// Not a valid Javadoc but should not be counted towards volume
+	// Not a valid JavaDoc and should not be counted towards volume
 	public static int test4() {
 		int a = 1;
 		return a;
