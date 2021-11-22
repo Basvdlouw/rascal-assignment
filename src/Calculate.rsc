@@ -4,7 +4,12 @@
 module Calculate
 
 import utils::ProjectUtils;
+
 import metrics::Volume;
+import metrics::Duplication;
+import metrics::UnitComplexity;
+import metrics::UnitSize;
+
 
 private map[loc, list[str]] getJavaFilesFromProject(loc project) {
 	return retrieveJavaFiles(createM3Model(project));

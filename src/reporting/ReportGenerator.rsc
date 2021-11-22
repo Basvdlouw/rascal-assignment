@@ -4,7 +4,6 @@ import IO;
 import Calculate;
 
 private loc project;
-private int projectName;
 private int volume;
 private int numberOfUnits;
 
