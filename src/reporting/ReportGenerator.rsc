@@ -16,8 +16,8 @@ private int numberOfUnits;
 private void calculateMetrics(loc proj) {
     project = proj;
     volume = calculateProjectVolume(proj);
-    // Call methods to fill variables
-    // volume = calculateVolume()
+    // TODO: Call methods to fill variables
+    // numberOfUnits = ...
 }
 
 @doc{
