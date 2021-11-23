@@ -13,7 +13,7 @@ data Rank = \plusplus() | \plus() | \neutral() | \minus() | \minusminus() | \unk
 	Returns: 
 	- The string representation of the rank
 }
-str convertRankToLiteral(Rank rank) {
+public str convertRankToLiteral(Rank rank) {
 	switch(rank) {
 		case \plusplus(): 	return SIG_RANK_PLUS_PLUS;
 		case \plus(): 		return SIG_RANK_PLUS;

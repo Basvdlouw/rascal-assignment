@@ -4,6 +4,7 @@
 module Calculate
 
 import utils::ProjectUtils;
+import configuration::data_types::Rank;
 
 import metrics::Volume;
 import metrics::Duplication;
@@ -41,5 +42,5 @@ public int calculateProjectVolume(loc project) {
     - str volume rating
 }
 public str computeProjectVolumeRating(int volume) {
-    return computeVolumeRating(volume);
+    return convertRankToLiteral(computeVolumeRating(volume));
 }
