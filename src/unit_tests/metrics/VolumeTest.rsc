@@ -16,7 +16,7 @@ private int TEST_FILE_VOLUME = 18;
 	Tests if volume is being counted properly based on ExampleFile.java
 	Counts amount of lines while not counting whitespace and comments.
 	
-	Returns
+	Returns:
 	- bool
 }
 public test bool volumeTest() {

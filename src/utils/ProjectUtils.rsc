@@ -10,7 +10,7 @@ import lang::java::jdt::m3::Core;
 	- loc projectLocation: A location to an Eclipse project
 	
 	Returns: 
-	- M3 model;
+	- M3 model
 }
 public M3 createM3Model(loc projectLocation) {
 	return createM3FromEclipseProject(projectLocation);
@@ -24,10 +24,8 @@ public M3 createM3Model(loc projectLocation) {
 	
 	Returns:
 	- Map of files
-	
-	TODO: 
-	use java+class or java+compilationUnit scheme?
-	should probably use compilationUnit to count package statements, imports (interfaces?) as well
+
+	m3 schemes:
 	https://github.com/usethesource/rascal/blob/master/src/org/rascalmpl/library/lang/java/m3/Core.rsc
 }
 map[loc, list[str]] retrieveJavaFiles(M3 model) {

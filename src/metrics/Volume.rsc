@@ -7,10 +7,10 @@ import utils::StringUtils;
 	Calculates volume based on a list of files. 
 	Volume excludes whitespace and comments.
 	
-	Params:
+	Parameters:
 	- map files: List of files
 	
-	Return: 
+	Returns: 
 	- int calculatedVolume
 }
 public int calculateVolume(map[loc location, list[str] lines] files) {

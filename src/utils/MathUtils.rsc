@@ -3,10 +3,10 @@ module utils::MathUtils
 @doc {
 	Calculate Kloc based on loc metric
 	
-	Parameters 
+	Parameters:
 	- int linesOfCode loc
 	
-	Returns
+	Returns:
 	- int kloc
 }
 public int calculateKloc(int linesOfCode) {

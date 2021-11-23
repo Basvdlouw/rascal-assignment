@@ -6,8 +6,12 @@ import configuration::constants::sig::SigVolumeConstants;
 @doc{
 	Calculate volume rating based on SIG volume rating metric for Java projects.
 	
-	Parameters
+	Parameters:
 	- num volume in loc
+
+	Returns:
+	- str rating
+	
 }
 public str computeVolumeRating(num volume) {
 	int kloc = calculateKloc(volume);

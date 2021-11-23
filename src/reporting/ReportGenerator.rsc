@@ -10,7 +10,7 @@ private int numberOfUnits;
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
 
-    Parameters 
+    Parameters:
     - loc project
 }
 private void calculateMetrics(loc proj) {
@@ -23,8 +23,8 @@ private void calculateMetrics(loc proj) {
 @doc{
     Prints report to console
 
-    Parameters 
-    - loc project. Metrics in report are calculated based on project location.
+    Parameters:
+    - loc proj metrics in report are calculated based on project location.
 }
 public void printReportToConsole(loc proj) {
     calculateMetrics(proj);

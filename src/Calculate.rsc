@@ -21,11 +21,11 @@ private map[loc, list[str]] getJavaFilesFromProject(loc project) {
     Uses submodule metrics::Volume to calculate project volume. 
     Only counts Java files, excludes whitespace and comments.
 
-    - Parameters 
-    loc project
+    Parameters:
+    - loc project
 
-    - Returns 
-    int volume
+    Returns:
+    - int volume
 }
 public int calculateProjectVolume(loc project) {
     return calculateVolume(getJavaFilesFromProject(project));
@@ -34,11 +34,11 @@ public int calculateProjectVolume(loc project) {
 @doc{
     Uses submodule analysis::Volume to compute project volume rating.
 
-    - Parameters
-    int volume in LinesOfCode (loc)
+    Parameters:
+    - int volume in LinesOfCode (loc)
 
-    - Returns 
-    str volume rating
+    Returns:
+    - str volume rating
 }
 public str computeProjectVolumeRating(int volume) {
     return computeVolumeRating(volume);
