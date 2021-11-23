@@ -6,6 +6,19 @@ import utils::ProjectUtils;
 import lang::java::m3::AST;
 
 @doc{
+	Calculate unit size of a single unit 
+
+	Parameters:
+	- Declaration unit
+
+	Returns:
+	- int calculated unit size
+}
+private int calculateUnitSize(Declaration unit) {
+ 	return calculateVolume(getUnitLines(unit.src));
+}
+
+@doc{
     Context: 
 	"The notion of source code unit plays an important role in
     various of these properties. By a unit, we mean the smallest
@@ -14,10 +27,10 @@ import lang::java::m3::AST;
 
 	Calculates unit size of an AST, maps every unit in AST to a size
 
-	Parameters
+	Parameters:
 	- list[Declaration] list of declartions, i.e. an AST 
 
-	Returns
+	Returns:
 	- map[loc, int] maps every unit to a unit size
 }
 public map[loc, int] calculateUnitSizePerUnit(list[Declaration] ast) {
@@ -31,14 +44,22 @@ public map[loc, int] calculateUnitSizePerUnit(list[Declaration] ast) {
 }
 
 @doc{
-	Calculate unit size of a single unit 
+	Calculate number of units (number of methods in Java)
 
-	Parameters
-	- Declaration unit
+	Parameters:
+	- list[Declaration] list of ASTs i.e. all Java files in a project.
 
-	Returns:
-	- int calculated unit size
+	Returns: 
+	- int amount of units
 }
-private int calculateUnitSize(Declaration unit) {
- 	return calculateVolume(getUnitLines(unit.src));
+public int calculateNumberOfUnits(list[Declaration] asts) {
+	int numberOfUnits = 0;
+	for(ast <- asts) {
+		visit(ast) {
+			case \method(_, _, _, _, Statement impl): {
+				numberOfUnits += 1;
+			}
+		}
+	}
+	return numberOfUnits;
 }

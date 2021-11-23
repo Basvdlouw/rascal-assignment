@@ -2,6 +2,7 @@ module utils::ProjectUtils
 
 import IO;
 import lang::java::jdt::m3::Core;
+import lang::java::m3::AST;
 import utils::StringUtils;
 
 @doc{
@@ -18,10 +19,10 @@ public M3 createM3Model(loc projectLocation) {
 }
 
 @doc{
-	Retrieve java files from M3 model.
+	Get java files from M3 model.
 
 	Parameters:
-	- M3 model: An M3 model
+	- M3 model an M3 model
 	
 	Returns:
 	- Map of files
@@ -29,12 +30,32 @@ public M3 createM3Model(loc projectLocation) {
 	m3 schemes:
 	https://github.com/usethesource/rascal/blob/master/src/org/rascalmpl/library/lang/java/m3/Core.rsc
 }
-public map[loc, list[str]] retrieveJavaFiles(M3 model) {
+public map[loc, list[str]] getJavaFiles(M3 model) {
 	map[loc, list[str]] files = ();
-	for (m <- model.containment, m[0].scheme == "java+compilationUnit") {
-		files[m[0]] = readFileLines(m[0]);
+	for (x <- model.containment, x[0].scheme == "java+compilationUnit") {
+		files[x[0]] = readFileLines(x[0]);
 	}
 	return files;
+}
+
+@doc{
+	Get list of ASTs from M3 model.
+
+	Parameters:
+	- M3 model an M3 model
+	
+	Returns:
+	- List[Declaration] does not return list[AST] because createAstFromFile returns Declaration ...
+
+	m3 schemes:
+	https://github.com/usethesource/rascal/blob/master/src/org/rascalmpl/library/lang/java/m3/Core.rsc
+}
+public list[Declaration] getASTs(M3 model) {
+	list[Declaration] asts = [];
+	for (x <- model.containment, x[0].scheme == "java+compilationUnit") {
+		asts += createAstFromFile(x[0], true);
+	}
+	return asts;
 }
 
 @doc{

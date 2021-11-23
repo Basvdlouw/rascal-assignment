@@ -20,8 +20,7 @@ private int numberOfUnits;
 private void calculateMetrics(loc proj) {
     project = proj;
     volume = calculateProjectVolume(proj);
-    // TODO: Call methods to fill variables
-    // numberOfUnits = ...
+    numberOfUnits = calculateProjectNumberOfUnits(proj);
 }
 
 @doc{
@@ -49,7 +48,7 @@ private str generateReport() {
     <project.authority>
     -----------------------
     lines of code: <volume>
-    number of units: <"NOT IMPLEMENTED">
+    number of units: <numberOfUnits>
     -----------------------
     unit size:
     * simple: <"NOT IMPLEMENTED">

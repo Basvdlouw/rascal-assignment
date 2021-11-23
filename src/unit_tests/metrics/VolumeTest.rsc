@@ -21,6 +21,6 @@ private int TEST_FILE_VOLUME = 18;
 }
 public test bool volumeTest() {
 	M3 model = createM3Model(TEST_FILE_LOC);
-	map[loc, list[str]] files = retrieveJavaFiles(model);
+	map[loc, list[str]] files = getJavaFiles(model);
 	return calculateVolume(files) == TEST_FILE_VOLUME;
 }
