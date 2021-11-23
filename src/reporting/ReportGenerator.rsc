@@ -61,7 +61,7 @@ private str generateReport() {
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
-    volume score: <"NOT IMPLEMENTED">
+    volume score: <computeProjectVolumeRating(volume)>
     unit size score: <"NOT IMPLEMENTED">
     unit complexity score: <"NOT IMPLEMENTED">
     duplication score: <"NOT IMPLEMENTED">

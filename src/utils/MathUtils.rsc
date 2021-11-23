@@ -5,6 +5,9 @@ module utils::MathUtils
 	
 	Parameters 
 	- int linesOfCode loc
+	
+	Returns
+	- int kloc
 }
 public int calculateKloc(int linesOfCode) {
 	return linesOfCode / 1000;	

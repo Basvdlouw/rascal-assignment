@@ -1,11 +1,11 @@
 module Main
 
-import configuration::Constants;
+import configuration::constants::Constants;
 import reporting::ReportGenerator;
 
  public void main() {
- 	generateReportSmallSQL();
-	// generateReportHsqlDb();
+ 	//generateReportSmallSQL();
+	 generateReportHsqlDb();
  }
 
 @doc{
