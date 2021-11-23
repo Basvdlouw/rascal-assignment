@@ -11,7 +11,7 @@ import utils::StringUtils;
 	- map files: List of files
 	
 	Returns: 
-	- int calculatedVolume
+	- int calculated volume
 }
 public int calculateVolume(map[loc location, list[str] lines] files) {
 	int volume = 0;
@@ -29,7 +29,7 @@ public int calculateVolume(map[loc location, list[str] lines] files) {
 	- list[str] list of lines (for example one file)
 
 	Returns:
-	- int volume of lines
+	- int calculated volume
 }
 public int calculateVolume(list[str] lines) {
 	int volume = 0;
