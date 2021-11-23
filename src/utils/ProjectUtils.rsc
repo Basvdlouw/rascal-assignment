@@ -45,7 +45,7 @@ public map[loc, list[str]] getJavaFiles(M3 model) {
 	- M3 model an M3 model
 	
 	Returns:
-	- List[Declaration] does not return list[AST] because createAstFromFile returns Declaration ...
+	- list[Declaration] does not return list[AST] because createAstFromFile returns Declaration ...
 
 	m3 schemes:
 	https://github.com/usethesource/rascal/blob/master/src/org/rascalmpl/library/lang/java/m3/Core.rsc
