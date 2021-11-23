@@ -1,6 +1,6 @@
 module configuration::data_types::Rank
 
-import configuration::constants::sig::SigRanks;
+import configuration::constants::sig::SigRanksConstants;
 
 data Rank = \plusplus() | \plus() | \neutral() | \minus() | \minusminus() | \unknown();
 

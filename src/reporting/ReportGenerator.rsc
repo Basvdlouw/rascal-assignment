@@ -1,7 +1,11 @@
 module reporting::ReportGenerator
 
 import IO;
+
+// use Calculate module to calculate SIG metrics
 import Calculate;
+// Use Analyze module to compute SIG scores
+import Analyze;
 
 private loc project;
 private int volume;

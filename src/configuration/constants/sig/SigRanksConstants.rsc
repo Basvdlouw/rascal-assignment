@@ -1,4 +1,4 @@
-module configuration::constants::sig::SigRanks
+module configuration::constants::sig::SigRanksConstants
 
 public str SIG_RANK_PLUS_PLUS = "++";
 public str SIG_RANK_PLUS = "+";
