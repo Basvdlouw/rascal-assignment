@@ -8,7 +8,7 @@ import utils::StringUtils;
 	Volume excludes whitespace and comments.
 	
 	Parameters:
-	- map files: List of files
+	- map[loc, list[str]] files file loc mapped to lines in file
 	
 	Returns: 
 	- int calculated volume
