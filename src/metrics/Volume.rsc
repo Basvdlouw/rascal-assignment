@@ -16,9 +16,25 @@ import utils::StringUtils;
 public int calculateVolume(map[loc location, list[str] lines] files) {
 	int volume = 0;
 	for (lines <- files.lines) {
-		for (line <- lines, !isBlank(line), !isComment(line)) {
+	 	volume += calculateVolume(lines);
+	}
+	return volume;
+}
+
+@doc{
+	Calculate volume based on a list of lines
+	Volume excludes whitespace and comments.
+
+	Parameters: 
+	- list[str] list of lines (for example one file)
+
+	Returns:
+	- int volume of lines
+}
+public int calculateVolume(list[str] lines) {
+	int volume = 0;
+	for (line <- lines, !isBlank(line), !isComment(line)) {
 			volume += 1;
-		}
 	}
 	return volume;
 }
