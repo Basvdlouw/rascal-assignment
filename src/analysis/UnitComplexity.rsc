@@ -29,8 +29,6 @@ private int computeTotalLinesOfCode(lrel[loc, int, int] complexityUnits) {
 
 	Returns:
 	- Rank rank
-	
-	TODO: use constants
 }
 public Rank computeCyclomaticComplexityRank(real moderateRiskPercentage, real highRiskPercentage, real veryHighRiskPercentage) {
 	if(moderateRiskPercentage <= SIG_CYCLOMATIC_COMPLEXITY_PLUS_PLUS[0] 
