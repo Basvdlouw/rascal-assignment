@@ -5,7 +5,7 @@ import reporting::ReportGenerator;
 
  public void main() {
  	generateReportSmallSQL();
-	//generateReportHsqlDb();
+	generateReportHsqlDb();
  }
 
 @doc{

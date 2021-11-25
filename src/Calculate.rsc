@@ -47,3 +47,16 @@ public int calculateProjectVolume(loc project) {
 public int calculateProjectNumberOfUnits(loc project) {
     return calculateNumberOfUnits(getASTsFromProject(project));
 }
+
+@doc{
+    Calculate cyclomatic complexity per unit
+
+    Paramters:
+    - list[Declaration] list of asts. 
+
+    Returns: 
+    - lrel[loc, int, int]:  List relation with location, loc (lines of code), coc (cyclomatic complexity)
+}
+public lrel[loc, int, int] calculateProjectCyclomaticComplexityPerUnit(loc project) {
+    return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
+}

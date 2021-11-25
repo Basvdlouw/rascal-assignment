@@ -5,14 +5,13 @@ import configuration::constants::sig::SigVolumeConstants;
 import configuration::data_types::Rank;
 
 @doc{
-	Calculate volume rating based on SIG volume rating metric for Java projects.
+	Compute volume rating based on SIG volume rating metric for Java projects.
 	
 	Parameters:
 	- num volume in loc
 
 	Returns:
 	- Rank rank
-	
 }
 public Rank computeVolumeRating(num volume) {
 	int kloc = calculateKloc(volume);

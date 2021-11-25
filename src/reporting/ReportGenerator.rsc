@@ -10,6 +10,7 @@ import Analyze;
 private loc project;
 private int volume;
 private int numberOfUnits;
+private lrel[loc, int, int] cyclomaticComplexityUnits;
 
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
@@ -21,6 +22,7 @@ private void calculateMetrics(loc proj) {
     project = proj;
     volume = calculateProjectVolume(proj);
     numberOfUnits = calculateProjectNumberOfUnits(proj);
+    cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(proj);
 }
 
 @doc{
@@ -40,7 +42,7 @@ public void printReportToConsole(loc proj) {
     Returns 
     - str report in string format
 
-    TODO: remove hardcoded values
+    TODO: remove hardcoded values/format percentages amount of decimals
 }
 private str generateReport() {
     return 
@@ -57,16 +59,16 @@ private str generateReport() {
     * very high: <"NOT IMPLEMENTED">
     -----------------------
     unit complexity:
-    * simple: <"NOT IMPLEMENTED">
-    * moderate: <"NOT IMPLEMENTED">
-    * high: <"NOT IMPLEMENTED">
-    * very high: <"NOT IMPLEMENTED">
+    * simple: <computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * moderate: <computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * high: <computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * very high: <computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
     volume score: <computeProjectVolumeRating(volume)>
     unit size score: <"NOT IMPLEMENTED">
-    unit complexity score: <"NOT IMPLEMENTED">
+    unit complexity score: <computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits, volume)>
     duplication score: <"NOT IMPLEMENTED">
     -----------------------
     analysability score: <"NOT IMPLEMENTED">

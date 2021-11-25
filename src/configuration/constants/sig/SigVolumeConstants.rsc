@@ -4,11 +4,11 @@ module configuration::constants::sig::SigVolumeConstants
 	SIG Java volume rating constants
 	
 	Note: numbers in kloc
-	++ rating = 0..66
-	+ rating = 66..246
-	o rating = 246..665
-	- rating = 665..1310
-	-- rating = 1310..*
+	++ 	rating = 0..66
+	+ 	rating = 66..246
+	o 	rating = 246..665
+	- 	rating = 665..1310
+	-- 	rating = 1310..*
 }
 public int SIG_JAVA_VOLUME_PLUS_PLUS = 66;
 public int SIG_JAVA_VOLUME_PLUS = 246;
