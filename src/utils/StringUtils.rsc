@@ -28,8 +28,6 @@ public bool isBlank(str line) {
 	TODO: replace this with matching RegEx expression (proper detection for JavaDoc comments, etc.)
 }
 public bool isComment(str line) {
-	println(line);
-	println(trim(line));
 	trimmed = trim(line);
 	return startsWith(trimmed, "//") || startsWith(trimmed, "/*") || startsWith(trimmed, "*") || endsWith(trimmed, "*/");
 }

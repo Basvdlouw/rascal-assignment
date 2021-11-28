@@ -34,7 +34,6 @@ public int calculateVolume(map[loc location, list[str] lines] files) {
 public int calculateVolume(list[str] lines) {
 	int volume = 0;
 	for (line <- lines, !isBlank(line), !isComment(line)) {
-			println(line);
 			volume += 1;
 	}
 	return volume;

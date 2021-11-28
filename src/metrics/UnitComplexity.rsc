@@ -4,7 +4,6 @@ import lang::java::m3::AST;
 import ListRelation;
 import List;
 import utils::ProjectUtils;
-import IO;
 
 @doc{
     Calculate cyclomatic complexity per unit
@@ -19,7 +18,6 @@ lrel[loc, int, int] calculateCyclomaticComplexityPerUnit(list[Declaration] asts)
 	lrel[loc, int, int] complexityUnits = [];
     visit(asts) {
 		case method: \method(_, _, _, _, Statement impl): {
-			println(getUnitLines(method.src));
 			int linesOfCode = size(getUnitLines(method.src));
 			int cyclomaticComplexity = calculateCyclomaticComplexity(impl);
 			complexityUnits += <method.src, linesOfCode, cyclomaticComplexity>;
