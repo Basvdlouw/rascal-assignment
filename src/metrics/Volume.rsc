@@ -1,7 +1,7 @@
 module metrics::Volume
 
 import utils::StringUtils;
-
+import IO;
 
 @doc{
 	Calculates volume based on a list of files. 
@@ -34,6 +34,7 @@ public int calculateVolume(map[loc location, list[str] lines] files) {
 public int calculateVolume(list[str] lines) {
 	int volume = 0;
 	for (line <- lines, !isBlank(line), !isComment(line)) {
+			println(line);
 			volume += 1;
 	}
 	return volume;

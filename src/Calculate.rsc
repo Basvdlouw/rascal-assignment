@@ -13,11 +13,11 @@ import metrics::UnitSize;
 
 
 private map[loc, list[str]] getJavaFilesFromProject(loc project) {
-	return getJavaFiles(createM3Model(project));
+	return getJavaFiles(createM3ModelFromProject(project));
 }
 
 private list[Declaration] getASTsFromProject(loc project) {
-    return getASTs(createM3Model(project));
+    return getASTs(createM3ModelFromProject(project));
 }
 
 @doc{

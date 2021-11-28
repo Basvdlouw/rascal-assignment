@@ -1,4 +1,4 @@
-module configuration::constants::Constants
+module configuration::constants::Project
 
 @doc{
 	Project location constants

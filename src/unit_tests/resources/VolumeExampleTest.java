@@ -1,6 +1,6 @@
 package unit_tests.resources;
 
-class VolumeExampleTest {
+public class VolumeExampleTest {
 	
 	public static String test1() {
 		return "test1";

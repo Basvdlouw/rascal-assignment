@@ -14,8 +14,21 @@ import utils::StringUtils;
 	Returns: 
 	- M3 model
 }
-public M3 createM3Model(loc projectLocation) {
+public M3 createM3ModelFromProject(loc projectLocation) {
 	return createM3FromEclipseProject(projectLocation);
+}
+
+@doc{
+	Creates an M3 model of an Eclipse file.
+	
+	Parameters:
+	- loc fileLocatio: A location to an Eclipse file
+	
+	Returns: 
+	- M3 model
+}
+public M3 createM3ModelFromFile(loc fileLocation) {
+	return createM3FromEclipseFile(fileLocation);
 }
 
 @doc{

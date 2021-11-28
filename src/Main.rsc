@@ -1,6 +1,6 @@
 module Main
 
-import configuration::constants::Constants;
+import configuration::constants::Project;
 import reporting::ReportGenerator;
 
  public void main() {
