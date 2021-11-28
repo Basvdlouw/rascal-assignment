@@ -77,6 +77,6 @@ public int calculateProjectNumberOfUnits(loc project) {
 	Returns:
 	- map[loc, int] maps every unit to a unit size
 }
-public map[loc, int] calculateProjectUnitSizePerUnit(list[Declaration] asts) {
-	return ();
+public map[loc, int] calculateProjectUnitSizePerUnit(loc project) {
+	return calculateUnitSizePerUnit(getASTsFromProject(project));
 }

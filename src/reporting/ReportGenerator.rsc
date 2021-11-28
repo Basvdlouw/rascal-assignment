@@ -13,6 +13,7 @@ private loc project;
 private int volume;
 private int numberOfUnits;
 private lrel[loc, int, int] cyclomaticComplexityUnits;
+private map[loc, int] unitSizePerUnit;
 
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
@@ -25,6 +26,8 @@ private void calculateMetrics(loc proj) {
     volume = calculateProjectVolume(proj);
     numberOfUnits = calculateProjectNumberOfUnits(proj);
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(proj);
+    unitSizePerUnit = calculateProjectUnitSizePerUnit(proj);
+    println(unitSizePerUnit);
 }
 
 @doc{

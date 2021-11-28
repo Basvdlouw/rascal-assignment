@@ -37,7 +37,7 @@ public map[loc, int] calculateUnitSizePerUnit(list[Declaration] ast) {
 	map[loc, int] unitToSize = (); 
 	visit(ast) {
 		case method: \method(_, _, _, _, Statement impl): {
-			unitToSize += (method:calculateUnitSize(method));
+			unitToSize += (method.src:calculateUnitSize(method));
 		}
 	}
 	return unitToSize;
@@ -54,12 +54,10 @@ public map[loc, int] calculateUnitSizePerUnit(list[Declaration] ast) {
 }
 public int calculateNumberOfUnits(list[Declaration] asts) {
 	int numberOfUnits = 0;
-	for(ast <- asts) {
-		visit(ast) {
+		visit(asts) {
 			case \method(_, _, _, _, Statement impl): {
 				numberOfUnits += 1;
 			}
 		}
-	}
 	return numberOfUnits;
 }
