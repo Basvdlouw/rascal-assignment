@@ -13,7 +13,7 @@ private loc project;
 private int volume;
 private int numberOfUnits;
 private lrel[loc, int, int] cyclomaticComplexityUnits;
-private map[loc, int] unitSizePerUnit;
+private map[loc, int] unitSizes;
 
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
@@ -26,8 +26,7 @@ private void calculateMetrics(loc proj) {
     volume = calculateProjectVolume(proj);
     numberOfUnits = calculateProjectNumberOfUnits(proj);
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(proj);
-    unitSizePerUnit = calculateProjectUnitSizePerUnit(proj);
-    println(unitSizePerUnit);
+    unitSizes = calculateProjectUnitSizePerUnit(proj);
 }
 
 @doc{
@@ -58,10 +57,10 @@ private str generateReport() {
     number of units: <numberOfUnits>
     -----------------------
     unit size:
-    * simple: <"NOT IMPLEMENTED">
-    * moderate: <"NOT IMPLEMENTED">
-    * high: <"NOT IMPLEMENTED">
-    * very high: <"NOT IMPLEMENTED">
+    * simple: <toFixed(computeProjectSimpleUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
+    * moderate: <toFixed(computeProjectModerateUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
+    * high: <toFixed(computeProjectHighRiskUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
+    * very high: <toFixed(computeProjectVeryHighRiskUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
     -----------------------
     unit complexity:
     * simple: <toFixed(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
@@ -72,7 +71,7 @@ private str generateReport() {
     duplication: <"NOT IMPLEMENTED">
     -----------------------
     volume score: <computeProjectVolumeRating(volume)>
-    unit size score: <"NOT IMPLEMENTED">
+    unit size score: <computeProjectUnitSizeRating(unitSizes, volume)>
     unit complexity score: <computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits, volume)>
     duplication score: <"NOT IMPLEMENTED">
     -----------------------

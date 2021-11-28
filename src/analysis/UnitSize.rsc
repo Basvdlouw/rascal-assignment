@@ -74,7 +74,25 @@ public Rank computeUnitSize(map[loc, int] unitSizeUnits, int projectLinesOfCode)
 }
 
 @doc{
-	Calculate percentage of moderate risk for unit size
+	Calculate percentage of simple unit sizes
+	
+	Parameters 
+	- map[loc, int] unit size location mapped to loc (lines of code)
+	- int lines of code in project
+	
+	Returns:
+	- real percentage
+}
+public real computeSimpleUnitSizePercentage(map[loc, int] unitSizeUnits, int projectLinesOfCode) {
+	return calculatePercentage(computeTotalLinesOfCode(
+			[<x, y> | <x, y> <- toList(unitSizeUnits), y > 0, y <= SIG_UNIT_SIZE_LOW_RISK]), 
+			projectLinesOfCode
+		);
+}
+
+
+@doc{
+	Calculate percentage of moderate risk for unit sizes
 	
 	Parameters 
 	- map[loc, int] unit size location mapped to loc (lines of code)
@@ -91,7 +109,7 @@ public real computeModerateUnitSizePercentage(map[loc, int] unitSizeUnits, int p
 }
 
 @doc{
-	Calculate percentage of high risk for unit size
+	Calculate percentage of high risk for unit sizes
 	
 	Parameters 
 	- map[loc, int] unit size location mapped to loc (lines of code)
@@ -108,7 +126,7 @@ public real computeHighRiskUnitSizePercentage(map[loc, int] unitSizeUnits, int p
 }
 
 @doc{
-	Calculate percentage of very high risk for unit size
+	Calculate percentage of very high risk for unit sizes
 	
 	Parameters 
 	- map[loc, int] unit size location mapped to loc (lines of code)
