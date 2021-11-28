@@ -12,7 +12,7 @@ module configuration::constants::sig::SigCyclomaticComplexityConstants
 public list[real] SIG_CYCLOMATIC_COMPLEXITY_PLUS_PLUS 	= [25.0, 0.0, 0.0];
 public list[real] SIG_CYCLOMATIC_COMPLEXITY_PLUS		= [30.0, 5.0, 0.0];
 public list[real] SIG_CYCLOMATIC_COMPLEXITY_NEUTRAL 	= [40.0, 10.0, 0.0];
-public list[real] SIG_CYCLOMATIC_COMPLEXITY_MINUS 		= [50.0, 15.0, 0.0];
+public list[real] SIG_CYCLOMATIC_COMPLEXITY_MINUS 		= [50.0, 15.0, 5.0];
 
 @doc{
 	SIG Cyclomatic complexity rating constants per unit
