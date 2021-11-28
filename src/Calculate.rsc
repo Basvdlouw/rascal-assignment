@@ -22,6 +22,7 @@ private list[Declaration] getASTsFromProject(loc project) {
 
 @doc{
     Uses submodule metrics::Volume to calculate project volume. 
+    
     Only counts Java files, excludes whitespace and comments.
 
     Parameters:
@@ -35,7 +36,24 @@ public int calculateProjectVolume(loc project) {
 }
 
 @doc{
+    Uses submodule metrics::UnitComplexity to calculate amount of units.
+    
+    Calculate cyclomatic complexity per unit
+
+    Paramters:
+    - list[Declaration] list of asts. 
+
+    Returns: 
+    - lrel[loc, int, int]:  List relation with location, loc (lines of code), coc (cyclomatic complexity)
+}
+public lrel[loc, int, int] calculateProjectCyclomaticComplexityPerUnit(loc project) {
+    return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
+}
+
+
+@doc{
     Uses submodule metrics::UnitSize to calculate amount of units. 
+    
     Only counts units in Java files.
 
     Parameters:
@@ -49,14 +67,16 @@ public int calculateProjectNumberOfUnits(loc project) {
 }
 
 @doc{
-    Calculate cyclomatic complexity per unit
+    Uses submodule metrics::UnitSize to calculate amount of units. 
+    
+	Calculates unit size of an AST, maps every unit in AST to a size (size in loc)
 
-    Paramters:
-    - list[Declaration] list of asts. 
+	Parameters:
+	- list[Declaration] list of declartions, i.e. an AST 
 
-    Returns: 
-    - lrel[loc, int, int]:  List relation with location, loc (lines of code), coc (cyclomatic complexity)
+	Returns:
+	- map[loc, int] maps every unit to a unit size
 }
-public lrel[loc, int, int] calculateProjectCyclomaticComplexityPerUnit(loc project) {
-    return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
+public map[loc, int] calculateProjectUnitSizePerUnit(list[Declaration] asts) {
+	return ();
 }

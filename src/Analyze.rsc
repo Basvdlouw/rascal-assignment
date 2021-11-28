@@ -11,7 +11,9 @@ import analysis::UnitSize;
 import analysis::UnitComplexity;
 
 @doc{
-    Uses submodule analysis::Volume to compute project volume rating.
+    Uses submodule analysis::Volume
+    
+    Compute project volume rating.
 
     Parameters:
     - int volume in LinesOfCode (loc)
@@ -24,6 +26,8 @@ public str computeProjectVolumeRating(int volume) {
 }
 
 @doc {
+    Uses submodule analysis::UnitComplexity
+    
     Compute Cyclomatic Complexity rating of project
 
     Parameters: 
@@ -38,6 +42,8 @@ public str computeProjectCyclomaticComplexityRating(lrel[loc, int, int] complexi
 }
 
 @doc {
+	Uses submodule analysis::UnitComplexity
+	
 	Calculate percentage of simple cyclomatic complexity
 	
 	Parameters 
@@ -52,6 +58,8 @@ public real computeProjectSimpleCyclomaticComplexityPercentage(lrel[loc, int, in
 }
 
 @doc {
+	Uses submodule analysis::UnitComplexity
+
 	Calculate percentage of moderate cyclomatic complexity
 	
 	Parameters 
@@ -66,6 +74,8 @@ public real computeProjectModerateCyclomaticComplexityPercentage(lrel[loc, int, 
 }
 
 @doc {
+	Uses submodule analysis::UnitComplexity
+
 	Calculate percentage of high risk cyclomatic complexity
 	
 	Parameters 
@@ -80,6 +90,8 @@ public real computeProjectHighRiskCyclomaticComplexityPercentage(lrel[loc, int, 
 }
 
 @doc {
+	Uses submodule analysis::UnitComplexity
+
 	Calculate percentage of very high risk cyclomatic complexity
 	
 	Parameters 
