@@ -1,5 +1,6 @@
 module reporting::ReportGenerator
 
+import utils::StringUtils;
 import IO;
 
 // use Calculate module to calculate SIG metrics
@@ -7,6 +8,7 @@ import Calculate;
 // Use Analyze module to compute SIG scores
 import Analyze;
 
+private int DECIMAL_POINTS = 2;
 private loc project;
 private int volume;
 private int numberOfUnits;
@@ -59,10 +61,10 @@ private str generateReport() {
     * very high: <"NOT IMPLEMENTED">
     -----------------------
     unit complexity:
-    * simple: <computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
-    * moderate: <computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
-    * high: <computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
-    * very high: <computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * simple: <toFixed(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
+    * moderate: <toFixed(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
+    * high: <toFixed(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
+    * very high: <toFixed(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
