@@ -10,7 +10,6 @@ import util::Math;
 import vis::Render;
 import vis::Figure;
 import vis::KeySym;
-import IO;
 
 @doc{
 	Visualizes units by unit size. Units less than the provided risk level are not shown in the visualization.
@@ -31,7 +30,6 @@ public void visualizeUnitSizes(loc project, int unitSizeRiskLevel) {
 }
 
 private Figure createBoxByUnitSize(tuple[Declaration unit, int size] unitSize) {
-	println(unitSize.unit.decl.file);
 	return box(text(toString(unitSize.size)),
 				area(unitSize.size), 
 				fillColor(arbColor()),
