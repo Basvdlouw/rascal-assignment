@@ -12,7 +12,7 @@ public int UNIT_SIZE_HIGH_RISK = SIG_UNIT_SIZE_HIGH_RISK;
 public void main() {
  	//generateReport(SMALLSQL);
  	//generateReport(HSQLDB);
-	//visualizeUnitSize(SMALLSQL, UNIT_SIZE_HIGH_RISK);
+	visualizeUnitSize(HSQLDB, SIG_UNIT_SIZE_HIGH_RISK);
  }
 
 
