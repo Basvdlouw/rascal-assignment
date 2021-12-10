@@ -22,7 +22,7 @@ import IO;
 }
 public void visualizeUnitSizes(loc project, int unitSizeRiskLevel) {
 	map[Declaration, int] unitSizes = calculateProjectUnitSizePerUnit(project);
-	render("<project.authority> treemap", treemap(
+	render("<project.authority> unit size treemap", treemap(
 			[ 
 				createBoxByUnitSize(<unit, size>)
 				| <unit,size> <- toRel(unitSizes), size >= unitSizeRiskLevel
