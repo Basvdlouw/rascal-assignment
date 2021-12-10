@@ -17,7 +17,7 @@ public void main() {
 
 
 @doc{
-	Generate report for HsqlDb project
+	Generate report for project
 }
 public void generateReport(loc project) {
 	printReportToConsole(project);
