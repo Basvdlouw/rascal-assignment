@@ -31,13 +31,13 @@ private int calculateUnitSize(Declaration unit) {
 	- list[Declaration] list of declartions, i.e. an AST 
 
 	Returns:
-	- map[loc, int] maps every unit to a unit size
+	- map[Declaration, int] maps every unit to a unit size
 }
-public map[loc, int] calculateUnitSizePerUnit(list[Declaration] ast) {
-	map[loc, int] unitToSize = (); 
+public map[Declaration, int] calculateUnitSizePerUnit(list[Declaration] ast) {
+	map[Declaration, int] unitToSize = (); 
 	visit(ast) {
 		case method: \method(_, _, _, _, Statement impl): {
-			unitToSize += (method.src:calculateUnitSize(method));
+			unitToSize += (method:calculateUnitSize(method));
 		}
 	}
 	return unitToSize;

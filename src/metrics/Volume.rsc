@@ -1,7 +1,6 @@
 module metrics::Volume
 
 import utils::StringUtils;
-import IO;
 
 @doc{
 	Calculates volume based on a list of files. 

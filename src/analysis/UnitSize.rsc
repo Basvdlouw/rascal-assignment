@@ -2,6 +2,8 @@ module analysis::UnitSize
 
 import configuration::data_types::Rank;
 import configuration::constants::sig::SigUnitSizeConstants;
+import analysis::m3::AST;
+
 import utils::MathUtils;
 import Map;
 import List;
@@ -10,7 +12,7 @@ import List;
     Compute total lines of code for a list of unit sizes
 
     Parameters: 
-    - lrel[loc, int] List relation with location, loc (lines of code)
+    - lrel[Declaration, int] List relation with unit, loc (lines of code)
 
     Returns: 
     - int aggregated loc
@@ -19,7 +21,7 @@ import List;
     https://github.com/usethesource/rascal/blob/82074afd6ab3bb0fa2dae2c83538c0cfd1f29699/src/org/rascalmpl/courses/Rascal/Expressions/Reducer/Reducer.concept
     https://tutor.rascal-mpl.org/Rascal/Rascal.html#/Rascal/Expressions/Reducer/Reducer.html
 }
-private int computeTotalLinesOfCode(lrel[loc, int] unitSizes) {
+private int computeTotalLinesOfCode(lrel[Declaration, int] unitSizes) {
     return (0 | it + y | <_, y> <- unitSizes);
 }
 
@@ -59,13 +61,13 @@ public Rank computeUnitSizeRank(real moderateRiskPercentage, real highRiskPercen
     Compute unit size
 
     Parameters: 
-    - map[loc, int] unitSizeUnits units mapped to loc 
+    - map[Declarataion, int] unitSizeUnits units mapped to loc
     - int projectLinesOfCode lines of code in project
 
     Returns: 
     - Rank rank
 }
-public Rank computeUnitSize(map[loc, int] unitSizeUnits, int projectLinesOfCode) {
+public Rank computeUnitSize(map[Declaration, int] unitSizeUnits, int projectLinesOfCode) {
 	return computeUnitSizeRank(
 			computeModerateUnitSizePercentage(unitSizeUnits, projectLinesOfCode),
 			computeHighRiskUnitSizePercentage(unitSizeUnits, projectLinesOfCode),
@@ -77,13 +79,13 @@ public Rank computeUnitSize(map[loc, int] unitSizeUnits, int projectLinesOfCode)
 	Calculate percentage of simple unit sizes
 	
 	Parameters 
-	- map[loc, int] unit size location mapped to loc (lines of code)
+	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeSimpleUnitSizePercentage(map[loc, int] unitSizeUnits, int projectLinesOfCode) {
+public real computeSimpleUnitSizePercentage(map[Declaration, int] unitSizeUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
 			[<x, y> | <x, y> <- toList(unitSizeUnits), y > 0, y <= SIG_UNIT_SIZE_LOW_RISK]), 
 			projectLinesOfCode
@@ -95,13 +97,13 @@ public real computeSimpleUnitSizePercentage(map[loc, int] unitSizeUnits, int pro
 	Calculate percentage of moderate risk for unit sizes
 	
 	Parameters 
-	- map[loc, int] unit size location mapped to loc (lines of code)
+	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeModerateUnitSizePercentage(map[loc, int] unitSizeUnits, int projectLinesOfCode) {
+public real computeModerateUnitSizePercentage(map[Declaration, int] unitSizeUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
 			[<x, y> | <x, y> <- toList(unitSizeUnits), y > SIG_UNIT_SIZE_LOW_RISK, y <= SIG_UNIT_SIZE_MODERATE_RISK]), 
 			projectLinesOfCode
@@ -112,13 +114,13 @@ public real computeModerateUnitSizePercentage(map[loc, int] unitSizeUnits, int p
 	Calculate percentage of high risk for unit sizes
 	
 	Parameters 
-	- map[loc, int] unit size location mapped to loc (lines of code)
+	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeHighRiskUnitSizePercentage(map[loc, int] unitSizeUnits, int projectLinesOfCode) {
+public real computeHighRiskUnitSizePercentage(map[Declaration, int] unitSizeUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
 			[<x, y> | <x, y> <- toList(unitSizeUnits), y > SIG_UNIT_SIZE_MODERATE_RISK, y <= SIG_UNIT_SIZE_HIGH_RISK]), 
 			projectLinesOfCode
@@ -129,13 +131,13 @@ public real computeHighRiskUnitSizePercentage(map[loc, int] unitSizeUnits, int p
 	Calculate percentage of very high risk for unit sizes
 	
 	Parameters 
-	- map[loc, int] unit size location mapped to loc (lines of code)
+	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeVeryHighRiskUnitSizePercentage(map[loc, int] unitSizeUnits, int projectLinesOfCode) {
+public real computeVeryHighRiskUnitSizePercentage(map[Declaration, int] unitSizeUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
 			[<x, y> | <x, y> <- toList(unitSizeUnits), y > SIG_UNIT_SIZE_HIGH_RISK]), 
 			projectLinesOfCode

@@ -4,7 +4,8 @@
 module Analyze
 
 import configuration::data_types::Rank;
-
+import analysis::m3::AST;
+ 
 import analysis::Volume;
 import analysis::Duplication;
 import analysis::UnitSize;
@@ -113,13 +114,13 @@ public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(lrel[loc, i
     Compute Unit Size rating of project
 
     Parameters: 
-    - map[loc, int] unitSizes location mapped to linesOfCode per unit
+    - map[Declaration, int] unitSizes units mapped to linesOfCode
     - int lines of code in project
 
     Returns: 
     - Rank rank
 }
-public str computeProjectUnitSizeRating(map[loc, int] unitSizes, int projectLinesOfCode) {
+public str computeProjectUnitSizeRating(map[Declaration, int] unitSizes, int projectLinesOfCode) {
 	return convertRankToLiteral(computeUnitSize(unitSizes, projectLinesOfCode));
 }
 
@@ -129,13 +130,13 @@ public str computeProjectUnitSizeRating(map[loc, int] unitSizes, int projectLine
 	Calculate percentage of simple unit sizes
 	
 	Parameters 
-    - map[loc, int] unitSizes location mapped to linesOfCode per unit
+    - map[Declarataion, int] unitSizes unit mapped to linesOfCode per unit
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeProjectSimpleUnitSizePercentage(map[loc, int] unitSizes, int projectLinesOfCode) {
+public real computeProjectSimpleUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
 	return computeSimpleUnitSizePercentage(unitSizes, projectLinesOfCode);
 }
 
@@ -145,13 +146,13 @@ public real computeProjectSimpleUnitSizePercentage(map[loc, int] unitSizes, int 
 	Calculate percentage of moderate unit sizes
 	
 	Parameters 
-    - map[loc, int] unitSizes location mapped to linesOfCode per unit
+    - map[Declaration, int] unitSizes unit mapped to linesOfCode per unit
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeProjectModerateUnitSizePercentage(map[loc, int] unitSizes, int projectLinesOfCode) {
+public real computeProjectModerateUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
 	return computeModerateUnitSizePercentage(unitSizes, projectLinesOfCode);
 }
 
@@ -161,13 +162,13 @@ public real computeProjectModerateUnitSizePercentage(map[loc, int] unitSizes, in
 	Calculate percentage of high risk unit sizes
 	
 	Parameters 
-    - map[loc, int] unitSizes location mapped to linesOfCode per unit
+    - map[Declaration, int] unitSizes unit mapped to linesOfCode per unit
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeProjectHighRiskUnitSizePercentage(map[loc, int] unitSizes, int projectLinesOfCode) {
+public real computeProjectHighRiskUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
 	return computeHighRiskUnitSizePercentage(unitSizes, projectLinesOfCode);
 }
 
@@ -177,12 +178,12 @@ public real computeProjectHighRiskUnitSizePercentage(map[loc, int] unitSizes, in
 	Calculate percentage of very high risk unit sizes
 	
 	Parameters 
-    - map[loc, int] unitSizes location mapped to linesOfCode per unit
+    - map[Declaration, int] unitSizes unit mapped to linesOfCode per unit
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeProjectVeryHighRiskUnitSizePercentage(map[loc, int] unitSizes, int projectLinesOfCode) {
+public real computeProjectVeryHighRiskUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
 	return computeVeryHighRiskUnitSizePercentage(unitSizes, projectLinesOfCode);
 }

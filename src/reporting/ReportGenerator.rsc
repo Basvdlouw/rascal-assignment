@@ -1,6 +1,8 @@
 module reporting::ReportGenerator
 
 import utils::StringUtils;
+import analysis::m3::AST; 
+
 import IO;
 
 // use Calculate module to calculate SIG metrics
@@ -13,7 +15,7 @@ private loc project;
 private int volume;
 private int numberOfUnits;
 private lrel[loc, int, int] cyclomaticComplexityUnits;
-private map[loc, int] unitSizes;
+private map[Declaration, int] unitSizes;
 
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
