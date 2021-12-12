@@ -16,7 +16,7 @@ public void main() {
  	//generateReport(SMALLSQL);
  	//generateReport(HSQLDB);
 	//visualizeUnitSize(SMALLSQL, UNIT_SIZE_HIGH_RISK);
-	visualizeCyclomaticComplexity(SMALLSQL, 10);
+	visualizeCyclomaticComplexity(SMALLSQL, CYCLOMATIC_COMPLEXITY_HIGH_RISK);
  }
 
 
@@ -33,4 +33,4 @@ public void generateReport(loc project) {
 }
 public void visualizeUnitSize(loc project, int riskLevel) {
 	 visualizeUnitSizes(project, riskLevel);
-}s
+}
