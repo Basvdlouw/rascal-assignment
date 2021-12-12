@@ -46,7 +46,7 @@ public int calculateProjectVolume(loc project) {
     Returns: 
     - lrel[loc, int, int]:  List relation with location, loc (lines of code), coc (cyclomatic complexity)
 }
-public lrel[loc, int, int] calculateProjectCyclomaticComplexityPerUnit(loc project) {
+public map[Declaration, int] calculateProjectCyclomaticComplexityPerUnit(loc project) {
     return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
 }
 

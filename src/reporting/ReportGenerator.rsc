@@ -14,7 +14,7 @@ private int DECIMAL_POINTS = 2;
 private loc project;
 private int volume;
 private int numberOfUnits;
-private lrel[loc, int, int] cyclomaticComplexityUnits;
+private map[Declaration, int] cyclomaticComplexityUnits;
 private map[Declaration, int] unitSizes;
 
 @doc{

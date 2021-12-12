@@ -3,12 +3,14 @@ module analysis::UnitComplexity
 import configuration::data_types::Rank;
 import configuration::constants::sig::SigCyclomaticComplexityConstants;
 import utils::MathUtils;
+import lang::java::m3::AST;
+import Map;
 
 @doc {
     Compute total lines of code for a list of complexity units
 
     Parameters: 
-    - lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+    - lrel[Declaration, int] List relation with unit, cyclomatic complexity
 
     Returns: 
     - int aggregated loc
@@ -17,8 +19,8 @@ import utils::MathUtils;
     https://github.com/usethesource/rascal/blob/82074afd6ab3bb0fa2dae2c83538c0cfd1f29699/src/org/rascalmpl/courses/Rascal/Expressions/Reducer/Reducer.concept
     https://tutor.rascal-mpl.org/Rascal/Rascal.html#/Rascal/Expressions/Reducer/Reducer.html
 }
-private int computeTotalLinesOfCode(lrel[loc, int, int] complexityUnits) {
-    return (0 | it + y | <_, y, _> <- complexityUnits);
+private int computeTotalLinesOfCode(lrel[Declaration, int] complexityUnits) {
+    return (0 | it + y | <_, y> <- complexityUnits);
 }
 
 @doc {
@@ -57,13 +59,13 @@ public Rank computeCyclomaticComplexityRank(real moderateRiskPercentage, real hi
     Compute cyclomatic complexity
 
     Parameters: 
-    - lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+  	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
     - int lines of code in project
 
     Returns: 
     - Rank rank
 }
-public Rank computeCyclomaticComplexity(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public Rank computeCyclomaticComplexity(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return computeCyclomaticComplexityRank(
 			computeModerateCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode),
 			computeHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode),
@@ -75,15 +77,15 @@ public Rank computeCyclomaticComplexity(lrel[loc, int, int] complexityUnits, int
 	Calculate percentage of simple cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+  	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeSimpleCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeSimpleCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y, z> | <x, y, z> <- complexityUnits, z > 0, z <= SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK]), 
+			[<x, y> | <x, y> <- toRel(complexityUnits), y > 0, y <= SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK]), 
 			projectLinesOfCode
 		);
 }
@@ -92,15 +94,15 @@ public real computeSimpleCyclomaticComplexityPercentage(lrel[loc, int, int] comp
 	Calculate percentage of moderate cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+  	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeModerateCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeModerateCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y, z> | <x, y, z> <- complexityUnits, z > SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK, z <= SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK]), 
+			[<x, y> | <x, y> <- toRel(complexityUnits), y > SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK, y <= SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK]), 
 			projectLinesOfCode
 		);
 }
@@ -109,15 +111,15 @@ public real computeModerateCyclomaticComplexityPercentage(lrel[loc, int, int] co
 	Calculate percentage of high risk cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+  	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeHighRiskCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y, z> | <x, y, z> <- complexityUnits, z > SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK, z <= SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
+			[<x, y> | <x, y> <- toRel(complexityUnits), y > SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK, y <= SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
 			projectLinesOfCode
 		);
 }
@@ -126,15 +128,15 @@ public real computeHighRiskCyclomaticComplexityPercentage(lrel[loc, int, int] co
 	Calculate percentage of very high risk cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+  	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeVeryHighRiskCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeVeryHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y, z> | <x, y, z> <- complexityUnits, z > SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
+			[<x, y> | <x, y> <- toRel(complexityUnits), y > SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
 			projectLinesOfCode
 		);
 }

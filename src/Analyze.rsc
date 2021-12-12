@@ -32,13 +32,13 @@ public str computeProjectVolumeRating(int volume) {
     Compute Cyclomatic Complexity rating of project
 
     Parameters: 
-    - lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
     - int lines of code in project
 
     Returns: 
     - Rank rank
 }
-public str computeProjectCyclomaticComplexityRating(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public str computeProjectCyclomaticComplexityRating(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return convertRankToLiteral(computeCyclomaticComplexity(complexityUnits, projectLinesOfCode));
 }
 
@@ -48,13 +48,13 @@ public str computeProjectCyclomaticComplexityRating(lrel[loc, int, int] complexi
 	Calculate percentage of simple cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeProjectSimpleCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeProjectSimpleCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return computeSimpleCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
 }
 
@@ -64,13 +64,13 @@ public real computeProjectSimpleCyclomaticComplexityPercentage(lrel[loc, int, in
 	Calculate percentage of moderate cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
+	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
 	- int lines of code in project
 	
 	Returns:
 	- real percentage
 }
-public real computeProjectModerateCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeProjectModerateCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return computeModerateCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
 }
 
@@ -86,7 +86,7 @@ public real computeProjectModerateCyclomaticComplexityPercentage(lrel[loc, int, 
 	Returns:
 	- real percentage
 }
-public real computeProjectHighRiskCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeProjectHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return computeHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
 }
 
@@ -102,7 +102,7 @@ public real computeProjectHighRiskCyclomaticComplexityPercentage(lrel[loc, int, 
 	Returns:
 	- real percentage
 }
-public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(lrel[loc, int, int] complexityUnits, int projectLinesOfCode) {
+public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
 	return computeVeryHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
 }
 

@@ -2,17 +2,21 @@ module Main
 
 import configuration::constants::Project;
 import configuration::constants::sig::SigUnitSizeConstants;
+import configuration::constants::sig::SigCyclomaticComplexityConstants;
 import reporting::ReportGenerator;
 import visualization::UnitSize;
+import visualization::UnitComplexity;
 
-public loc HSQLDB = DEFAULT_HSQL_DB_LOC;
-public loc SMALLSQL = DEFAULT_SMALL_SQL_LOC;
-public int UNIT_SIZE_HIGH_RISK = SIG_UNIT_SIZE_HIGH_RISK;
+private loc HSQLDB = DEFAULT_HSQL_DB_LOC;
+private loc SMALLSQL = DEFAULT_SMALL_SQL_LOC;
+private int UNIT_SIZE_HIGH_RISK = SIG_UNIT_SIZE_HIGH_RISK;
+private int CYCLOMATIC_COMPLEXITY_HIGH_RISK = SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK;
 
 public void main() {
  	//generateReport(SMALLSQL);
  	//generateReport(HSQLDB);
-	visualizeUnitSize(SMALLSQL, UNIT_SIZE_HIGH_RISK);
+	//visualizeUnitSize(SMALLSQL, UNIT_SIZE_HIGH_RISK);
+	visualizeCyclomaticComplexity(SMALLSQL, 10);
  }
 
 
@@ -29,4 +33,4 @@ public void generateReport(loc project) {
 }
 public void visualizeUnitSize(loc project, int riskLevel) {
 	 visualizeUnitSizes(project, riskLevel);
-}
+}s
