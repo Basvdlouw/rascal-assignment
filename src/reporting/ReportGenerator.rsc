@@ -7,6 +7,8 @@ import analysis::m3::AST;
 import lang::java::jdt::m3::Core;
 import IO;
 
+import util::Math;
+
 // use Benchmark to time reporting performance
 import util::Benchmark;
 
@@ -15,7 +17,7 @@ import Calculate;
 // Use Analyze module to compute SIG scores
 import Analyze;
 
-private int DECIMAL_POINTS = 2;
+private int DECIMAL_POINTS = 3;
 private loc project;
 private int volume;
 private int numberOfUnits;
@@ -50,6 +52,7 @@ private void calculateMetrics(loc proj) {
 public void printReportToConsole(loc proj) {    
     str report = "";
     int gentime = cpuTime(() {
+    	setPrecision(DECIMAL_POINTS);
     	calculateMetrics(proj);
     	report = generateReport();
     });
@@ -83,10 +86,10 @@ private str generateReport() {
     * very high: <toFixed(unitSizes[3], DECIMAL_POINTS)>%
     -----------------------
     unit complexity:
-    * simple: <toFixed(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
-    * moderate: <toFixed(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
-    * high: <toFixed(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
-    * very high: <toFixed(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
+    * simple: <computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * moderate: <computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * high: <computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * very high: <computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
