@@ -1,8 +1,10 @@
 module reporting::ReportGenerator
 
 import utils::StringUtils;
-import analysis::m3::AST; 
+import utils::ProjectUtils;
 
+import analysis::m3::AST; 
+import lang::java::jdt::m3::Core;
 import IO;
 
 // use Benchmark to time reporting performance
@@ -28,10 +30,12 @@ private map[Declaration, int] unitSizes;
 }
 private void calculateMetrics(loc proj) {
     project = proj;
-    volume = calculateProjectVolume(proj);
-    numberOfUnits = calculateProjectNumberOfUnits(proj);
-    cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(proj);
-    unitSizes = calculateProjectUnitSizePerUnit(proj);
+    M3 projectM3 = createM3ModelFromProject(proj);
+    
+    volume = calculateProjectVolume(projectM3);
+    numberOfUnits = calculateProjectNumberOfUnits(projectM3);
+    cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(projectM3);
+    unitSizes = calculateProjectUnitSizePerUnit(projectM3);
 }
 
 @doc{
