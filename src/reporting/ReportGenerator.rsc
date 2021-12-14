@@ -5,6 +5,9 @@ import analysis::m3::AST;
 
 import IO;
 
+// use Benchmark to time reporting performance
+import util::Benchmark;
+
 // use Calculate module to calculate SIG metrics
 import Calculate;
 // Use Analyze module to compute SIG scores
@@ -37,9 +40,17 @@ private void calculateMetrics(loc proj) {
     Parameters:
     - loc proj metrics in report are calculated based on project location.
 }
-public void printReportToConsole(loc proj) {
-    calculateMetrics(proj);
-    println(generateReport());
+public void printReportToConsole(loc proj) {    
+    str report = "";
+    int gentime = cpuTime(() {
+    	calculateMetrics(proj);
+    	report = generateReport();
+    });
+        
+    report += "-----------------------
+    project analyzed in <gentime * 0.000001> ms";
+    
+    println(report);
 }
 
 @doc{
@@ -51,7 +62,7 @@ public void printReportToConsole(loc proj) {
     TODO: remove hardcoded values/format percentages amount of decimals
 }
 private str generateReport() {
-    return 
+	return
     "
     <project.authority>
     -----------------------
