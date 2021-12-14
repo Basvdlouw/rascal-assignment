@@ -11,6 +11,14 @@ import analysis::Duplication;
 import analysis::UnitSize;
 import analysis::UnitComplexity;
 
+import metrics::UnitSize;
+import configuration::constants::sig::SigUnitSizeConstants;
+import Map;
+import Relation;
+import util::Math;
+
+import IO;
+
 @doc{
     Uses submodule analysis::Volume
     
@@ -186,4 +194,16 @@ public real computeProjectHighRiskUnitSizePercentage(map[Declaration, int] unitS
 }
 public real computeProjectVeryHighRiskUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
 	return computeVeryHighRiskUnitSizePercentage(unitSizes, projectLinesOfCode);
+}
+
+public list[real] computeProjectUnitSizePercentages(list[Declaration] ast) {
+	tuple[int total, lrel[Declaration, int] unitSizes] unitSizes = calculateUnitSizes(ast);
+	list[real] result = [];
+		
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y <= SIG_UNIT_SIZE_LOW_RISK) / toReal(unitSizes.total);
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y > SIG_UNIT_SIZE_LOW_RISK, y <= SIG_UNIT_SIZE_MODERATE_RISK) / toReal(unitSizes.total);
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y > SIG_UNIT_SIZE_MODERATE_RISK, y <= SIG_UNIT_SIZE_HIGH_RISK) / toReal(unitSizes.total);
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y > SIG_UNIT_SIZE_HIGH_RISK) / toReal(unitSizes.total);
+	
+	return result;
 }

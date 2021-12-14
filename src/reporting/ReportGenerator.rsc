@@ -20,7 +20,7 @@ private loc project;
 private int volume;
 private int numberOfUnits;
 private map[Declaration, int] cyclomaticComplexityUnits;
-private map[Declaration, int] unitSizes;
+private list[real] unitSizes;
 
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
@@ -30,12 +30,15 @@ private map[Declaration, int] unitSizes;
 }
 private void calculateMetrics(loc proj) {
     project = proj;
+    
     M3 projectM3 = createM3ModelFromProject(proj);
+    list[Declaration] AST = getASTsFromProject(projectM3);
     
     volume = calculateProjectVolume(projectM3);
-    numberOfUnits = calculateProjectNumberOfUnits(projectM3);
-    cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(projectM3);
-    unitSizes = calculateProjectUnitSizePerUnit(projectM3);
+    numberOfUnits = calculateProjectNumberOfUnits(AST);
+    cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(AST);
+    
+    unitSizes = computeProjectUnitSizePercentages(AST);
 }
 
 @doc{
@@ -52,7 +55,7 @@ public void printReportToConsole(loc proj) {
     });
         
     report += "-----------------------
-    project analyzed in <gentime * 0.000001> ms";
+    project analyzed in <toFixed(gentime * 0.000001, DECIMAL_POINTS)> ms";
     
     println(report);
 }
@@ -74,10 +77,10 @@ private str generateReport() {
     number of units: <numberOfUnits>
     -----------------------
     unit size:
-    * simple: <toFixed(computeProjectSimpleUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
-    * moderate: <toFixed(computeProjectModerateUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
-    * high: <toFixed(computeProjectHighRiskUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
-    * very high: <toFixed(computeProjectVeryHighRiskUnitSizePercentage(unitSizes, volume), DECIMAL_POINTS)>%
+    * simple: <toFixed(unitSizes[0], DECIMAL_POINTS)>%
+    * moderate: <toFixed(unitSizes[1], DECIMAL_POINTS)>%
+    * high: <toFixed(unitSizes[2], DECIMAL_POINTS)>%
+    * very high: <toFixed(unitSizes[3], DECIMAL_POINTS)>%
     -----------------------
     unit complexity:
     * simple: <toFixed(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume), DECIMAL_POINTS)>%
@@ -88,7 +91,6 @@ private str generateReport() {
     duplication: <"NOT IMPLEMENTED">
     -----------------------
     volume score: <computeProjectVolumeRating(volume)>
-    unit size score: <computeProjectUnitSizeRating(unitSizes, volume)>
     unit complexity score: <computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits, volume)>
     duplication score: <"NOT IMPLEMENTED">
     -----------------------
@@ -98,6 +100,8 @@ private str generateReport() {
     -----------------------
     overall maintainability score: <"NOT IMPLEMENTED">
     ";
+    
+    //unit size score: <computeProjectUnitSizeRating(unitSizes, volume)>
 }
 
 

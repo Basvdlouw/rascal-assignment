@@ -25,7 +25,7 @@ private list[Declaration] getASTsFromProject(loc project) {
     return getASTs(createM3ModelFromProject(project));
 }
 
-private list[Declaration] getASTsFromProject(M3 project) {
+public list[Declaration] getASTsFromProject(M3 project) {
     return getASTs(project);
 }
 
@@ -63,8 +63,8 @@ public map[Declaration, int] calculateProjectCyclomaticComplexityPerUnit(loc pro
     return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
 }
 
-public map[Declaration, int] calculateProjectCyclomaticComplexityPerUnit(M3 project) {
-    return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
+public map[Declaration, int] calculateProjectCyclomaticComplexityPerUnit(list[Declaration] AST) {
+    return calculateCyclomaticComplexityPerUnit(AST);
 }
 
 
@@ -83,8 +83,8 @@ public int calculateProjectNumberOfUnits(loc project) {
     return calculateNumberOfUnits(getASTsFromProject(project));
 }
 
-public int calculateProjectNumberOfUnits(M3 project) {
-    return calculateNumberOfUnits(getASTsFromProject(project));
+public int calculateProjectNumberOfUnits(list[Declaration] AST) {
+    return calculateNumberOfUnits(AST);
 }
 
 @doc{

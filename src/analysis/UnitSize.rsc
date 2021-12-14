@@ -143,5 +143,3 @@ public real computeVeryHighRiskUnitSizePercentage(map[Declaration, int] unitSize
 			projectLinesOfCode
 		);
 }
-
-

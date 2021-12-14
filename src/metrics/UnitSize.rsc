@@ -5,6 +5,9 @@ import utils::ProjectUtils;
 
 import lang::java::m3::AST;
 
+import IO;
+import ListRelation;
+
 @doc{
 	Calculate unit size of a single unit 
 
@@ -60,4 +63,21 @@ public int calculateNumberOfUnits(list[Declaration] ast) {
 			}
 		}
 	return numberOfUnits;
+}
+
+
+public tuple[int, lrel[Declaration, int]] calculateUnitSizes(list[Declaration] ast) {
+	tuple[int total, lrel[Declaration, int] unitSizes] result = <0, []>;	
+	lrel[Declaration, int] units = [];
+	
+	visit(ast) {
+		case method: \method(_, _, _, _, Statement impl): {
+			int unitSize = calculateUnitSize(method);
+			units += <method,unitSize>;
+			result.total += unitSize;
+		}
+	}
+	
+	result.unitSizes = units;	
+	return result;
 }
