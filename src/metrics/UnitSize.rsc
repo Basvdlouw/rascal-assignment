@@ -15,7 +15,7 @@ import lang::java::m3::AST;
 	- int calculated unit size
 }
 private int calculateUnitSize(Declaration unit) {
- 	return calculateVolume(getUnitLines(unit.src));
+	return getUnitSize(unit.src);
 }
 
 @doc{
@@ -52,9 +52,9 @@ public map[Declaration, int] calculateUnitSizePerUnit(list[Declaration] ast) {
 	Returns: 
 	- int amount of units
 }
-public int calculateNumberOfUnits(list[Declaration] asts) {
+public int calculateNumberOfUnits(list[Declaration] ast) {
 	int numberOfUnits = 0;
-		visit(asts) {
+		visit(ast) {
 			case \method(_, _, _, _, Statement impl): {
 				numberOfUnits += 1;
 			}

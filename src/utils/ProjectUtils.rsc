@@ -83,3 +83,16 @@ public list[Declaration] getASTs(M3 model) {
 public list[str] getUnitLines(loc unitLocation) {
 	return [x | x <- readFileLines(unitLocation), !isBlank(x), !isComment(x)];
 }
+
+@doc{
+	Get total lines of a unit, including whitespace and comments
+
+	Parameters:
+	- loc unitLocation
+
+	Returns:
+	- list[str] list of lines from unit
+}
+public int getUnitSize(loc unitLocation) {
+	return (0 | it + 1 | x <- readFileLines(unitLocation), !isBlank(x), !isComment(x));
+}
