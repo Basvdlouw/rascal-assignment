@@ -60,8 +60,7 @@ public Rank computeUnitSizeRank(real moderateRiskPercentage, real highRiskPercen
     Compute unit size
 
     Parameters: 
-    - map[Declarataion, int] unitSizeUnits units mapped to loc
-    - int projectLinesOfCode lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 
     Returns: 
     - Rank rank
@@ -78,8 +77,7 @@ public Rank computeUnitSize(CountedList unitSizes) {
 	Calculate percentage of simple unit sizes
 	
 	Parameters 
-	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -96,8 +94,7 @@ public real computeSimpleUnitSizePercentage(CountedList unitSizes) {
 	Calculate percentage of moderate risk for unit sizes
 	
 	Parameters 
-	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -113,8 +110,7 @@ public real computeModerateUnitSizePercentage(CountedList unitSizes) {
 	Calculate percentage of high risk for unit sizes
 	
 	Parameters 
-	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -130,8 +126,7 @@ public real computeHighRiskUnitSizePercentage(CountedList unitSizes) {
 	Calculate percentage of very high risk for unit sizes
 	
 	Parameters 
-	- map[Declaration, int] unitSizeUnits unit mapped to loc (lines of code)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage

@@ -36,8 +36,7 @@ public str computeProjectVolumeRating(int volume) {
     Compute Cyclomatic Complexity rating of project
 
     Parameters: 
-	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
-    - int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 
     Returns: 
     - Rank rank
@@ -52,8 +51,7 @@ public str computeProjectCyclomaticComplexityRating(CountedList complexityUnits)
 	Calculate percentage of simple cyclomatic complexity
 	
 	Parameters 
-	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -68,8 +66,7 @@ public real computeProjectSimpleCyclomaticComplexityPercentage(CountedList compl
 	Calculate percentage of moderate cyclomatic complexity
 	
 	Parameters 
-	- map[Declaration, int] map with unit, coc (cyclomatic complexity)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -84,8 +81,7 @@ public real computeProjectModerateCyclomaticComplexityPercentage(CountedList com
 	Calculate percentage of high risk cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -100,8 +96,7 @@ public real computeProjectHighRiskCyclomaticComplexityPercentage(CountedList com
 	Calculate percentage of very high risk cyclomatic complexity
 	
 	Parameters 
-	- lrel[locl, int, int] List relation with location, loc (lines of code), coc (cyclomatic complexity)
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -118,8 +113,7 @@ public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(CountedList
     Compute Unit Size rating of project
 
     Parameters: 
-    - map[Declaration, int] unitSizes units mapped to linesOfCode
-    - int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 
     Returns: 
     - Rank rank
@@ -134,8 +128,7 @@ public str computeProjectUnitSizeRating(CountedList unitSizes) {
 	Calculate percentage of simple unit sizes
 	
 	Parameters 
-    - map[Declarataion, int] unitSizes unit mapped to linesOfCode per unit
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -150,8 +143,7 @@ public real computeProjectSimpleUnitSizePercentage(CountedList unitSizes) {
 	Calculate percentage of moderate unit sizes
 	
 	Parameters 
-    - map[Declaration, int] unitSizes unit mapped to linesOfCode per unit
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -166,8 +158,7 @@ public real computeProjectModerateUnitSizePercentage(CountedList unitSizes) {
 	Calculate percentage of high risk unit sizes
 	
 	Parameters 
-    - map[Declaration, int] unitSizes unit mapped to linesOfCode per unit
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
@@ -182,8 +173,7 @@ public real computeProjectHighRiskUnitSizePercentage(CountedList unitSizes) {
 	Calculate percentage of very high risk unit sizes
 	
 	Parameters 
-    - map[Declaration, int] unitSizes unit mapped to linesOfCode per unit
-	- int lines of code in project
+	- CountedList with CountedList.total indicating the total sum of all CountedList.datalist entry values
 	
 	Returns:
 	- real percentage
