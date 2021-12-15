@@ -15,7 +15,7 @@ import configuration::data_types::Rank;
 }
 public Rank computeVolumeRating(num volume) {
 	int kloc = calculateKloc(volume);
-	if(kloc >= 0 && kloc < SIG_JAVA_VOLUME_PLUS_PLUS) {
+	if(kloc < SIG_JAVA_VOLUME_PLUS_PLUS) {
 		return \plusplus();
 	} else if(kloc >= SIG_JAVA_VOLUME_PLUS_PLUS && kloc < SIG_JAVA_VOLUME_PLUS) {
 		return \plus();

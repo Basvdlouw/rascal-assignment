@@ -4,6 +4,7 @@
 module Analyze
 
 import configuration::data_types::Rank;
+import configuration::data_types::UnitSizes;
 import analysis::m3::AST;
  
 import analysis::Volume;
@@ -128,8 +129,8 @@ public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(map[Declara
     Returns: 
     - Rank rank
 }
-public str computeProjectUnitSizeRating(map[Declaration, int] unitSizes, int projectLinesOfCode) {
-	return convertRankToLiteral(computeUnitSize(unitSizes, projectLinesOfCode));
+public str computeProjectUnitSizeRating(CountedList unitSizes) {
+	return convertRankToLiteral(computeUnitSize(unitSizes));
 }
 
 @doc {
@@ -144,8 +145,8 @@ public str computeProjectUnitSizeRating(map[Declaration, int] unitSizes, int pro
 	Returns:
 	- real percentage
 }
-public real computeProjectSimpleUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
-	return computeSimpleUnitSizePercentage(unitSizes, projectLinesOfCode);
+public real computeProjectSimpleUnitSizePercentage(CountedList unitSizes) {
+	return computeSimpleUnitSizePercentage(unitSizes);
 }
 
 @doc {
@@ -160,8 +161,8 @@ public real computeProjectSimpleUnitSizePercentage(map[Declaration, int] unitSiz
 	Returns:
 	- real percentage
 }
-public real computeProjectModerateUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
-	return computeModerateUnitSizePercentage(unitSizes, projectLinesOfCode);
+public real computeProjectModerateUnitSizePercentage(CountedList unitSizes) {
+	return computeModerateUnitSizePercentage(unitSizes);
 }
 
 @doc {
@@ -176,8 +177,8 @@ public real computeProjectModerateUnitSizePercentage(map[Declaration, int] unitS
 	Returns:
 	- real percentage
 }
-public real computeProjectHighRiskUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
-	return computeHighRiskUnitSizePercentage(unitSizes, projectLinesOfCode);
+public real computeProjectHighRiskUnitSizePercentage(CountedList unitSizes) {
+	return computeHighRiskUnitSizePercentage(unitSizes);
 }
 
 @doc {
@@ -192,18 +193,21 @@ public real computeProjectHighRiskUnitSizePercentage(map[Declaration, int] unitS
 	Returns:
 	- real percentage
 }
-public real computeProjectVeryHighRiskUnitSizePercentage(map[Declaration, int] unitSizes, int projectLinesOfCode) {
-	return computeVeryHighRiskUnitSizePercentage(unitSizes, projectLinesOfCode);
+public real computeProjectVeryHighRiskUnitSizePercentage(CountedList unitSizes) {
+	return computeVeryHighRiskUnitSizePercentage(unitSizes);
 }
 
-public list[real] computeProjectUnitSizePercentages(list[Declaration] ast) {
-	tuple[int total, lrel[Declaration, int] unitSizes] unitSizes = calculateUnitSizes(ast);
+public list[real] computeProjectUnitSizePercentages(CountedList unitSizes) {
 	list[real] result = [];
-		
-	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y <= SIG_UNIT_SIZE_LOW_RISK) / toReal(unitSizes.total);
-	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y > SIG_UNIT_SIZE_LOW_RISK, y <= SIG_UNIT_SIZE_MODERATE_RISK) / toReal(unitSizes.total);
-	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y > SIG_UNIT_SIZE_MODERATE_RISK, y <= SIG_UNIT_SIZE_HIGH_RISK) / toReal(unitSizes.total);
-	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.unitSizes, y > SIG_UNIT_SIZE_HIGH_RISK) / toReal(unitSizes.total);
 	
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.datalist, y <= SIG_UNIT_SIZE_LOW_RISK) / unitSizes.total;
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_LOW_RISK, y <= SIG_UNIT_SIZE_MODERATE_RISK) / unitSizes.total;
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_MODERATE_RISK, y <= SIG_UNIT_SIZE_HIGH_RISK) / unitSizes.total;
+	result += 100.0 * (0 | it + y | <_,y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_HIGH_RISK) / unitSizes.total;
+			
 	return result;
+}
+
+public CountedList computeUnitSizes(list[Declaration] ast) {
+	return calculateUnitSizes(ast);
 }

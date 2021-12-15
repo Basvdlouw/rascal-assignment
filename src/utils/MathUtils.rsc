@@ -26,5 +26,5 @@ public int calculateKloc(int linesOfCode) {
 	- real percentage
 }
 public real calculatePercentage(num x, num y) {
-	return toReal(x / y * 100);
+	return toReal(x / y * 100.0);
 }

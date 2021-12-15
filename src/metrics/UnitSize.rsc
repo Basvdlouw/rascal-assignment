@@ -2,6 +2,7 @@ module metrics::UnitSize
 
 import metrics::Volume;
 import utils::ProjectUtils;
+import configuration::data_types::UnitSizes;
 
 import lang::java::m3::AST;
 
@@ -66,8 +67,8 @@ public int calculateNumberOfUnits(list[Declaration] ast) {
 }
 
 
-public tuple[int, lrel[Declaration, int]] calculateUnitSizes(list[Declaration] ast) {
-	tuple[int total, lrel[Declaration, int] unitSizes] result = <0, []>;	
+public CountedList calculateUnitSizes(list[Declaration] ast) {
+	CountedList result = <0, []>;	
 	lrel[Declaration, int] units = [];
 	
 	visit(ast) {
@@ -78,6 +79,6 @@ public tuple[int, lrel[Declaration, int]] calculateUnitSizes(list[Declaration] a
 		}
 	}
 	
-	result.unitSizes = units;	
+	result.datalist = units;	
 	return result;
 }
