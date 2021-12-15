@@ -1,10 +1,10 @@
 module analysis::UnitComplexity
 
 import configuration::data_types::Rank;
+import configuration::data_types::CountedList;
 import configuration::constants::sig::SigCyclomaticComplexityConstants;
 import utils::MathUtils;
 import lang::java::m3::AST;
-import Map;
 
 @doc {
     Compute total lines of code for a list of complexity units
@@ -65,11 +65,11 @@ public Rank computeCyclomaticComplexityRank(real moderateRiskPercentage, real hi
     Returns: 
     - Rank rank
 }
-public Rank computeCyclomaticComplexity(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
+public Rank computeCyclomaticComplexity(CountedList complexityUnits) {
 	return computeCyclomaticComplexityRank(
-			computeModerateCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode),
-			computeHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode),
-			computeVeryHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode)
+			computeModerateCyclomaticComplexityPercentage(complexityUnits),
+			computeHighRiskCyclomaticComplexityPercentage(complexityUnits),
+			computeVeryHighRiskCyclomaticComplexityPercentage(complexityUnits)
 		);
 }
 
@@ -83,10 +83,10 @@ public Rank computeCyclomaticComplexity(map[Declaration, int] complexityUnits, i
 	Returns:
 	- real percentage
 }
-public real computeSimpleCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
+public real computeSimpleCyclomaticComplexityPercentage(CountedList complexityUnits) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- toRel(complexityUnits), y > 0, y <= SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK]), 
-			projectLinesOfCode
+			[<x, y> | <x, y> <- complexityUnits.datalist, y > 0, y <= SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK]), 
+			complexityUnits.total
 		);
 }
 
@@ -100,10 +100,10 @@ public real computeSimpleCyclomaticComplexityPercentage(map[Declaration, int] co
 	Returns:
 	- real percentage
 }
-public real computeModerateCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
+public real computeModerateCyclomaticComplexityPercentage(CountedList complexityUnits) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- toRel(complexityUnits), y > SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK, y <= SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK]), 
-			projectLinesOfCode
+			[<x, y> | <x, y> <- complexityUnits.datalist, y > SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK, y <= SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK]), 
+			complexityUnits.total
 		);
 }
 
@@ -117,10 +117,10 @@ public real computeModerateCyclomaticComplexityPercentage(map[Declaration, int] 
 	Returns:
 	- real percentage
 }
-public real computeHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
+public real computeHighRiskCyclomaticComplexityPercentage(CountedList complexityUnits) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- toRel(complexityUnits), y > SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK, y <= SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
-			projectLinesOfCode
+			[<x, y> | <x, y> <- complexityUnits.datalist, y > SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK, y <= SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
+			complexityUnits.total
 		);
 }
 
@@ -134,9 +134,9 @@ public real computeHighRiskCyclomaticComplexityPercentage(map[Declaration, int] 
 	Returns:
 	- real percentage
 }
-public real computeVeryHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
+public real computeVeryHighRiskCyclomaticComplexityPercentage(CountedList complexityUnits) {
 	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- toRel(complexityUnits), y > SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
-			projectLinesOfCode
+			[<x, y> | <x, y> <- complexityUnits.datalist, y > SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK]), 
+			complexityUnits.total
 		);
 }

@@ -4,7 +4,7 @@
 module Analyze
 
 import configuration::data_types::Rank;
-import configuration::data_types::UnitSizes;
+import configuration::data_types::CountedList;
 import analysis::m3::AST;
  
 import analysis::Volume;
@@ -14,11 +14,6 @@ import analysis::UnitComplexity;
 
 import metrics::UnitSize;
 import configuration::constants::sig::SigUnitSizeConstants;
-import Map;
-import Relation;
-import util::Math;
-
-import IO;
 
 @doc{
     Uses submodule analysis::Volume
@@ -47,8 +42,8 @@ public str computeProjectVolumeRating(int volume) {
     Returns: 
     - Rank rank
 }
-public str computeProjectCyclomaticComplexityRating(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
-	return convertRankToLiteral(computeCyclomaticComplexity(complexityUnits, projectLinesOfCode));
+public str computeProjectCyclomaticComplexityRating(CountedList complexityUnits) {
+	return convertRankToLiteral(computeCyclomaticComplexity(complexityUnits));
 }
 
 @doc {
@@ -63,8 +58,8 @@ public str computeProjectCyclomaticComplexityRating(map[Declaration, int] comple
 	Returns:
 	- real percentage
 }
-public real computeProjectSimpleCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
-	return computeSimpleCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
+public real computeProjectSimpleCyclomaticComplexityPercentage(CountedList complexityUnits) {
+	return computeSimpleCyclomaticComplexityPercentage(complexityUnits);
 }
 
 @doc {
@@ -79,8 +74,8 @@ public real computeProjectSimpleCyclomaticComplexityPercentage(map[Declaration, 
 	Returns:
 	- real percentage
 }
-public real computeProjectModerateCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
-	return computeModerateCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
+public real computeProjectModerateCyclomaticComplexityPercentage(CountedList complexityUnits) {
+	return computeModerateCyclomaticComplexityPercentage(complexityUnits);
 }
 
 @doc {
@@ -95,8 +90,8 @@ public real computeProjectModerateCyclomaticComplexityPercentage(map[Declaration
 	Returns:
 	- real percentage
 }
-public real computeProjectHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
-	return computeHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
+public real computeProjectHighRiskCyclomaticComplexityPercentage(CountedList complexityUnits) {
+	return computeHighRiskCyclomaticComplexityPercentage(complexityUnits);
 }
 
 @doc {
@@ -111,8 +106,8 @@ public real computeProjectHighRiskCyclomaticComplexityPercentage(map[Declaration
 	Returns:
 	- real percentage
 }
-public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(map[Declaration, int] complexityUnits, int projectLinesOfCode) {
-	return computeVeryHighRiskCyclomaticComplexityPercentage(complexityUnits, projectLinesOfCode);
+public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(CountedList complexityUnits) {
+	return computeVeryHighRiskCyclomaticComplexityPercentage(complexityUnits);
 }
 
 //---------------------------

@@ -3,7 +3,7 @@ module reporting::ReportGenerator
 import utils::StringUtils;
 import utils::ProjectUtils;
 
-import configuration::data_types::UnitSizes;
+import configuration::data_types::CountedList;
 
 import analysis::m3::AST; 
 import lang::java::jdt::m3::Core;
@@ -23,7 +23,7 @@ private int DECIMAL_POINTS = 2;
 private loc project;
 private int volume;
 private int numberOfUnits;
-private map[Declaration, int] cyclomaticComplexityUnits;
+private CountedList cyclomaticComplexityUnits;
 private CountedList unitSizes;
 
 @doc{
@@ -81,22 +81,22 @@ private str generateReport() {
     number of units: <numberOfUnits>
     -----------------------
     unit size:
-    * simple: <toFixed(computeProjectSimpleUnitSizePercentage(unitSizes), DECIMAL_POINTS)>%
-    * moderate: <toFixed(computeProjectModerateUnitSizePercentage(unitSizes), DECIMAL_POINTS)>%
-    * high: <toFixed(computeProjectHighRiskUnitSizePercentage(unitSizes), DECIMAL_POINTS)>%
-    * very high: <toFixed(computeProjectVeryHighRiskUnitSizePercentage(unitSizes), DECIMAL_POINTS)>%
+    * simple: <computeProjectSimpleUnitSizePercentage(unitSizes)>%
+    * moderate: <computeProjectModerateUnitSizePercentage(unitSizes)>%
+    * high: <computeProjectHighRiskUnitSizePercentage(unitSizes)>%
+    * very high: <computeProjectVeryHighRiskUnitSizePercentage(unitSizes)>%
     -----------------------
     unit complexity:
-    * simple: <computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
-    * moderate: <computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
-    * high: <computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
-    * very high: <computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits, volume)>%
+    * simple: <computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
+    * moderate: <computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
+    * high: <computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
+    * very high: <computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
     unit size score: <computeProjectUnitSizeRating(unitSizes)>
     volume score: <computeProjectVolumeRating(volume)>
-    unit complexity score: <computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits, volume)>
+    unit complexity score: <computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits)>
     duplication score: <"NOT IMPLEMENTED">
     -----------------------
     analysability score: <"NOT IMPLEMENTED">

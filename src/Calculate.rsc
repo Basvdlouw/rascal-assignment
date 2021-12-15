@@ -7,11 +7,12 @@ import lang::java::m3::AST;
 import lang::java::jdt::m3::Core;
 import utils::ProjectUtils;
 
+import configuration::data_types::CountedList;
+
 import metrics::Volume;
 import metrics::Duplication;
 import metrics::UnitComplexity;
 import metrics::UnitSize;
-
 
 private map[loc, list[str]] getJavaFilesFromProject(loc project) {
 	return getJavaFiles(createM3ModelFromProject(project));
@@ -59,11 +60,11 @@ public int calculateProjectVolume(M3 project) {
     Returns: 
     - lrel[loc, int, int]:  List relation with location, loc (lines of code), coc (cyclomatic complexity)
 }
-public map[Declaration, int] calculateProjectCyclomaticComplexityPerUnit(loc project) {
+public CountedList calculateProjectCyclomaticComplexityPerUnit(loc project) {
     return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
 }
 
-public map[Declaration, int] calculateProjectCyclomaticComplexityPerUnit(list[Declaration] AST) {
+public CountedList calculateProjectCyclomaticComplexityPerUnit(list[Declaration] AST) {
     return calculateCyclomaticComplexityPerUnit(AST);
 }
 

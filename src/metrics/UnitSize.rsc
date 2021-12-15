@@ -1,13 +1,9 @@
 module metrics::UnitSize
 
-import metrics::Volume;
 import utils::ProjectUtils;
-import configuration::data_types::UnitSizes;
+import configuration::data_types::CountedList;
 
 import lang::java::m3::AST;
-
-import IO;
-import ListRelation;
 
 @doc{
 	Calculate unit size of a single unit 

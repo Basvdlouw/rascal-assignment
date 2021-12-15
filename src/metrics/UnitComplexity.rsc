@@ -1,6 +1,7 @@
 module metrics::UnitComplexity
 import lang::java::m3::AST;
 import utils::ProjectUtils;
+import configuration::data_types::CountedList;
 
 @doc{
     Calculate cyclomatic complexity per unit
@@ -11,14 +12,21 @@ import utils::ProjectUtils;
     Returns: 
     - map[Declaration, int]: map with units, cyclomatic complexity
 }
-map[Declaration, int] calculateCyclomaticComplexityPerUnit(list[Declaration] asts) {
-	map[Declaration, int] complexityUnits = ();
+CountedList calculateCyclomaticComplexityPerUnit(list[Declaration] asts) {
+	CountedList result = <0, []>;	
+	lrel[Declaration, int] units = [];
+	
     visit(asts) {
 		case method: \method(_, _, _, _, Statement impl): {
-			complexityUnits += (method:calculateCyclomaticComplexity(impl));
+			int complexity = calculateCyclomaticComplexity(impl);
+			units += <method, complexity>;
+			result.total += complexity;
 		}
 	}
-    return complexityUnits;
+	
+	result.datalist = units;
+	
+    return result;
 }
 
 @doc{

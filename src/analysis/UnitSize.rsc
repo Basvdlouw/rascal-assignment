@@ -1,13 +1,11 @@
 module analysis::UnitSize
 
 import configuration::data_types::Rank;
-import configuration::data_types::UnitSizes;
+import configuration::data_types::CountedList;
 import configuration::constants::sig::SigUnitSizeConstants;
 import analysis::m3::AST;
 
 import utils::MathUtils;
-import Relation;
-import List;
 
 @doc {
     Compute total lines of code for a list of unit sizes
@@ -87,8 +85,8 @@ public Rank computeUnitSize(CountedList unitSizes) {
 	- real percentage
 }
 public real computeSimpleUnitSizePercentage(CountedList unitSizes) {
-	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- unitSizes.datalist, y > 0, y <= SIG_UNIT_SIZE_LOW_RISK]), 
+	return calculatePercentage(
+			(0 | it + y | <_,y> <- unitSizes.datalist, y > 0, y <= SIG_UNIT_SIZE_LOW_RISK), 
 			unitSizes.total
 		);
 }
@@ -105,8 +103,8 @@ public real computeSimpleUnitSizePercentage(CountedList unitSizes) {
 	- real percentage
 }
 public real computeModerateUnitSizePercentage(CountedList unitSizes) {
-	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_LOW_RISK, y <= SIG_UNIT_SIZE_MODERATE_RISK]), 
+	return calculatePercentage(
+			(0 | it + y | <_,y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_LOW_RISK, y <= SIG_UNIT_SIZE_MODERATE_RISK), 
 			unitSizes.total
 		);
 }
@@ -122,8 +120,8 @@ public real computeModerateUnitSizePercentage(CountedList unitSizes) {
 	- real percentage
 }
 public real computeHighRiskUnitSizePercentage(CountedList unitSizes) {
-	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_MODERATE_RISK, y <= SIG_UNIT_SIZE_HIGH_RISK]), 
+	return calculatePercentage(
+			(0 | it + y | <_,y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_MODERATE_RISK, y <= SIG_UNIT_SIZE_HIGH_RISK), 
 			unitSizes.total
 		);
 }
@@ -139,8 +137,8 @@ public real computeHighRiskUnitSizePercentage(CountedList unitSizes) {
 	- real percentage
 }
 public real computeVeryHighRiskUnitSizePercentage(CountedList unitSizes) {
-	return calculatePercentage(computeTotalLinesOfCode(
-			[<x, y> | <x, y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_HIGH_RISK]), 
+	return calculatePercentage(
+			(0 | it + y | <_,y> <- unitSizes.datalist, y > SIG_UNIT_SIZE_HIGH_RISK), 
 			unitSizes.total
 		);
 }
