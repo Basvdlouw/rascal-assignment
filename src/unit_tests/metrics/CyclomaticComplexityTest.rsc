@@ -6,13 +6,14 @@
 module unit_tests::metrics::CyclomaticComplexityTest
 
 import analysis::m3::Core;
+import configuration::data_types::CountedList;
 import utils::ProjectUtils;
 import metrics::UnitComplexity;
 import unit_tests::TestUtils;
-import IO;
 
 private str TEST_FILE_NAME = "CyclomaticComplexityTest.java";
-private loc TEST_FILE_LOC = getTestResourceByFileName(TEST_FILE_NAME);
+private int TEST_FILE_CYCLOMATIC_COMPLEXITY = 6;
+private list[int] TEST_FILE_CYCLOMATIC_COMPLEXITY_PER_UNIT = [2, 4];
 
 
 @doc{
@@ -22,12 +23,8 @@ private loc TEST_FILE_LOC = getTestResourceByFileName(TEST_FILE_NAME);
 	- bool
 }
 public test bool cyclomaticComplexityTest() {
- 	int TEST_FILE_CYCLOMATIC_COMPLEXITY_LINES_OF_CODE = 7;
-	int TEST_FILE_CYCLOMATIC_COMPLEXITY = 2;
-	lrel[loc, int, int] cocUnits = calculateCyclomaticComplexityPerUnit(getASTs(createM3ModelFromFile(TEST_FILE_LOC)));
-	tuple[loc location, int linesOfCode, int cyclomaticComplexity] cocUnitOne = cocUnits[0];
-	println(cocUnitOne.linesOfCode);
-	println(cocUnitOne.cyclomaticComplexity);
-	return cocUnitOne.linesOfCode == TEST_FILE_CYCLOMATIC_COMPLEXITY_LINES_OF_CODE && 
-		   cocUnitOne.cyclomaticComplexity == TEST_FILE_CYCLOMATIC_COMPLEXITY;
+	CountedList cocUnits = calculateCyclomaticComplexityPerUnit(getASTs(createM3FromTestResource(TEST_FILE_NAME)));
+	return cocUnits.total == TEST_FILE_CYCLOMATIC_COMPLEXITY 
+		   && cocUnits.datalist[0][1] == TEST_FILE_CYCLOMATIC_COMPLEXITY_PER_UNIT[0]
+		   && cocUnits.datalist[1][1] == TEST_FILE_CYCLOMATIC_COMPLEXITY_PER_UNIT[1];
 }
