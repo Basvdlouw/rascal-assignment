@@ -5,7 +5,6 @@
 }
 module unit_tests::metrics::CyclomaticComplexityTest
 
-import analysis::m3::Core;
 import configuration::data_types::CountedList;
 import utils::ProjectUtils;
 import metrics::UnitComplexity;

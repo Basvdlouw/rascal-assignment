@@ -8,7 +8,6 @@ module unit_tests::metrics::VolumeTest
 import utils::ProjectUtils;
 import unit_tests::TestUtils;
 import metrics::Volume;
-import lang::java::jdt::m3::Core;
 
 private str TEST_FILE_NAME = "VolumeExampleTest.java";
 private int TEST_FILE_VOLUME = 18;
