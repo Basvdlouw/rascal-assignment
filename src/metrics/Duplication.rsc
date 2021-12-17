@@ -20,14 +20,14 @@ private int massThreshold = 25;
 public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	map[node, lrel[node, loc]] clones = ();
 	map[node, lrel[node, loc]] buckets = ();
-	
-	println("get clones?");
-	
+		
 	// create buckets for all nodes where mass > minimumMass
 	visit(ast) {
 		case node n: {
-			if (calculateMass(n) >= massThreshold) {
-				loc nloc = getNodeLocation(n); // store loc for visualization purposes					
+			loc nloc = getNodeLocation(n);
+			
+			// For all nodes of 6 or more lines of code of mass >= threshold (mass second so short-circuit eval will save performance)
+			if (isValidLoc(nloc) && calculateMass(n) >= massThreshold) {		
 				node normalized = normalize(n); // normalize names etc as they are irrelevant for comparisons
 				normalized = unsetRec(normalized); // recursively remove src data as it makes comparisons impossible
 				
@@ -64,12 +64,12 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	}
 	
 	// debug print all clones
-	for (clone <- clones) {
+	/*for (clone <- clones) {
 		for (pairs <- clones[clone])
 		{
 			println("Found clone at <pairs[1]>");
 		}
-	}
+	}*/
 	
 	return clones;
 }
@@ -83,6 +83,10 @@ public node findBestNodeMatch(node n) {
 	// if none above a certain threshold are found, use this node as a new key
 	
 	return n;
+}
+
+private bool isValidLoc(loc l) {
+	return (l == |unknown:///| || l.end.line - l.begin.line > 5);
 }
 
 @doc { 
@@ -110,7 +114,7 @@ private loc getNodeLocation(node n) {
 		return s.src;
 	}
 	
-	return |tmp://rascaltest|;
+	return |unknown:///|;
 }
 
 
