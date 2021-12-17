@@ -43,8 +43,8 @@ private void calculateMetrics(loc proj) {
     numberOfUnits = calculateProjectNumberOfUnits(AST);
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(AST);
     
-	map[node, list[node]] clones = calculateClones(AST);
-	map[node, int] cloneCounts = ();
+	map[node, lrel[node, loc]] clones = calculateClones(AST);
+	/*map[node, int] cloneCounts = ();
 	int cloneCount = 0;
 	for (n <- clones) {
 		int nclones = (0 | it + 1 | c <- clones[n]);
@@ -60,7 +60,7 @@ private void calculateMetrics(loc proj) {
 	
 	println(cloneCount);
 	println(numberOfUnits);
-	println("There is a duplication percentage of <cloneCount / toReal(numberOfUnits)>%");
+	println("There is a duplication percentage of <cloneCount / toReal(numberOfUnits)>%");*/
 }
 
 @doc{
