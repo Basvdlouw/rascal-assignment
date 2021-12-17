@@ -1,6 +1,7 @@
 module visualization::UnitComplexity
 
 import Calculate;
+import configuration::data_types::CountedList;
 import analysis::m3::AST; 
 import util::Editors;
 import vis::Render;
@@ -18,11 +19,11 @@ import util::Math;
 	- int cyclomaticComplexityRiskLevel in coc, units with coc below this treshhold are excluded from the visualization.
 }
 public void visualizeCyclomaticComplexity(loc project, int cyclomaticComplexityRiskLevel) {
-	map[Declaration unit, int coc] unitCoc = calculateProjectCyclomaticComplexityPerUnit(project);
+	CountedList unitCoc = calculateProjectCyclomaticComplexityPerUnit(project);
 	render("<project.authority> unit cyclomatic complexity treemap", treemap(
 			[ 
 				createBoxByCyclomaticComplexity(<unit, coc>)
-				| <unit,coc> <- toRel(unitCoc), coc >= cyclomaticComplexityRiskLevel
+				| <unit,coc> <- unitCoc.datalist, coc >= cyclomaticComplexityRiskLevel
 			])		
 	);
 }
