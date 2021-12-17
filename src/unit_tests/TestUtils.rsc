@@ -1,7 +1,11 @@
 module unit_tests::TestUtils
 
 import configuration::constants::UnitTests;
+import utils::ProjectUtils;
+import lang::java::jdt::m3::Core;
+import lang::java::m3::AST;
 import Exception;
+import IO;
 
 @doc{
 	Get list of available java files for testing purposes
@@ -14,21 +18,19 @@ public list[loc] getTestResources() {
 }
 
 @doc{
-	Get test file location by file name 
+	Get M3 model of test file
 	
-	Paramters:
-	- str fileName
+	Parameters
+	- str filename
 	
-	Returns:
-	- loc of resource
-	
-	Throws:
-	- IO when file not found
+	Returns
+	- M3 model
 }
-public loc getTestResourceByFileName(str fileName) {
+public M3 createM3FromTestResource(str fileName) {
 	for(resource <- getTestResources()) {
-		if(resource.file == fileName)
-			return resource;
+		if(resource.file == fileName) {
+			return createM3ModelFromFile(resource);
+		}
 	}
-	throw IO("File <fileName> was not found in test resource location"); 
+	throw IO("File: <fileName> was not found in test resource location"); 
 }
