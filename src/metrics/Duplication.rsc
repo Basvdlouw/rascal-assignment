@@ -42,9 +42,7 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	
 	// compare subtrees in the same bucket
 	for (bucket <- buckets) {
-		if (size(buckets[bucket]) > 1) {		
-			println("\n Bucket has a total of <size(buckets[bucket])> clones");
-	
+		if (size(buckets[bucket]) > 1) {			
 			// create every possible <node, node> combination in this bucket
 			lrel[tuple[node, loc] L, tuple[node, loc] R] bucketpairs = buckets[bucket] * buckets[bucket];
 			bucketpairs = removeReflexive(bucketpairs);
@@ -62,14 +60,6 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 			}
 		}
 	}
-	
-	// debug print all clones
-	/*for (clone <- clones) {
-		for (pairs <- clones[clone])
-		{
-			println("Found clone at <pairs[1]>");
-		}
-	}*/
 	
 	return clones;
 }
