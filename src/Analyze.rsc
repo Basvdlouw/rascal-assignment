@@ -3,18 +3,22 @@
 }
 module Analyze
 
+import configuration::constants::sig::SigUnitSizeConstants;
 import configuration::data_types::Rank;
 import configuration::data_types::CountedList;
+
 import analysis::m3::AST;
- 
 import analysis::Volume;
 import analysis::Duplication;
 import analysis::UnitSize;
 import analysis::UnitComplexity;
 
-import metrics::UnitSize;
-import configuration::constants::sig::SigUnitSizeConstants;
+import List;
+import util::Math;
 
+import metrics::UnitSize;
+
+import IO;
 @doc{
     Uses submodule analysis::Volume
     
@@ -26,8 +30,8 @@ import configuration::constants::sig::SigUnitSizeConstants;
     Returns:
     - str volume rating
 }
-public str computeProjectVolumeRating(int volume) {
-    return convertRankToLiteral(computeVolumeRating(volume));
+public Rank computeProjectVolumeRating(int volume) {
+    return computeVolumeRating(volume);
 }
 
 @doc {
@@ -41,8 +45,8 @@ public str computeProjectVolumeRating(int volume) {
     Returns: 
     - Rank rank
 }
-public str computeProjectCyclomaticComplexityRating(CountedList complexityUnits) {
-	return convertRankToLiteral(computeCyclomaticComplexity(complexityUnits));
+public Rank computeProjectCyclomaticComplexityRating(CountedList complexityUnits) {
+	return computeCyclomaticComplexity(complexityUnits);
 }
 
 @doc {
@@ -118,11 +122,12 @@ public real computeProjectVeryHighRiskCyclomaticComplexityPercentage(CountedList
     Returns: 
     - Rank rank
 }
-public str computeProjectUnitSizeRating(CountedList unitSizes) {
-	return convertRankToLiteral(computeUnitSize(unitSizes));
+public Rank computeProjectUnitSizeRating(CountedList unitSizes) {
+	return computeUnitSize(unitSizes);
 }
 
 @doc {
+
 	Uses submodule analysis::UnitSize
 	
 	Calculate percentage of simple unit sizes
@@ -195,4 +200,23 @@ public list[real] computeProjectUnitSizePercentages(CountedList unitSizes) {
 
 public CountedList computeUnitSizes(list[Declaration] ast) {
 	return calculateUnitSizes(ast);
+}
+
+@doc{
+	Computes aggreate rating based on list of ratings
+	
+	Example:
+	[plus(), minus(), plusplus(), neutral()]  == [4, 2, 5, 3]
+	Sum = 14 / amount of ranks (4)
+	14/4 = 3.5
+	round(3.5) = 4 (plus) will be returned
+	
+	Parameters
+	- list[Rank] list of ratings
+	
+	Returns
+	- Rank aggregated rank, weighted evenly across ranks as described by the SIG model
+}
+public Rank computeAggregateRating(list[Rank] ratings) {
+	return toRank(round(toReal((0 | it + toInt(x) | x <- ratings))/size(ratings)));
 }

@@ -21,12 +21,12 @@
     unit size score: --
     volume score: ++
     unit complexity score: --
-    duplication score: NOT IMPLEMENTED
+    duplication score: o
     -----------------------
-    analysability score: NOT IMPLEMENTED
-    changability score: NOT IMPLEMENTED
-    testability score: NOT IMPLEMENTED
+    analysability score: -
+    changeability score: -
+    testability score: --
     -----------------------
-    overall maintainability score: NOT IMPLEMENTED
+    overall maintainability score: -
     -----------------------
-    project analyzed in 28.3 seconds
+    project analyzed in 29.3 seconds

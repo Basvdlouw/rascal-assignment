@@ -1,8 +1,11 @@
 module reporting::ReportGenerator
 
+import util::Benchmark;
 import utils::StringUtils;
 import utils::ProjectUtils;
+import utils::MathUtils;
 
+import configuration::data_types::Rank;
 import configuration::data_types::CountedList;
 import configuration::constants::Project;
 
@@ -10,14 +13,7 @@ import analysis::m3::AST;
 import lang::java::jdt::m3::Core;
 import IO;
 
-import utils::MathUtils;
-
-// use Benchmark to time reporting performance
-import util::Benchmark;
-
-// use Calculate module to calculate SIG metrics
 import Calculate;
-// Use Analyze module to compute SIG scores
 import Analyze;
 
 private loc project;
@@ -25,6 +21,15 @@ private int volume;
 private int numberOfUnits;
 private CountedList cyclomaticComplexityUnits;
 private CountedList unitSizes;
+
+private Rank unitSizeScore;
+private Rank volumeScore;
+private Rank unitComplexityScore;
+private Rank duplicationScore;
+
+private Rank analysabilityScore;
+private Rank changeabilityScore;
+private Rank testabilityScore;
 
 @doc{
     Uses Calculate module to calculate metrics and populates fields.
@@ -42,6 +47,15 @@ private void calculateMetrics(loc proj) {
     unitSizes = computeUnitSizes(AST);
     numberOfUnits = calculateProjectNumberOfUnits(AST);
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(AST);
+    
+    unitSizeScore = computeProjectUnitSizeRating(unitSizes);
+    volumeScore = computeProjectVolumeRating(volume);
+    unitComplexityScore = computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits);
+    duplicationScore = \neutral();
+    
+    analysabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
+	changeabilityScore = computeAggregateRating([unitComplexityScore, duplicationScore]);
+	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore]);
     
 	map[node, lrel[node, loc]] clones = calculateClones(AST);
 	/*map[node, int] cloneCounts = ();
@@ -92,16 +106,16 @@ private str generateReport() {
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
-    unit size score: <computeProjectUnitSizeRating(unitSizes)>
-    volume score: <computeProjectVolumeRating(volume)>
-    unit complexity score: <computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits)>
-    duplication score: <"NOT IMPLEMENTED">
+    unit size score: <toString(unitSizeScore)>
+    volume score: <toString(volumeScore)>
+    unit complexity score: <toString(unitComplexityScore)>
+    duplication score: <toString(duplicationScore)>
     -----------------------
-    analysability score: <"NOT IMPLEMENTED">
-    changability score: <"NOT IMPLEMENTED">
-    testability score: <"NOT IMPLEMENTED">
+    analyzability score: <toString(analysabilityScore)>
+    changeability score: <toString(changeabilityScore)>
+    testability score: <toString(testabilityScore)>
     -----------------------
-    overall maintainability score: <"NOT IMPLEMENTED">
+    overall maintainability score: <toString(computeAggregateRating([analysabilityScore, changeabilityScore, testabilityScore]))>
     ";
 }
 
