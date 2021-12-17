@@ -1,0 +1,32 @@
+
+    hsqldb
+    -----------------------
+    lines of code: 160929
+    number of units: 9424
+    -----------------------
+    unit size:
+    * simple: 19.8%
+    * moderate: 16.8%
+    * high: 20.6%
+    * very high: 42.9%
+    -----------------------
+    unit complexity:
+    * simple: 59.9%
+    * moderate: 16.4%
+    * high: 13.4%
+    * very high: 10.4%
+    -----------------------
+    duplication: NOT IMPLEMENTED
+    -----------------------
+    unit size score: --
+    volume score: +
+    unit complexity score: --
+    duplication score: NOT IMPLEMENTED
+    -----------------------
+    analysability score: NOT IMPLEMENTED
+    changability score: NOT IMPLEMENTED
+    testability score: NOT IMPLEMENTED
+    -----------------------
+    overall maintainability score: NOT IMPLEMENTED
+    -----------------------
+    project analyzed in 262.0 seconds
