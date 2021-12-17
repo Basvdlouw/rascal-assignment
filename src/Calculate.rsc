@@ -150,3 +150,7 @@ public map[Declaration, int] calculateProjectUnitSizePerUnit(loc project) {
 public map[Declaration, int] calculateProjectUnitSizePerUnit(M3 project) {
 	return calculateUnitSizePerUnit(getASTsFromProject(project));
 }
+
+public map[node, list[node]] calculateClones(list[Declaration] ast) {
+	return getClones(ast);
+}
