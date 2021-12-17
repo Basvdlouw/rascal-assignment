@@ -203,7 +203,7 @@ public CountedList computeUnitSizes(list[Declaration] ast) {
 }
 
 @doc{
-	Computes aggreate rating based on list of ratings
+	Computes aggregate rating based on list of ratings
 	
 	Example:
 	[plus(), minus(), plusplus(), neutral()]  == [4, 2, 5, 3]

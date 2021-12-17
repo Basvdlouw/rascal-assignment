@@ -23,7 +23,7 @@
     unit complexity score: --
     duplication score: o
     -----------------------
-    analysability score: -
+    analyzability score: -
     changeability score: -
     testability score: --
     -----------------------

@@ -27,7 +27,7 @@ private Rank volumeScore;
 private Rank unitComplexityScore;
 private Rank duplicationScore;
 
-private Rank analysabilityScore;
+private Rank analyzabilityScore;
 private Rank changeabilityScore;
 private Rank testabilityScore;
 
@@ -53,7 +53,7 @@ private void calculateMetrics(loc proj) {
     unitComplexityScore = computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits);
     duplicationScore = \neutral();
     
-    analysabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
+    analyzabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
 	changeabilityScore = computeAggregateRating([unitComplexityScore, duplicationScore]);
 	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore]);
     
@@ -111,11 +111,11 @@ private str generateReport() {
     unit complexity score: <toString(unitComplexityScore)>
     duplication score: <toString(duplicationScore)>
     -----------------------
-    analyzability score: <toString(analysabilityScore)>
+    analyzability score: <toString(analyzabilityScore)>
     changeability score: <toString(changeabilityScore)>
     testability score: <toString(testabilityScore)>
     -----------------------
-    overall maintainability score: <toString(computeAggregateRating([analysabilityScore, changeabilityScore, testabilityScore]))>
+    overall maintainability score: <toString(computeAggregateRating([analyzabilityScore, changeabilityScore, testabilityScore]))>
     ";
 }
 
