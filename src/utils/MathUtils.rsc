@@ -1,5 +1,6 @@
 module utils::MathUtils
 
+import configuration::constants::Project;
 import util::Math;
 
 @doc {
@@ -27,4 +28,8 @@ public int calculateKloc(int linesOfCode) {
 }
 public real calculatePercentage(num x, num y) {
 	return toReal(x / y * 100.0);
+}
+
+public num round(num number) {
+	return round(number, DECIMAL_ROUNDING);
 }

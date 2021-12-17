@@ -1,0 +1,32 @@
+
+    smallsql
+    -----------------------
+    lines of code: 24850
+    number of units: 2358
+    -----------------------
+    unit size:
+    * simple: 38.1%
+    * moderate: 15.0%
+    * high: 20.5%
+    * very high: 26.3%
+    -----------------------
+    unit complexity:
+    * simple: 63.0%
+    * moderate: 10.6%
+    * high: 16.9%
+    * very high: 9.5%
+    -----------------------
+    duplication: NOT IMPLEMENTED
+    -----------------------
+    unit size score: --
+    volume score: ++
+    unit complexity score: --
+    duplication score: NOT IMPLEMENTED
+    -----------------------
+    analysability score: NOT IMPLEMENTED
+    changability score: NOT IMPLEMENTED
+    testability score: NOT IMPLEMENTED
+    -----------------------
+    overall maintainability score: NOT IMPLEMENTED
+    -----------------------
+    project analyzed in 28.1 seconds

@@ -4,11 +4,13 @@ import utils::StringUtils;
 import utils::ProjectUtils;
 
 import configuration::data_types::CountedList;
+import configuration::constants::Project;
 
 import analysis::m3::AST; 
 import lang::java::jdt::m3::Core;
 import IO;
 
+import utils::MathUtils;
 import util::Math;
 
 // use Benchmark to time reporting performance
@@ -19,7 +21,6 @@ import Calculate;
 // Use Analyze module to compute SIG scores
 import Analyze;
 
-private int DECIMAL_POINTS = 2;
 private loc project;
 private int volume;
 private int numberOfUnits;
@@ -63,25 +64,6 @@ private void calculateMetrics(loc proj) {
 	println("There is a duplication percentage of <cloneCount / toReal(numberOfUnits)>%");
 }
 
-@doc{
-    Prints report to console
-
-    Parameters:
-    - loc proj metrics in report are calculated based on project location.
-}
-public void printReportToConsole(loc proj) {    
-    str report = "";
-    int gentime = cpuTime(() {
-    	setPrecision(DECIMAL_POINTS);
-    	calculateMetrics(proj);
-    	report = generateReport();
-    });
-        
-    report += "-----------------------
-    project analyzed in <gentime * 0.000001> ms";
-    
-    println(report);
-}
 
 @doc{
     Generates report based on global variables on top of module
@@ -100,16 +82,16 @@ private str generateReport() {
     number of units: <numberOfUnits>
     -----------------------
     unit size:
-    * simple: <computeProjectSimpleUnitSizePercentage(unitSizes)>%
-    * moderate: <computeProjectModerateUnitSizePercentage(unitSizes)>%
-    * high: <computeProjectHighRiskUnitSizePercentage(unitSizes)>%
-    * very high: <computeProjectVeryHighRiskUnitSizePercentage(unitSizes)>%
+    * simple: <utils::MathUtils::round(computeProjectSimpleUnitSizePercentage(unitSizes))>%
+    * moderate: <utils::MathUtils::round(computeProjectModerateUnitSizePercentage(unitSizes))>%
+    * high: <utils::MathUtils::round(computeProjectHighRiskUnitSizePercentage(unitSizes))>%
+    * very high: <utils::MathUtils::round(computeProjectVeryHighRiskUnitSizePercentage(unitSizes))>%
     -----------------------
     unit complexity:
-    * simple: <computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
-    * moderate: <computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
-    * high: <computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
-    * very high: <computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits)>%
+    * simple: <utils::MathUtils::round(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * moderate: <utils::MathUtils::round(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * high: <utils::MathUtils::round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * very high: <utils::MathUtils::round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
@@ -126,5 +108,35 @@ private str generateReport() {
     ";
 }
 
+private str computeReport(loc proj) {
+	str report = "";
+    int gentime = cpuTime(() {
+    	calculateMetrics(proj);
+    	report = generateReport();
+    });
+    report += "-----------------------
+    project analyzed in <utils::MathUtils::round(gentime * 0.000000001)> seconds";
+    return report;
+}
+
+@doc{
+    Prints report to file
+
+    Parameters:
+    - loc proj metrics in report are calculated based on project location.
+}
+public void printReportToFile(loc proj) {
+	writeFile(DEFAULT_OUTPUT_LOC + (proj.authority + ".txt"), computeReport(proj));
+}
+
+@doc{
+    Prints report to console
+
+    Parameters:
+    - loc proj metrics in report are calculated based on project location.
+}
+public void printReportToConsole(loc proj) {    
+	println(computeReport(proj));
+}
 
 
