@@ -11,7 +11,6 @@ import lang::java::jdt::m3::Core;
 import IO;
 
 import utils::MathUtils;
-import util::Math;
 
 // use Benchmark to time reporting performance
 import util::Benchmark;
@@ -70,8 +69,6 @@ private void calculateMetrics(loc proj) {
 
     Returns 
     - str report in string format
-
-    TODO: remove hardcoded values/format percentages amount of decimals
 }
 private str generateReport() {
 	return
@@ -82,16 +79,16 @@ private str generateReport() {
     number of units: <numberOfUnits>
     -----------------------
     unit size:
-    * simple: <utils::MathUtils::round(computeProjectSimpleUnitSizePercentage(unitSizes))>%
-    * moderate: <utils::MathUtils::round(computeProjectModerateUnitSizePercentage(unitSizes))>%
-    * high: <utils::MathUtils::round(computeProjectHighRiskUnitSizePercentage(unitSizes))>%
-    * very high: <utils::MathUtils::round(computeProjectVeryHighRiskUnitSizePercentage(unitSizes))>%
+    * simple: <round(computeProjectSimpleUnitSizePercentage(unitSizes))>%
+    * moderate: <round(computeProjectModerateUnitSizePercentage(unitSizes))>%
+    * high: <round(computeProjectHighRiskUnitSizePercentage(unitSizes))>%
+    * very high: <round(computeProjectVeryHighRiskUnitSizePercentage(unitSizes))>%
     -----------------------
     unit complexity:
-    * simple: <utils::MathUtils::round(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
-    * moderate: <utils::MathUtils::round(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
-    * high: <utils::MathUtils::round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
-    * very high: <utils::MathUtils::round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * simple: <round(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * moderate: <round(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * high: <round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * very high: <round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     -----------------------
     duplication: <"NOT IMPLEMENTED">
     -----------------------
@@ -115,7 +112,7 @@ private str computeReport(loc proj) {
     	report = generateReport();
     });
     report += "-----------------------
-    project analyzed in <utils::MathUtils::round(gentime * 0.000000001)> seconds";
+    project analyzed in <round(gentime * 0.000000001)> seconds";
     return report;
 }
 
