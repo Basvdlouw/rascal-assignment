@@ -9,60 +9,115 @@ import lang::java::m3::AST;
 import lang::java::m3::TypeSymbol;
 
 import List;
+import Node;
 import IO;
 
-private real similarityThreshold = 0.8;
-private int massThreshold = 6;
+private real similarityThreshold = 0.8; // TODO, see findBestNodeMatch
+private int massThreshold = 25;
 
 // See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
 // WIP
-public map[node, list[node]] getClones(list[Declaration] ast) {
-	map[node, list[node]] clones = ();
-	map[node, list[node]] buckets = ();
+public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
+	map[node, lrel[node, loc]] clones = ();
+	map[node, lrel[node, loc]] buckets = ();
+	
+	println("get clones?");
 	
 	// create buckets for all nodes where mass > minimumMass
 	visit(ast) {
 		case node n: {
-			if (calculateMass(n) > massThreshold) {
-				node normalized = normalize(n);
-				if (buckets[n]?) { buckets[n] += normalized; } else { buckets[n] = [normalized]; }
+			if (calculateMass(n) >= massThreshold) {
+				loc nloc = getNodeLocation(n); // store loc for visualization purposes					
+				node normalized = normalize(n); // normalize names etc as they are irrelevant for comparisons
+				normalized = unsetRec(normalized); // recursively remove src data as it makes comparisons impossible
+				
+				if (buckets[normalized]?) { 
+					buckets[normalized] += <normalized, nloc>; 
+				} else { 
+					buckets[normalized] = [<normalized, nloc>]; 
+				}
 			}
 		}
 	}
 	
 	// compare subtrees in the same bucket
 	for (bucket <- buckets) {
-		if (size(buckets[bucket]) > 1) {
-		
-			int nclones = 0;
+		if (size(buckets[bucket]) > 1) {		
+			println("\n Bucket has a total of <size(buckets[bucket])> clones");
 	
 			// create every possible <node, node> combination in this bucket
-			lrel[node L, node R] bucketpairs = buckets[bucket] * buckets[bucket];
+			lrel[tuple[node, loc] L, tuple[node, loc] R] bucketpairs = buckets[bucket] * buckets[bucket];
+			bucketpairs = removeReflexive(bucketpairs);
 			
 			// for each pair (=comparison), calculate similarity and add to list of clones if >threshold
 			for (bucketpair <- bucketpairs) {
-				if (calculateSimilarity(bucketpair[0], bucketpair[1]) > similarityThreshold) {
-					if (clones[bucketpair[0]]?) {
-						clones[bucketpair[0]] += bucketpair[1];
+				if (calculateSimilarity(bucketpair[0][0], bucketpair[1][0]) > similarityThreshold) {
+					if (clones[bucketpair[0][0]]?) {
+						clones[bucketpair[0][0]] += bucketpair[1];
 					}
 					else {
-						clones[bucketpair[0]] = [bucketpair[1]];
+						clones[bucketpair[0][0]] = [bucketpair[1]];
 					}
-					
-					nclones += 1;
 				}
 			}
+		}
+	}
+	
+	// debug print all clones
+	for (clone <- clones) {
+		for (pairs <- clones[clone])
+		{
+			println("Found clone at <pairs[1]>");
 		}
 	}
 	
 	return clones;
 }
 
-/*
-private lrel[node L, node R] removeReflexive(lrel[node L, node R] pairs) {	
-	return [pair | pair <- pairs, pair.L != pair.R];
+public node findBestNodeMatch(node n) {
+
+	// TODO
+	// iterate over all keys in clones
+	// check similarity with this node
+	// use highest one as key
+	// if none above a certain threshold are found, use this node as a new key
+	
+	return n;
 }
 
+@doc { 
+	Gets the location of a node if it is of type:
+		-Declaration
+		-Expression
+		-Statement
+		
+	Otherwise returns a placeholder location.
+	
+	Parameters:
+	-n node to check
+	
+	Returns:
+	-loc location of node n or placeholder if n is not a valid type
+}
+private loc getNodeLocation(node n) {
+	if (Declaration d := n) {
+		return d.src;
+	}
+	else if (Expression e := n) {
+		return e.src;
+	}
+	else if (Statement s := n) {
+		return s.src;
+	}
+	
+	return |tmp://rascaltest|;
+}
+
+
+private lrel[tuple[node, loc] L, tuple[node, loc] R] removeReflexive(lrel[tuple[node, loc] L, tuple[node, loc] R] pairs) {	
+	return [pair | pair <- pairs, pair.L != pair.R];
+}
+/*
 private lrel[node L, node R] removeDuplicates(lrel[node L, node R] pairs) {
 	lrel[node L, node R] filteredPairs = [];
 	
@@ -112,6 +167,8 @@ private lrel[node L, node R] removeDuplicates(lrel[node L, node R] pairs) {
 }
 private node normalize(node n) {
 	return visit (n) {
+		//case \compilationUnit(_, _) => \compilationUnit([], [])
+    	//case \compilationUnit(_, _, _) => \compilationUnit(\package("package"), [], [])
 		case \enum(_, x, y, z) => \enum("e", x, y, z)
 		case \enumConstant(_, y) => \enumConstant("ec", y) 
 		case \enumConstant(_, y, z) => \enumConstant("ec", y, z)
@@ -128,8 +185,8 @@ private node normalize(node n) {
 		case \booleanLiteral(_) => \booleanLiteral(true)
 		case \stringLiteral(_) => \stringLiteral("s")
 		case \characterLiteral(_) => \characterLiteral("x")
-		case \variable(_, y) => \variable("v",y) 
-		case \variable(_, y, z) => \variable("v",y,z) 
+		case \variable(_, y) => \variable("v", y) 
+		case \variable(_, y, z) => \variable("v", y, z) 
 		case \annotationTypeMember(x, _) => \annotationTypeMember(x, "a")
 		case \annotationTypeMember(x, _, y) => \annotationTypeMember(x, "a", y)
 		//case \typeParameter(_, x) => \typeParameter("t", x) // TODO fix, unbounded error?
@@ -180,9 +237,14 @@ private real calculateSimilarity(node n1, node n2) {
 		R = number of different nodes in sub-tree 2
 	*/
 	
+	println(n1);
+	println(n2);
+	
 	int S = size(n1Tree & n2Tree);
 	int L = size(n1Tree - n2Tree);
 	int R = size(n2Tree - n1Tree);
+	
+	println("There are <S> common, <L> in tree 1, <R> in tree 2, similarity is <(2.0 * S / ( 2.0 * S + L + R))>");
 	
 	return (2.0 * S / ( 2.0 * S + L + R));
 }
