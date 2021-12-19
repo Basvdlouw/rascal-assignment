@@ -12,7 +12,7 @@ import List;
 import Node;
 import IO;
 
-private real similarityThreshold = 0.8; // TODO, see findBestNodeMatch
+private real similarityThreshold = 0.8; // TODO, see findBestNodeMatch, the idea is this will allow imperfect matches (eg 80% similar trees)
 private int massThreshold = 25;
 
 // See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
@@ -44,7 +44,7 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	for (bucket <- buckets) {
 		if (size(buckets[bucket]) > 1) {			
 			// create every possible <node, node> combination in this bucket
-			lrel[tuple[node, loc] L, tuple[node, loc] R] bucketpairs = buckets[bucket] * buckets[bucket];
+			lrel[tuple[node , loc] L, tuple[node, loc] R] bucketpairs = buckets[bucket] * buckets[bucket];
 			bucketpairs = removeReflexive(bucketpairs);
 			
 			// for each pair (=comparison), calculate similarity and add to list of clones if >threshold
@@ -64,17 +64,29 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	return clones;
 }
 
-public node findBestNodeMatch(node n) {
-
-	// TODO
+@doc {
+	// NOT IMPLEMENTED
 	// iterate over all keys in clones
 	// check similarity with this node
 	// use highest one as key
 	// if none above a certain threshold are found, use this node as a new key
+	// our current implementation only allows for fully matching (after normalizing) clones
 	
+}
+public node findBestNodeMatch(node n) {
 	return n;
 }
 
+@doc {
+	Only code snippets of 6 or more lines should be considered
+	We will allow for unknown locs as some root nodes have this and may be used as keys in our clones map
+	
+	Parameters:
+	-Loc l
+	
+	Returns;
+	-bool if the code at loc is 6 or more lines of code
+}
 private bool isValidLoc(loc l) {
 	return (l == |unknown:///| || l.end.line - l.begin.line > 5);
 }
@@ -107,11 +119,33 @@ private loc getNodeLocation(node n) {
 	return |unknown:///|;
 }
 
-
+@doc {
+	Remove reflexive pairs from a lrel
+	The reasoning here is that we do not want to count a code occurence as a duplicate of itself
+	If a code snippet is present 2x, we only count it as duplicate 1x
+	
+	Parameters:
+	-lrel[tuple[node, loc] L, tuple[node, loc] R] clone pairs with their locs
+	
+	Returns:
+	-lrel[tuple[node, loc] L, tuple[node, loc] R] clone pairs with reflexive entries removed
+}
 private lrel[tuple[node, loc] L, tuple[node, loc] R] removeReflexive(lrel[tuple[node, loc] L, tuple[node, loc] R] pairs) {	
 	return [pair | pair <- pairs, pair.L != pair.R];
 }
+
 /*
+@doc {
+	Remove duplicate pairs from a lrel
+	The reasoning here is that we do not want to count duplicate code occurences twice
+	This prevents the issue of duplicate nodes A and B both counting eachother as a clone, essentially counting the same duplication twice
+	
+	Parameters:
+	-lrel[tuple[node, loc] L, tuple[node, loc] R] clone pairs with their locs
+	
+	Returns:
+	-lrel[tuple[node, loc] L, tuple[node, loc] R] clone pairs with duplicate entries removed
+}
 private lrel[node L, node R] removeDuplicates(lrel[node L, node R] pairs) {
 	lrel[node L, node R] filteredPairs = [];
 	
