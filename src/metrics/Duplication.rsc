@@ -164,6 +164,64 @@ private lrel[node L, node R] removeDuplicates(lrel[node L, node R] pairs) {
 	
 	return filteredPairs;
 }
+
+@doc { 
+	Calculates similarity between 2 AST sub-trees
+	See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
+	
+	Normalization can sometimes mark code as duplicate where it would theoretically be possible to remove the duplicate occurence
+	However, doing so might not be of interest - it may adversely affect readability or make the code itself too complicated to understand
+	For the sake of this program, we do not implement a way to ignore these and will simply consider them false negatives
+	
+	Parameters:
+	-n1 Sub-tree 1
+	-n2 Sub-tree 2
+	
+	Returns:
+	-Similarity as a real
+	
+	Similarity = 2 x S / (2 x S + L + R)
+	where:
+		S = number of shared nodes
+		L = number of different nodes in sub-tree 1
+		R = number of different nodes in sub-tree 2
+}
+private real calculateSimilarity(node n1, node n2) {	
+	// Construct both trees
+	list[node] n1Tree = [];
+	list[node] n2Tree = [];
+	
+	visit (n1) {
+		case node n: { 
+			n1Tree += n;
+		}
+	}
+	visit (n2) {
+		case node n: { 
+			n2Tree += n;
+		}
+	}
+	
+	
+	//Similarity = 2 x S / (2 x S + L + R)
+	//where:
+	//	S = number of shared nodes
+	//	L = number of different nodes in sub-tree 1
+	//	R = number of different nodes in sub-tree 2
+	
+	
+	
+	int S = size(n1Tree & n2Tree);
+	int L = size(n1Tree - n2Tree);
+	int R = size(n2Tree - n1Tree);
+	
+	//TODO: Implement similarity, uncomment below code to check
+	//println(n1);
+	//println(n2);
+	//println("There are <S> common, <L> in tree 1, <R> in tree 2, similarity is <(2.0 * S / ( 2.0 * S + L + R))>");
+	
+	return (2.0 * S / ( 2.0 * S + L + R));
+}
 */
 
 @doc { 
@@ -227,65 +285,6 @@ private node normalize(node n) {
 		case Modifier _ => \private()
 		case \simpleName(_) => \simpleName("s")
 	}
-}
-
-@doc { 
-	Calculates similarity between 2 AST sub-trees
-	See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
-	
-	Normalization can sometimes mark code as duplicate where it would theoretically be possible to remove the duplicate occurence
-	However, doing so might not be of interest - it may adversely affect readability or make the code itself too complicated to understand
-	For the sake of this program, we do not implement a way to ignore these and will simply consider them false negatives
-	
-	Parameters:
-	-n1 Sub-tree 1
-	-n2 Sub-tree 2
-	
-	Returns:
-	-Similarity as a real
-	
-	Similarity = 2 x S / (2 x S + L + R)
-	where:
-		S = number of shared nodes
-		L = number of different nodes in sub-tree 1
-		R = number of different nodes in sub-tree 2
-}
-private real calculateSimilarity(node n1, node n2) {	
-	// Construct both trees
-	list[node] n1Tree = [];
-	list[node] n2Tree = [];
-	
-	visit (n1) {
-		case node n: { 
-			n1Tree += n;
-		}
-	}
-	visit (n2) {
-		case node n: { 
-			n2Tree += n;
-		}
-	}
-	
-	/*
-	Similarity = 2 x S / (2 x S + L + R)
-	where:
-		S = number of shared nodes
-		L = number of different nodes in sub-tree 1
-		R = number of different nodes in sub-tree 2
-	*/
-	
-	
-	int S = size(n1Tree & n2Tree);
-	int L = size(n1Tree - n2Tree);
-	int R = size(n2Tree - n1Tree);
-	
-	/* TODO: Implement similarity, uncomment below code to check
-	println(n1);
-	println(n2);
-	println("There are <S> common, <L> in tree 1, <R> in tree 2, similarity is <(2.0 * S / ( 2.0 * S + L + R))>");
-	*/
-	
-	return (2.0 * S / ( 2.0 * S + L + R));
 }
 
 @doc {
