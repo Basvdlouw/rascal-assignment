@@ -21,7 +21,7 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	map[node, lrel[node, loc]] clones = ();
 	map[node, lrel[node, loc]] buckets = ();
 		
-	// create buckets for all nodes where mass > minimumMass
+	// create buckets for all (normalized) nodes where mass > minimumMass
 	visit(ast) {
 		case node n: {
 			loc nloc = getNodeLocation(n);
@@ -277,6 +277,21 @@ private real calculateSimilarity(node n1, node n2) {
 	return (2.0 * S / ( 2.0 * S + L + R));
 }
 
+@doc {
+	Calculate the amount of subtrees within a tree (node)
+	We do this to ignore smaller chunks of code if desired
+	
+	Increasing massThreshold can improve performance
+	It also allows for some flexibility in terms of what is considered 'duplicate'
+	For example: int a = 7; being in 3 locations by itself should not be considered duplicate code, as it is a primitive part of development
+	On the other hand, having several ints being initialized to similar values (regardless of name, see normalization) is duplicate code
+
+	Parameters:
+	-node to check
+	
+	Returns:
+	-mass of checked node as int
+}
 private int calculateMass(node nodeToCheck) {
 	// TODO: would returning size(node.getChildren()) be faster? Or would that include non-node children, if there are any?
 	int mass = 0;
