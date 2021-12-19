@@ -9,7 +9,10 @@ import lang::java::m3::AST;
 import lang::java::m3::TypeSymbol;
 
 import List;
+import Map;
 import Node;
+import IO;
+import util::Math;
 
 @doc {
 	Get clones in an AST using a primitive implementation of Clone Detection Using Abstract Syntax Trees
@@ -27,14 +30,17 @@ import Node;
 public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThreshold = 25) {
 	map[node, lrel[node, loc]] clones = ();
 	map[node, lrel[node, loc]] buckets = ();
+	
+	int checkedNodes = 0;
 			
 	// create buckets for all (normalized) nodes where mass > minimumMass
 	visit(ast) {
 		case node n: {
-			loc nloc = getNodeLocation(n);
-			
+			loc nloc = getNodeLocation(n);			
 			// For all nodes of 6 or more lines of code of mass >= threshold (mass second so short-circuit eval will save performance)
 			if (isValidLoc(nloc) && calculateMass(n) >= massThreshold) {		
+				checkedNodes += 1; // Count total checked nodes for a percentage calculation later
+				
 				node normalized = normalize(n); // normalize names etc as they are irrelevant for comparisons
 				normalized = unsetRec(normalized); // recursively remove src data as it makes comparisons impossible
 				
@@ -65,6 +71,15 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 			clones[bucket] = buckets[bucket];
 		}
 	}	
+	
+	println("Found a total of <size(clones)> duplicates out of <checkedNodes> checked nodes (<size(clones) / toReal(checkedNodes) * 100.0>%)");
+	int linesofcode = 0;
+	for (clone <- clones) {
+		for (inst <- clones[clone]) {
+			linesofcode += (inst[1].end.line - inst[1].begin.line);
+		}
+	}
+	println("Accounts for <linesofcode> duplicate lines of code out of 24850");
 	
 	return clones;
 }
