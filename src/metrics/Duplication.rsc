@@ -10,7 +10,6 @@ import lang::java::m3::TypeSymbol;
 
 import List;
 import Node;
-import IO;
 
 @doc {
 	Get clones in an AST using a primitive implementation of Clone Detection Using Abstract Syntax Trees
@@ -40,9 +39,19 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 				normalized = unsetRec(normalized); // recursively remove src data as it makes comparisons impossible
 				
 				if (!buckets[normalized]?) { 
-					buckets[normalized] = [];
+					buckets[normalized] = [<n, nloc>];
 				}
-				buckets[normalized] += <normalized, nloc>; 
+				else {
+					// Make sure we're not counting code twice, happens sometimes (for reasons I have not yet discovered)
+					bool isDuplicate = false;
+					for (checknode <- buckets[normalized]) {
+						if (checknode[1] == nloc) {
+							isDuplicate = true;
+							break;
+						}
+					}					
+					if (!isDuplicate) { buckets[normalized] += <n, nloc>; }
+				}
 			}
 		}
 	}
@@ -58,19 +67,6 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 	}	
 	
 	return clones;
-}
-
-@doc {
-	// NOT IMPLEMENTED
-	// iterate over all keys in clones
-	// check similarity with this node
-	// use highest one as key
-	// if none above a certain threshold are found, use this node as a new key
-	// our current implementation only allows for fully matching (after normalizing) clones
-	
-}
-private node findBestNodeMatch(node n) {
-	return n;
 }
 
 @doc {
@@ -115,6 +111,20 @@ private loc getNodeLocation(node n) {
 	return |unknown:///|;
 }
 
+/*
+@doc {
+	// NOT IMPLEMENTED
+	// iterate over all keys in clones
+	// check similarity with this node
+	// use highest one as key
+	// if none above a certain threshold are found, use this node as a new key
+	// our current implementation only allows for fully matching (after normalizing) clones
+	
+}
+private node findBestNodeMatch(node n) {
+	return n;
+}
+
 @doc {
 	Remove reflexive pairs from a lrel
 	The reasoning here is that we do not want to count a code occurence as a duplicate of itself
@@ -130,7 +140,6 @@ private lrel[tuple[node, loc] L, tuple[node, loc] R] removeReflexive(lrel[tuple[
 	return [pair | pair <- pairs, pair.L != pair.R];
 }
 
-/*
 @doc {
 	Remove duplicate pairs from a lrel
 	The reasoning here is that we do not want to count duplicate code occurences twice
