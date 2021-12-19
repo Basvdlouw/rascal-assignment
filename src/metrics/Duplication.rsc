@@ -12,15 +12,23 @@ import List;
 import Node;
 import IO;
 
-private real similarityThreshold = 0.8; // TODO, see findBestNodeMatch, the idea is this will allow imperfect matches (eg 80% similar trees)
-private int massThreshold = 25;
-
-// See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
-// WIP
-public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
+@doc {
+	Get clones in an AST using a primitive implementation of Clone Detection Using Abstract Syntax Trees
+	See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
+	
+	Normalization can sometimes mark code as duplicate where it would theoretically be possible to remove the duplicate occurence
+	However, doing so might not be of interest - it may adversely affect readability or make the code itself too complicated to understand
+	For the sake of this program, we do not implement a way to ignore these and will simply consider them false negatives
+	
+	Parameters:
+	-List[Declaration] AST
+	-Minimum required mass for nodes to be considered for clone detection
+	-UNIMPLEMENTED minimum required similarity between nodes for them to be considered the same code (currently looking for 100% matches after normalization)
+ }
+public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThreshold = 25) {
 	map[node, lrel[node, loc]] clones = ();
 	map[node, lrel[node, loc]] buckets = ();
-		
+			
 	// create buckets for all (normalized) nodes where mass > minimumMass
 	visit(ast) {
 		case node n: {
@@ -31,35 +39,23 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 				node normalized = normalize(n); // normalize names etc as they are irrelevant for comparisons
 				normalized = unsetRec(normalized); // recursively remove src data as it makes comparisons impossible
 				
-				if (buckets[normalized]?) { 
-					buckets[normalized] += <normalized, nloc>; 
-				} else { 
-					buckets[normalized] = [<normalized, nloc>]; 
+				if (!buckets[normalized]?) { 
+					buckets[normalized] = [];
 				}
+				buckets[normalized] += <normalized, nloc>; 
 			}
 		}
 	}
 	
-	// compare subtrees in the same bucket
+	// Only consider buckets with duplicates (2 or more entries)
 	for (bucket <- buckets) {
-		if (size(buckets[bucket]) > 1) {			
-			// create every possible <node, node> combination in this bucket
-			lrel[tuple[node , loc] L, tuple[node, loc] R] bucketpairs = buckets[bucket] * buckets[bucket];
-			bucketpairs = removeReflexive(bucketpairs);
-			
-			// for each pair (=comparison), calculate similarity and add to list of clones if >threshold
-			for (bucketpair <- bucketpairs) {
-				if (calculateSimilarity(bucketpair[0][0], bucketpair[1][0]) > similarityThreshold) {
-					if (clones[bucketpair[0][0]]?) {
-						clones[bucketpair[0][0]] += bucketpair[1];
-					}
-					else {
-						clones[bucketpair[0][0]] = [bucketpair[1]];
-					}
-				}
+		if (size(buckets[bucket]) > 1) {		
+			if (!clones[bucket]?) {
+				clones[bucket] = [];
 			}
+			clones[bucket] = buckets[bucket];
 		}
-	}
+	}	
 	
 	return clones;
 }
@@ -73,7 +69,7 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast) {
 	// our current implementation only allows for fully matching (after normalizing) clones
 	
 }
-public node findBestNodeMatch(node n) {
+private node findBestNodeMatch(node n) {
 	return n;
 }
 
@@ -228,6 +224,10 @@ private node normalize(node n) {
 	Calculates similarity between 2 AST sub-trees
 	See Clone Detection Using Abstract Syntax Trees (10.1109/ICSM.1998.738528)
 	
+	Normalization can sometimes mark code as duplicate where it would theoretically be possible to remove the duplicate occurence
+	However, doing so might not be of interest - it may adversely affect readability or make the code itself too complicated to understand
+	For the sake of this program, we do not implement a way to ignore these and will simply consider them false negatives
+	
 	Parameters:
 	-n1 Sub-tree 1
 	-n2 Sub-tree 2
@@ -265,14 +265,16 @@ private real calculateSimilarity(node n1, node n2) {
 		R = number of different nodes in sub-tree 2
 	*/
 	
-	println(n1);
-	println(n2);
 	
 	int S = size(n1Tree & n2Tree);
 	int L = size(n1Tree - n2Tree);
 	int R = size(n2Tree - n1Tree);
 	
+	/* TODO: Implement similarity, uncomment below code to check
+	println(n1);
+	println(n2);
 	println("There are <S> common, <L> in tree 1, <R> in tree 2, similarity is <(2.0 * S / ( 2.0 * S + L + R))>");
+	*/
 	
 	return (2.0 * S / ( 2.0 * S + L + R));
 }
