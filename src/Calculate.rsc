@@ -8,6 +8,7 @@ import lang::java::jdt::m3::Core;
 import utils::ProjectUtils;
 
 import configuration::data_types::CountedList;
+import configuration::data_types::CountedMap;
 
 import metrics::Volume;
 import metrics::Duplication;
@@ -153,4 +154,8 @@ public map[Declaration, int] calculateProjectUnitSizePerUnit(M3 project) {
 
 public map[node, lrel[node, loc]] calculateClones(list[Declaration] ast) {
 	return getClones(ast);
+}
+
+public CountedMap pruneClones(map[node, lrel[node, loc]] clones) {
+	return pruneSubclones(clones);
 }

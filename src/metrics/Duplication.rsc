@@ -109,7 +109,7 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 	
 	for (clone <- clones) {
 		lrel[node, loc] cloneList = clones[clone];
-		println("Checking <size(cloneList)> occurrences of a clone");
+		//println("Checking <size(cloneList)> occurrences of a clone");
 		
 		for (cloneinst <- cloneList) {					
 			// Check if cloneinst loc is part of an existing loc, so that we don't count sub-duplicates
@@ -118,7 +118,7 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 				if (isContainedIn(realclone,cloneinst[1])) {
 					clonesCodeCount[realclone] += 1;
 					found = true;
-					println("Found a clone contained within another clone, pruning...");
+					//println("Found a clone contained within another clone, pruning...");
 					break;
 				}			
 			}			
@@ -126,7 +126,7 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 			if (!found) {
 				clonesCodeCount[cloneinst[1]] = 1;
 				uniqueLinesOfCode += getUnitSize(cloneinst[1]);
-				println("Found a new clone, adding to map...");
+				//println("Found a new clone, adding to map...");
 			}
 			
 			// Calculate the real lines of code, excluding comments and blank lines
@@ -134,10 +134,10 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 		}
 	}
 	
-	println("There are <realLinesOfCode> real lines of code, of which <uniqueLinesOfCode> are not part of a larger clone.");
-	println("Of 24850 lines of code, <uniqueLinesOfCode / 24850.0 * 100.0>% are duplicate.");
+	//println("There are <realLinesOfCode> real lines of code, of which <uniqueLinesOfCode> are not part of a larger clone.");
+	//println("Of 24850 lines of code, <uniqueLinesOfCode / 24850.0 * 100.0>% are duplicate.");
 
-	return <realLinesOfCode, clonesCodeCount>;
+	return <uniqueLinesOfCode, clonesCodeCount>;
 }
 
 @doc {

@@ -14,6 +14,7 @@ import IO;
 
 import Calculate;
 import Analyze;
+import util::Math;
 
 private loc project;
 private int volume;
@@ -49,12 +50,12 @@ private void calculateMetrics(loc proj) {
     numberOfUnits = calculateProjectNumberOfUnits(AST);
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(AST);
 	clones = calculateClones(AST);
-	prunedClones = pruneSubclones(clones);
+	prunedClones = pruneClones(clones);
     
     unitSizeScore = computeProjectUnitSizeRating(unitSizes);
     volumeScore = computeProjectVolumeRating(volume);
     unitComplexityScore = computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits);
-    duplicationScore = computeDuplicationRating(round(clones.total / numberOfUnits * 100.0));
+    duplicationScore = computeProjectDuplicationRating(prunedClones.total / toReal(volume) * 100.0);
     
     analyzabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
 	changeabilityScore = computeAggregateRating([unitComplexityScore, duplicationScore]);
@@ -88,7 +89,7 @@ private str generateReport() {
     * high: <round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     * very high: <round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     -----------------------
-    duplication: <round(clones.total / numberOfUnits * 100.0)>%
+    duplication: <prunedClones.total / toReal(volume) * 100.0>%
     -----------------------
     unit size score: <toString(unitSizeScore)>
     volume score: <toString(volumeScore)>

@@ -34,6 +34,21 @@ public Rank computeProjectVolumeRating(int volume) {
     return computeVolumeRating(volume);
 }
 
+@doc{
+    Uses submodule analysis::Duplication
+    
+    Compute project duplication rating.
+
+    Parameters:
+    - real duplication percentage
+
+    Returns:
+    - str volume rating
+}
+public Rank computeProjectDuplicationRating(real duplicationpercentage) {
+	return computeDuplicationRating(duplicationpercentage);
+}
+
 @doc {
     Uses submodule analysis::UnitComplexity
     
