@@ -76,7 +76,7 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 	int linesofcode = 0;
 	for (clone <- clones) {
 		for (inst <- clones[clone]) {
-			linesofcode += (inst[1].end.line - inst[1].begin.line);
+			if (inst[1] != |unknown:///|) { linesofcode += (inst[1].end.line - inst[1].begin.line); }
 		}
 	}
 	println("Accounts for <linesofcode> duplicate lines of code out of 24850");
