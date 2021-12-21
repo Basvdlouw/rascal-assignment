@@ -1,7 +1,6 @@
 module reporting::ReportGenerator
 
 import util::Benchmark;
-import utils::StringUtils;
 import utils::ProjectUtils;
 import utils::MathUtils;
 
@@ -58,23 +57,6 @@ private void calculateMetrics(loc proj) {
 	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore]);
     
 	map[node, lrel[node, loc]] clones = calculateClones(AST);
-	/*map[node, int] cloneCounts = ();
-	int cloneCount = 0;
-	for (n <- clones) {
-		int nclones = (0 | it + 1 | c <- clones[n]);
-		if (cloneCounts[n]?) { 
-			cloneCounts[n] += nclones;
-		}
-		else {
-			cloneCounts[n] = nclones;
-		}
-		
-		cloneCount += nclones;
-	}
-	
-	println(cloneCount);
-	println(numberOfUnits);
-	println("There is a duplication percentage of <cloneCount / toReal(numberOfUnits)>%");*/
 }
 
 
