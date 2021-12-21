@@ -1,6 +1,7 @@
 module metrics::Duplication
 
 import configuration::data_types::CountedList;
+import utils::ProjectUtils;
 
 import lang::java::m3::Core;
 import analysis::m3::AST; 
@@ -9,10 +10,10 @@ import lang::java::m3::AST;
 import lang::java::m3::TypeSymbol;
 
 import List;
-import Map;
 import Node;
-import IO;
 import util::Math;
+import Location;
+import IO;
 
 @doc {
 	Get clones in an AST using a primitive implementation of Clone Detection Using Abstract Syntax Trees
@@ -72,6 +73,8 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 		}
 	}	
 	
+	// Uncomment to debug
+	/*
 	println("Found a total of <size(clones)> duplicates out of <checkedNodes> checked nodes (<size(clones) / toReal(checkedNodes) * 100.0>%)");
 	int linesofcode = 0;
 	for (clone <- clones) {
@@ -80,8 +83,61 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 		}
 	}
 	println("Accounts for <linesofcode> duplicate lines of code out of 24850");
+	*/
 	
 	return clones;
+}
+
+@doc {
+	Prunes subclones, which are bits of code marked as duplicate that are already part of a larger bit of code marked as duplicate
+	For example: part of a function may be duplicate, but so may the function
+	In that case, we do not want to count both the function linecount as well as the function linecount, as that would count some code twice
+	We prune the part of the function and only count the full function
+	
+	Parameters:
+	-map of clones with lists of its occurrences
+	
+	Returns:
+	-counted map, which contains the total lines of code (ignoring blanks and comments) as well as a list of duplicate locations and #occurrences
+	
+	WARNING: We do lose some visualization control here, for that the original clones data should be preferred
+}
+public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
+	map[loc, int] clonesCodeCount = ();
+	int realLinesOfCode = 0;
+	int uniqueLinesOfCode = 0;
+	
+	for (clone <- clones) {
+		lrel[node, loc] cloneList = clones[clone];
+		println("Checking <size(cloneList)> occurrences of a clone");
+		
+		for (cloneinst <- cloneList) {					
+			// Check if cloneinst loc is part of an existing loc, so that we don't count sub-duplicates
+			bool found = false;
+			for (realclone <- clonesCodeCount) {
+				if (isContainedIn(realclone,cloneinst[1])) {
+					clonesCodeCount[realclone] += 1;
+					found = true;
+					println("Found a clone contained within another clone, pruning...");
+					break;
+				}			
+			}			
+			// If not found, add it
+			if (!found) {
+				clonesCodeCount[cloneinst[1]] = 1;
+				uniqueLinesOfCode += getUnitSize(cloneinst[1]);
+				println("Found a new clone, adding to map...");
+			}
+			
+			// Calculate the real lines of code, excluding comments and blank lines
+			realLinesOfCode += getUnitSize(cloneinst[1]);
+		}
+	}
+	
+	println("There are <realLinesOfCode> real lines of code, of which <uniqueLinesOfCode> are not part of a larger clone.");
+	println("Of 24850 lines of code, <uniqueLinesOfCode / 24850.0 * 100.0>% are duplicate.");
+
+	return <realLinesOfCode, clonesCodeCount>;
 }
 
 @doc {

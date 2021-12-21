@@ -20,6 +20,8 @@ private int volume;
 private int numberOfUnits;
 private CountedList cyclomaticComplexityUnits;
 private CountedList unitSizes;
+private map[node, lrel[node, loc]] clones;
+private CountedMap prunedClones;
 
 private Rank unitSizeScore;
 private Rank volumeScore;
@@ -46,17 +48,17 @@ private void calculateMetrics(loc proj) {
     unitSizes = computeUnitSizes(AST);
     numberOfUnits = calculateProjectNumberOfUnits(AST);
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(AST);
+	clones = calculateClones(AST);
+	prunedClones = pruneSubclones(clones);
     
     unitSizeScore = computeProjectUnitSizeRating(unitSizes);
     volumeScore = computeProjectVolumeRating(volume);
     unitComplexityScore = computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits);
-    duplicationScore = \neutral();
+    duplicationScore = computeDuplicationRating(round(clones.total / numberOfUnits * 100.0));
     
     analyzabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
 	changeabilityScore = computeAggregateRating([unitComplexityScore, duplicationScore]);
 	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore]);
-    
-	map[node, lrel[node, loc]] clones = calculateClones(AST);
 }
 
 
@@ -86,7 +88,7 @@ private str generateReport() {
     * high: <round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     * very high: <round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     -----------------------
-    duplication: <"NOT IMPLEMENTED">
+    duplication: <round(clones.total / numberOfUnits * 100.0)>%
     -----------------------
     unit size score: <toString(unitSizeScore)>
     volume score: <toString(volumeScore)>
