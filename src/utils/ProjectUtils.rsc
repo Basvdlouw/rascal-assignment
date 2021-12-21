@@ -85,7 +85,7 @@ public list[str] getUnitLines(loc unitLocation) {
 }
 
 @doc{
-	Get total lines of a unit, including whitespace and comments
+	Get total lines of a unit, excluding whitespace and comments
 
 	Parameters:
 	- loc unitLocation
