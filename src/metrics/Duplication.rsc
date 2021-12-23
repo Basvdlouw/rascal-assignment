@@ -153,7 +153,8 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 	-bool if the code at loc is 6 or more lines of code
 }
 private bool isValidLoc(loc l) {
-	return (l == |unknown:///| || l.end.line - l.begin.line > 5);
+	// l == |unknown:///| ||
+	return (l != |unknown:///| && l.end.line - l.begin.line > 5);
 }
 
 @doc { 
