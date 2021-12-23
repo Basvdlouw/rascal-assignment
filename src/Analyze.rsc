@@ -12,6 +12,7 @@ import analysis::Volume;
 import analysis::Duplication;
 import analysis::UnitSize;
 import analysis::UnitComplexity;
+import analysis::UnitTesting;
 
 import List;
 import util::Math;
@@ -234,4 +235,12 @@ public CountedList computeUnitSizes(list[Declaration] ast) {
 }
 public Rank computeAggregateRating(list[Rank] ratings) {
 	return toRank(round(toReal((0 | it + toInt(x) | x <- ratings))/size(ratings)));
+}
+
+public real computeProjectUnitTestCoverage(list[Declaration] ast) {
+	return computeUnitTestCoverage(ast);
+}
+
+public list[loc] computeProjectUnitTestAssertCount(list[Declaration] ast) {
+	return computeUnitTestAssertCount(ast);
 }
