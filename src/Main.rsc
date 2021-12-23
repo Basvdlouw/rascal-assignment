@@ -14,7 +14,7 @@ private int CYCLOMATIC_COMPLEXITY_HIGH_RISK = SIG_CYCLOMATIC_COMPLEXITY_HIGH_RIS
 
 public void main() {
  	generateReport(SMALLSQL);
- 	generateReport(HSQLDB);
+ 	//generateReport(HSQLDB);
  	//printReportToFile(SMALLSQL);
  	//printReportToFile(HSQLDB);
 	//visualizeUnitSize(SMALLSQL, UNIT_SIZE_HIGH_RISK);

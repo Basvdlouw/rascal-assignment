@@ -31,6 +31,7 @@ private Rank unitSizeScore;
 private Rank volumeScore;
 private Rank unitComplexityScore;
 private Rank duplicationScore;
+private Rank unitTestingScore;
 
 private Rank analyzabilityScore;
 private Rank changeabilityScore;
@@ -54,19 +55,18 @@ private void calculateMetrics(loc proj) {
     cyclomaticComplexityUnits = calculateProjectCyclomaticComplexityPerUnit(AST);
 	clones = calculateClones(AST);
 	prunedClones = pruneClones(clones);
+    unitTestCoverage = computeProjectUnitTestCoverage(AST);
+    unitTestAsserts = computeProjectUnitTestAssertCount(AST);
     
     unitSizeScore = computeProjectUnitSizeRating(unitSizes);
     volumeScore = computeProjectVolumeRating(volume);
     unitComplexityScore = computeProjectCyclomaticComplexityRating(cyclomaticComplexityUnits);
     duplicationScore = computeProjectDuplicationRating(prunedClones.total / toReal(volume) * 100.0);
+    unitTestingScore = computeProjectUnitTestCoverageRating(unitTestCoverage);
     
     analyzabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
 	changeabilityScore = computeAggregateRating([unitComplexityScore, duplicationScore]);
-	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore]);
-	
-	// UnitTesting	
-    unitTestCoverage = computeProjectUnitTestCoverage(AST);
-    unitTestAsserts = computeProjectUnitTestAssertCount(AST);
+	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore, unitTestingScore]);
 }
 
 
@@ -98,20 +98,22 @@ private str generateReport() {
     -----------------------
     duplication: <round(prunedClones.total / toReal(volume) * 100.0)>%
     -----------------------
+    unit testing:
+    * coverage: <round(unitTestCoverage)>%
+    * number of asserts: <size(unitTestAsserts)>
+    -----------------------
     unit size score: <toString(unitSizeScore)>
     volume score: <toString(volumeScore)>
     unit complexity score: <toString(unitComplexityScore)>
     duplication score: <toString(duplicationScore)>
+    unit testing score: <toString(unitTestingScore)>
     -----------------------
     analyzability score: <toString(analyzabilityScore)>
     changeability score: <toString(changeabilityScore)>
     testability score: <toString(testabilityScore)>
+    stability score: <toString(unitTestingScore)>
     -----------------------
-    overall maintainability score: <toString(computeAggregateRating([analyzabilityScore, changeabilityScore, testabilityScore]))>
-    -----------------------
-    unit testing:
-    * coverage: <round(unitTestCoverage)>%
-    * number of asserts: <size(unitTestAsserts)>
+    overall maintainability score: <toString(computeAggregateRating([analyzabilityScore, changeabilityScore, testabilityScore, unitTestingScore]))>
     ";
 }
 

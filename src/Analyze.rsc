@@ -35,6 +35,8 @@ public Rank computeProjectVolumeRating(int volume) {
     return computeVolumeRating(volume);
 }
 
+//---------------------------
+
 @doc{
     Uses submodule analysis::Duplication
     
@@ -49,6 +51,14 @@ public Rank computeProjectVolumeRating(int volume) {
 public Rank computeProjectDuplicationRating(real duplicationpercentage) {
 	return computeDuplicationRating(duplicationpercentage);
 }
+
+//---------------------------
+
+public Rank computeProjectUnitTestCoverageRating(real coveragepercentage) {
+	return computeUnitTestingRating(coveragepercentage);
+}
+
+//---------------------------
 
 @doc {
     Uses submodule analysis::UnitComplexity
@@ -218,6 +228,8 @@ public CountedList computeUnitSizes(list[Declaration] ast) {
 	return calculateUnitSizes(ast);
 }
 
+//---------------------------
+
 @doc{
 	Computes aggregate rating based on list of ratings
 	
@@ -236,6 +248,8 @@ public CountedList computeUnitSizes(list[Declaration] ast) {
 public Rank computeAggregateRating(list[Rank] ratings) {
 	return toRank(round(toReal((0 | it + toInt(x) | x <- ratings))/size(ratings)));
 }
+
+//---------------------------
 
 public real computeProjectUnitTestCoverage(list[Declaration] ast) {
 	return computeUnitTestCoverage(ast);
