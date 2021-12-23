@@ -29,23 +29,25 @@ public real calculateUnitTestCoverage(list[Declaration] ast) {
 	// We will assume that every function with at least 1 assert is a unit test
 	// This is a dangerous assumption to make
 	// Because we are currently unable to limit to a certain decl loc, we settle for this work-around
+	// We will also only care about methods that are public, assuming private/protected methods are invoked through public methods
+	// This is a common way of working and we will make this assumption
 	map[loc, Declaration] regularMethods = ();	
 	map[loc, Declaration] testMethods = ();
 	int totalAssertCount = 0;
 	
-	for (m <- methods) {
+	for (m <- methods) {	
 		int assertCount = size(calculateAssertCount([methods[m]]));
 		totalAssertCount += assertCount;
 		if (assertCount > 0) {
 			if (!testMethods[m]?) testMethods[m] = methods[m];
 		}
 		else {
-			if (!regularMethods[m]?) regularMethods[m] = methods[m];
+			if (!regularMethods[m]? && isMethodPublic(methods[m])) regularMethods[m] = methods[m];
 		}
 	}
 	
 	println("There are <size(methods)> methods in total");
-	println("There are <size(regularMethods)> regular methods and <size(testMethods)> methods with asserts");
+	println("There are <size(regularMethods)> public methods and <size(testMethods)> unit tests");
 	println("There are <totalAssertCount> asserts in total");
 	
 	// Now we go over each method with an assert to check what methods it calls
@@ -55,6 +57,7 @@ public real calculateUnitTestCoverage(list[Declaration] ast) {
 	// Even if that is not the case, problems these methods should throw exceptions by calling them
 	// We're using the decl attribute to handle uniqueness
 	// This should be where the method is defined, and thus even calls from 2 unit tests to an identical method should only be counted 1x
+	// We don't currently check if the called method is also public, so we may be counting coveredMethods wrong
 	println("Gathering covered methods");
 	map[loc, Expression] coveredMethods = ();
 	
@@ -101,4 +104,14 @@ private bool expressionIsValidAssert(node n, str name) {
 	// But it appears external library calls (?) do not have a valid decl set
 	// So we can't currently do this
 	return (/^assert/i := name);
+}
+
+private bool isMethodPublic(Declaration d) { 
+	visit (d) {
+		case m: \public(): { 
+			return true;
+		}
+	}
+	
+	return false;
 }
