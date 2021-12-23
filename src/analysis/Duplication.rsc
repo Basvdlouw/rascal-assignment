@@ -3,8 +3,6 @@ module analysis::Duplication
 import configuration::constants::sig::SigDuplicationConstants;
 import configuration::data_types::Rank;
 
-import IO;
-
 public Rank computeDuplicationRating(real percentage) {	
 	if (percentage <= SIG_DUPLICATION_PLUS_PLUS) {
 		return \plusplus();

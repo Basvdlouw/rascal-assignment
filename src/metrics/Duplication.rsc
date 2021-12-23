@@ -32,6 +32,8 @@ public map[node, lrel[node, loc]] getClones(list[Declaration] ast, int massThres
 	map[node, lrel[node, loc]] clones = ();
 	map[node, lrel[node, loc]] buckets = ();
 	
+	// Amount of nodes checked, not currently in use
+	// May provide an alternative method of calculating duplication percentage
 	int checkedNodes = 0;
 			
 	// create buckets for all (normalized) nodes where mass > minimumMass
@@ -115,7 +117,7 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 			// Check if cloneinst loc is part of an existing loc, so that we don't count sub-duplicates
 			bool found = false;
 			for (realclone <- clonesCodeCount) {
-				if (isContainedIn(realclone,cloneinst[1])) {
+				if (isContainedIn(cloneinst[1], realclone)) {
 					clonesCodeCount[realclone] += 1;
 					found = true;
 					//println("Found a clone contained within another clone, pruning...");
