@@ -11,6 +11,7 @@ import configuration::constants::Project;
 import analysis::m3::AST; 
 import lang::java::jdt::m3::Core;
 import IO;
+import List;
 
 import Calculate;
 import Analyze;
@@ -23,6 +24,8 @@ private CountedList cyclomaticComplexityUnits;
 private CountedList unitSizes;
 private map[node, lrel[node, loc]] clones;
 private CountedMap prunedClones;
+private real unitTestCoverage;
+private list[loc] unitTestAsserts;
 
 private Rank unitSizeScore;
 private Rank volumeScore;
@@ -44,7 +47,7 @@ private void calculateMetrics(loc proj) {
     
     M3 projectM3 = createM3ModelFromProject(proj);
     list[Declaration] AST = getASTsFromProject(projectM3);
-    
+        
     volume = calculateProjectVolume(projectM3);
     unitSizes = computeUnitSizes(AST);
     numberOfUnits = calculateProjectNumberOfUnits(AST);
@@ -60,6 +63,10 @@ private void calculateMetrics(loc proj) {
     analyzabilityScore = computeAggregateRating([unitSizeScore, duplicationScore, unitSizeScore]);
 	changeabilityScore = computeAggregateRating([unitComplexityScore, duplicationScore]);
 	testabilityScore = computeAggregateRating([unitComplexityScore, unitSizeScore]);
+	
+	// UnitTesting	
+    unitTestCoverage = computeProjectUnitTestCoverage(AST);
+    unitTestAsserts = computeProjectUnitTestAssertCount(AST);
 }
 
 
@@ -89,7 +96,7 @@ private str generateReport() {
     * high: <round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     * very high: <round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     -----------------------
-    duplication: <prunedClones.total / toReal(volume) * 100.0>%
+    duplication: <round(prunedClones.total / toReal(volume) * 100.0)>%
     -----------------------
     unit size score: <toString(unitSizeScore)>
     volume score: <toString(volumeScore)>
@@ -101,6 +108,10 @@ private str generateReport() {
     testability score: <toString(testabilityScore)>
     -----------------------
     overall maintainability score: <toString(computeAggregateRating([analyzabilityScore, changeabilityScore, testabilityScore]))>
+    -----------------------
+    unit testing:
+    * coverage: <round(unitTestCoverage)>%
+    * number of asserts: <size(unitTestAsserts)>
     ";
 }
 
@@ -134,5 +145,3 @@ public void printReportToFile(loc proj) {
 public void printReportToConsole(loc proj) {    
 	println(computeReport(proj));
 }
-
-

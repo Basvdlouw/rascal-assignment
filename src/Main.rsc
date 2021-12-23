@@ -13,10 +13,10 @@ private int UNIT_SIZE_HIGH_RISK = SIG_UNIT_SIZE_HIGH_RISK;
 private int CYCLOMATIC_COMPLEXITY_HIGH_RISK = SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK;
 
 public void main() {
- 	//generateReport(SMALLSQL);
+ 	generateReport(SMALLSQL);
  	//generateReport(HSQLDB);
- 	printReportToFile(SMALLSQL);
- 	printReportToFile(HSQLDB);
+ 	//printReportToFile(SMALLSQL);
+ 	//printReportToFile(HSQLDB);
 	//visualizeUnitSize(SMALLSQL, UNIT_SIZE_HIGH_RISK);
 	//visualizeCyclomaticComplexity(SMALLSQL, CYCLOMATIC_COMPLEXITY_HIGH_RISK);
  }
