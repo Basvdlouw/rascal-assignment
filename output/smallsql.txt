@@ -1,38 +1,37 @@
-
-    smallsql
-    -----------------------
-    lines of code: 24850
-    number of units: 2358
-    -----------------------
-    unit size:
-    * simple: 38.1%
-    * moderate: 15.0%
-    * high: 20.5%
-    * very high: 26.3%
-    -----------------------
-    unit complexity:
-    * simple: 63.0%
-    * moderate: 10.6%
-    * high: 16.9%
-    * very high: 9.5%
-    -----------------------
-    duplication: 15.5%
-    -----------------------
-    unit testing:
-    * coverage: 29.6%
-    * number of asserts: 961
-    -----------------------
-    unit size score: --
-    volume score: ++
-    unit complexity score: --
-    duplication score: -
-    unit testing score: -
-    -----------------------
-    analyzability score: --
-    changeability score: -
-    testability score: --
-    stability score: -
-    -----------------------
-    overall maintainability score: -
-    -----------------------
-    project analyzed in 20.9 seconds
+smallsql
+-----------------------
+lines of code: 24850
+number of units: 2358
+-----------------------
+unit size:
+* simple: 38.1%
+* moderate: 15.0%
+* high: 20.5%
+* very high: 26.3%
+-----------------------
+unit complexity:
+* simple: 63.0%
+* moderate: 10.6%
+* high: 16.9%
+* very high: 9.5%
+-----------------------
+duplication: 15.5%
+-----------------------
+unit testing:
+* coverage: 29.6%
+* number of asserts: 961
+-----------------------
+unit size score: --
+volume score: ++
+unit complexity score: --
+duplication score: -
+unit testing score: -
+-----------------------
+analyzability score: o
+changeability score: -
+stability score: -
+testability score: --
+-----------------------
+overall maintainability score: -
+-----------------------
+project analyzed in 17.3 seconds
