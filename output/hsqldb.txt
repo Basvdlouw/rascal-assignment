@@ -1,38 +1,37 @@
-
-    hsqldb
-    -----------------------
-    lines of code: 160929
-    number of units: 9424
-    -----------------------
-    unit size:
-    * simple: 20%
-    * moderate: 17%
-    * high: 21%
-    * very high: 43%
-    -----------------------
-    unit complexity:
-    * simple: 60%
-    * moderate: 16%
-    * high: 13%
-    * very high: 10%
-    -----------------------
-    duplication: 20%
-    -----------------------
-    unit testing:
-    * coverage: 6%
-    * number of asserts: 691
-    -----------------------
-    unit size score: --
-    volume score: +
-    unit complexity score: --
-    duplication score: -
-    unit testing score: --
-    -----------------------
-    analyzability score: --
-    changeability score: -
-    testability score: --
-    stability score: --
-    -----------------------
-    overall maintainability score: --
-    -----------------------
-    project analyzed in 184 seconds
+hsqldb
+-----------------------
+lines of code: 160929
+number of units: 9424
+-----------------------
+unit size:
+* simple: 19.8%
+* moderate: 16.8%
+* high: 20.6%
+* very high: 42.9%
+-----------------------
+unit complexity:
+* simple: 59.9%
+* moderate: 16.4%
+* high: 13.4%
+* very high: 10.4%
+-----------------------
+duplication: 19.6%
+-----------------------
+unit testing:
+* coverage: 6.0%
+* number of asserts: 691
+-----------------------
+unit size score: --
+volume score: +
+unit complexity score: --
+duplication score: -
+unit testing score: --
+-----------------------
+analyzability score: -
+changeability score: -
+stability score: --
+testability score: --
+-----------------------
+overall maintainability score: -
+-----------------------
+project analyzed in 158.9 seconds

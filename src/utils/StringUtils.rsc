@@ -3,6 +3,9 @@ module utils::StringUtils
 import String;
 import util::Math;
 
+public str SEPARATOR = "-----------------------";
+public str NEW_LINE = "\n";
+
 @doc{
 	Helper function to detect whitespace
 	
