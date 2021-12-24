@@ -25,7 +25,6 @@ CountedList calculateCyclomaticComplexityPerUnit(list[Declaration] asts) {
 	}
 	
 	result.datalist = units;
-	
     return result;
 }
 

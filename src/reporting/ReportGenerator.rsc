@@ -85,21 +85,21 @@ private str generateReport() {
     number of units: <numberOfUnits>
     -----------------------
     unit size:
-    * simple: <round(computeProjectSimpleUnitSizePercentage(unitSizes))>%
-    * moderate: <round(computeProjectModerateUnitSizePercentage(unitSizes))>%
-    * high: <round(computeProjectHighRiskUnitSizePercentage(unitSizes))>%
-    * very high: <round(computeProjectVeryHighRiskUnitSizePercentage(unitSizes))>%
+    * simple: <utils::MathUtils::round(computeProjectSimpleUnitSizePercentage(unitSizes))>%
+    * moderate: <utils::MathUtils::round(computeProjectModerateUnitSizePercentage(unitSizes))>%
+    * high: <utils::MathUtils::round(computeProjectHighRiskUnitSizePercentage(unitSizes))>%
+    * very high: <utils::MathUtils::round(computeProjectVeryHighRiskUnitSizePercentage(unitSizes))>%
     -----------------------
     unit complexity:
-    * simple: <round(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
-    * moderate: <round(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
-    * high: <round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
-    * very high: <round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * simple: <utils::MathUtils::round(computeProjectSimpleCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * moderate: <utils::MathUtils::round(computeProjectModerateCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * high: <utils::MathUtils::round(computeProjectHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
+    * very high: <utils::MathUtils::round(computeProjectVeryHighRiskCyclomaticComplexityPercentage(cyclomaticComplexityUnits))>%
     -----------------------
-    duplication: <round(prunedClones.total / toReal(volume) * 100.0)>%
+    duplication: <utils::MathUtils::round(prunedClones.total / toReal(volume) * 100.0)>%
     -----------------------
     unit testing:
-    * coverage: <round(unitTestCoverage)>%
+    * coverage: <utils::MathUtils::round(unitTestCoverage)>%
     * number of asserts: <size(unitTestAsserts)>
     -----------------------
     unit size score: <toString(unitSizeScore)>
@@ -124,7 +124,7 @@ private str computeReport(loc proj) {
     	report = generateReport();
     });
     report += "-----------------------
-    project analyzed in <round(gentime * 0.000000001)> seconds";
+    project analyzed in <utils::MathUtils::round(gentime * 0.000000001)> seconds";
     return report;
 }
 

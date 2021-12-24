@@ -8,6 +8,7 @@ import configuration::data_types::Rank;
 import configuration::data_types::CountedList;
 
 import analysis::m3::AST;
+
 import analysis::Volume;
 import analysis::Duplication;
 import analysis::UnitSize;
@@ -19,7 +20,6 @@ import util::Math;
 
 import metrics::UnitSize;
 
-import IO;
 @doc{
     Uses submodule analysis::Volume
     
