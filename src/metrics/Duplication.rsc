@@ -3,9 +3,10 @@ module metrics::Duplication
 import configuration::data_types::CountedList;
 import utils::ProjectUtils;
 
-import lang::java::m3::Core;
-import analysis::m3::AST; 
+import analysis::m3::AST;
+ 
 import lang::java::jdt::m3::Core;
+import lang::java::m3::Core;
 import lang::java::m3::AST;
 import lang::java::m3::TypeSymbol;
 
@@ -13,7 +14,6 @@ import List;
 import Node;
 import util::Math;
 import Location;
-import IO;
 
 @doc {
 	Get clones in an AST using a primitive implementation of Clone Detection Using Abstract Syntax Trees

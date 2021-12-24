@@ -11,7 +11,7 @@ module configuration::constants::sig::SigUnitTestingConstants
 	- 	rating = 20-60
 	-- 	rating = 0-20
 }
-public real SIG_UNIT_TESTING_PLUS_PLUS = 95.0;
-public real SIG_UNIT_TESTING_PLUS = 80.0;
-public real SIG_UNIT_TESTING_NEUTRAL = 60.0;
-public real SIG_UNIT_TESTING_MINUS = 20.0;
+public real SIG_UNIT_TESTING_PLUS_PLUS 	= 95.0;
+public real SIG_UNIT_TESTING_PLUS 		= 80.0;
+public real SIG_UNIT_TESTING_NEUTRAL 	= 60.0;
+public real SIG_UNIT_TESTING_MINUS 		= 20.0;
