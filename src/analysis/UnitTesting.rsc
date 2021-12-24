@@ -16,18 +16,18 @@ public list[loc] computeUnitTestAssertCount(list[Declaration] ast) {
 }
 
 public Rank computeUnitTestingRating(real percentage) {	
-	if (percentage < SIG_DUPLICATION_MINUS_MINUS) {
-		return \minusminus();
+	if (percentage >= SIG_UNIT_TESTING_PLUS_PLUS) {
+		return \plusplus();
 	}
-	else if (percentage < SIG_DUPLICATION_MINUS) {
-		return \minus();
-	}
-	else if (percentage < SIG_DUPLICATION_NEUTRAL) {
-		return \neutral();
-	}
-	else if (percentage < SIG_DUPLICATION_PLUS) {
+	else if (percentage >= SIG_UNIT_TESTING_PLUS) {
 		return \plus();
 	}
+	else if (percentage >= SIG_UNIT_TESTING_NEUTRAL) {
+		return \neutral();
+	}
+	else if (percentage >= SIG_UNIT_TESTING_MINUS) {
+		return \minus();
+	}
 	
-	return \plusplus();
+	return \minusminus();
 }

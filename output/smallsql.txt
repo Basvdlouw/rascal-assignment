@@ -5,28 +5,34 @@
     number of units: 2358
     -----------------------
     unit size:
-    * simple: 38.1%
-    * moderate: 15.0%
-    * high: 20.5%
-    * very high: 26.3%
+    * simple: 38%
+    * moderate: 15%
+    * high: 21%
+    * very high: 26%
     -----------------------
     unit complexity:
-    * simple: 63.0%
-    * moderate: 10.6%
-    * high: 16.9%
-    * very high: 9.5%
+    * simple: 63%
+    * moderate: 11%
+    * high: 17%
+    * very high: 10%
     -----------------------
-    duplication: NOT IMPLEMENTED
+    duplication: 15%
+    -----------------------
+    unit testing:
+    * coverage: 30%
+    * number of asserts: 961
     -----------------------
     unit size score: --
     volume score: ++
     unit complexity score: --
-    duplication score: o
+    duplication score: -
+    unit testing score: -
     -----------------------
-    analyzability score: -
+    analyzability score: --
     changeability score: -
     testability score: --
+    stability score: -
     -----------------------
     overall maintainability score: -
     -----------------------
-    project analyzed in 29.3 seconds
+    project analyzed in 21 seconds
