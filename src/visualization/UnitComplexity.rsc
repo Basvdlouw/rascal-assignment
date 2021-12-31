@@ -2,13 +2,10 @@ module visualization::UnitComplexity
 
 import Calculate;
 import configuration::data_types::CountedList;
-import analysis::m3::AST; 
-import util::Editors;
+import utils::Visualization;
+
 import vis::Render;
 import vis::Figure;
-import vis::KeySym;
-import Map;
-import util::Math;
 
 @doc{
 	Visualize cyclomatic complexity per unit
@@ -20,23 +17,11 @@ import util::Math;
 }
 public void visualizeCyclomaticComplexity(loc project, int cyclomaticComplexityRiskLevel) {
 	CountedList unitCoc = calculateProjectCyclomaticComplexityPerUnit(project);
-	render("<project.authority> unit cyclomatic complexity treemap", treemap(
+	render("<project.authority> Cyclomatic Complexity", treemap(
 			[ 
-				createBoxByCyclomaticComplexity(<unit, coc>)
+				createUnitInteractiveBox(<unit, coc>)
 				| <unit,coc> <- unitCoc.datalist, coc >= cyclomaticComplexityRiskLevel
 			])		
 	);
 }
 
-// Same function as in visualization::unitSize should generalize in utils module
-private Figure createBoxByCyclomaticComplexity(tuple[Declaration unit, int coc] unitCoc) {
-	return box(text(toString(unitCoc.coc)),
-				area(unitCoc.coc), 
-				fillColor(arbColor()),
-				onMouseDown(bool (int mouseButton, map[KeyModifier, bool] _) {
-					if(mouseButton == 1) // 1 is left mouse button
-						edit(unitCoc.unit.src);
-					return true;
-				})
-			);;
-}
