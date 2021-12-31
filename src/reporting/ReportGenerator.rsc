@@ -47,10 +47,10 @@ private str generateReport(loc project, M3 m3, list[Declaration] ast) {
 }
 
 private str computeReport(loc project) {
-	M3 m3 = createM3ModelFromProject(project);
-	list[Declaration] ast = getASTs(m3);
 	str report = "";
     int gentime = cpuTime(() {
+    	M3 m3 = createM3ModelFromProject(project);
+		list[Declaration] ast = getASTs(m3);
     	report = generateReport(project, m3, ast);
     });
     report += NEW_LINE + SEPARATOR + NEW_LINE + "project analyzed in <round(gentime * 0.000000001)> seconds";

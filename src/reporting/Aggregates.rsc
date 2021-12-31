@@ -1,12 +1,10 @@
 module reporting::Aggregates
 
 import configuration::data_types::Rank;
-import configuration::data_types::CountedList;
 
 import Calculate;
 import Analyze;
 
-import utils::MathUtils;
 import utils::StringUtils;
 
 import reporting::Volume;
