@@ -24,15 +24,14 @@ public void visualize() {
 	);
 }
 
-// should make these high risk constants configurable in menu
-// should give some loading feedback
+// should give some loading feedback if possible
 private void loadMenu(loc project) {
   return render(WINDOW_NAME, vcat(
   			[
   				text("Selected Project: <project.authority>"),
   				button("Select different project", void() {render(WINDOW_NAME, createProjectSelector());}),
-  				button("Visualize Unit Sizes", void() {visualizeUnitSizes(project, SIG_UNIT_SIZE_HIGH_RISK);}),
-  				button("Visualize Cyclomatic Complexity", void() {visualizeCyclomaticComplexity(project, SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK);})
+  				button("Visualize Unit Sizes", void() {visualizeUnitSizes(project);}),
+  				button("Visualize Cyclomatic Complexity", void() {visualizeCyclomaticComplexity(project);})
   			]
   		)
   	);
