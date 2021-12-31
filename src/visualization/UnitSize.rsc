@@ -1,15 +1,14 @@
 module visualization::UnitSize
 
 import utils::ProjectUtils;
+import utils::Visualization;
+
 import Calculate;
 import Map;
 import analysis::m3::AST; 
-import util::Editors;
-import util::Math;
 
 import vis::Render;
 import vis::Figure;
-import vis::KeySym;
 
 @doc{
 	Visualizes units by unit size. Units less than the provided risk level are not shown in the visualization.
@@ -21,22 +20,10 @@ import vis::KeySym;
 }
 public void visualizeUnitSizes(loc project, int unitSizeRiskLevel) {
 	map[Declaration, int] unitSizes = calculateProjectUnitSizePerUnit(project);
-	render("<project.authority> unit size treemap", treemap(
+	render("<project.authority> Unit Size", treemap(
 			[ 
-				createBoxByUnitSize(<unit, size>)
+				createUnitInteractiveBox(<unit, size>)
 				| <unit,size> <- toRel(unitSizes), size >= unitSizeRiskLevel
 			])		
 	);
-}
-
-private Figure createBoxByUnitSize(tuple[Declaration unit, int size] unitSize) {
-	return box(text(toString(unitSize.size)),
-				area(unitSize.size), 
-				fillColor(arbColor()),
-				onMouseDown(bool (int mouseButton, map[KeyModifier, bool] _) {
-					if(mouseButton == 1) // 1 is left mouse button
-						edit(unitSize.unit.src);
-					return true;
-				})
-			);;
 }

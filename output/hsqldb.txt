@@ -34,4 +34,4 @@ testability score: --
 -----------------------
 overall maintainability score: -
 -----------------------
-project analyzed in 158.9 seconds
+project analyzed in 186.2 seconds
