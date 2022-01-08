@@ -54,11 +54,13 @@ public class BasicTestCase extends TestCase {
     }
     
     private static String makeNameValid(String name){
-    	return name.replace(',' , ';').replace('(','{');
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return name.replace(',' , ';').replace('(','{');
+}
     
     void dropTable(Connection con, String name) throws SQLException{
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			Statement st = con.createStatement();
 			st.execute("drop table "+name);
 			st.close();
@@ -69,18 +71,20 @@ public class BasicTestCase extends TestCase {
             }
             throw e;
         }
-    }
+}
 
     void dropView(Connection con, String name){
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			Statement st = con.createStatement();
 			st.execute("drop view "+name);
 			st.close();
 		} catch (SQLException e) {/* ignore it, if the view not exist */}
-    }
+}
 
 	public void assertRSMetaData( ResultSet rs, String[] colNames, int[] types) throws Exception{
-		ResultSetMetaData rm = rs.getMetaData();
+System.out.println(new Throwable().getStackTrace()[0]);
+ResultSetMetaData rm = rs.getMetaData();
 		int count = rm.getColumnCount();
 		assertEquals( "Column count:", colNames.length, count);
 		for(int i=1; i<=count; i++){
@@ -96,20 +100,22 @@ public class BasicTestCase extends TestCase {
 					break;
 			}
 		}
-	}
+}
 	
 	private final static char[] digits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	private static String bytes2hex( byte[] bytes ){
-		StringBuffer buf = new StringBuffer(bytes.length << 1);
+System.out.println(new Throwable().getStackTrace()[0]);
+StringBuffer buf = new StringBuffer(bytes.length << 1);
 		for(int i=0; i<bytes.length; i++){
 			buf.append( digits[ (bytes[i] >> 4) & 0x0F ] );
 			buf.append( digits[ (bytes[i]     ) & 0x0F ] );
 		}
 		return buf.toString();
-	}
+}
 	
 	public void assertEqualsObject( String msg, Object obj1, Object obj2 ){
-		if(obj1 instanceof byte[]){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj1 instanceof byte[]){
 			if(!java.util.Arrays.equals( (byte[])obj1, (byte[])obj2)){
 				fail(msg + " expected:" + bytes2hex((byte[])obj1)+ " but was:"+bytes2hex((byte[])obj2));
 			}
@@ -119,10 +125,11 @@ public class BasicTestCase extends TestCase {
 		
 			assertEquals( msg, obj1, obj2);
 		}
-	}
+}
 	
     public void assertEqualsObject( String msg, Object obj1, Object obj2, boolean needTrim ){
-        if(needTrim && obj1 != null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(needTrim && obj1 != null){
             // trim for CHAR and BINARY
             if(obj1 instanceof String) obj1 = ((String)obj1).trim();
             if(obj1 instanceof byte[]){
@@ -149,19 +156,21 @@ public class BasicTestCase extends TestCase {
 			}
 		}
 		assertEqualsObject( msg, obj1, obj2);
-    }
+}
     
     
 	void assertRowCount(int sollCount, String sql ) throws Exception{
-		Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery(sql);
         assertRowCount(sollCount,rs);
-    }
+}
     
     
     void assertRowCount(int sollCount, ResultSet rs ) throws Exception{
-		int colCount = rs.getMetaData().getColumnCount();
+System.out.println(new Throwable().getStackTrace()[0]);
+int colCount = rs.getMetaData().getColumnCount();
 		int count = 0;
 		//System.out.println(sql);
 		while(rs.next()){
@@ -182,33 +191,36 @@ public class BasicTestCase extends TestCase {
             }
 		}
 		assertFalse( "Scroll after last", rs.next() );
-	}
+}
 
 	
     /**
      * Identical to the Implementation from Utils.string2boolean
      */
     private boolean string2boolean( String val){
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             return Double.parseDouble( val ) != 0;
         }catch(NumberFormatException e){/*ignore it if it not a number*/}
         return "true".equalsIgnoreCase( val ) || "yes".equalsIgnoreCase( val ) || "t".equalsIgnoreCase( val );
-    }
+}
 	
 	/**
 	 * Test a single Value of a the ResultSet that was produce from the SQL
 	 */
    	void assertEqualsRsValue(Object obj, String sql) throws Exception{
-		Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		assertTrue( "No row produce", rs.next());
         assertEqualsRsValue(obj,rs,false);
-    }
+}
     
     
     void assertEqualsRsValue(Object obj, ResultSet rs, boolean needTrim) throws Exception{
-        String name = rs.getMetaData().getColumnName(1);
+System.out.println(new Throwable().getStackTrace()[0]);
+String name = rs.getMetaData().getColumnName(1);
 		assertEqualsObject( "Values not identical on read:", obj, rs.getObject(name), needTrim);
 		if(obj instanceof Time){
 			assertEquals("Time is different:", obj, rs.getTime(name) );
@@ -330,35 +342,37 @@ public class BasicTestCase extends TestCase {
 				assertTrue( "DisplaySize to small "+ expectedLen +"<"+foundStr.length()+" (" + foundStr + ")", expectedLen >= foundStr.length() );
 			}
 		}
-   	}
+}
     
     
     void assertSQLException(String sqlstate, int vendorCode, SQLException ex) {
-        StringWriter sw = new StringWriter();
+System.out.println(new Throwable().getStackTrace()[0]);
+StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw));
         assertEquals( "Vendor Errorcode:"+sw, vendorCode, ex.getErrorCode() );
         assertEquals( "SQL State:"+sw, sqlstate, ex.getSQLState());
-    }
+}
     
 
    	
 	void printSQL(String sql) throws SQLException{
-		Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		printRS( rs );
-	}
+}
 	
    	void printRS(ResultSet rs) throws SQLException{
-   		int count = rs.getMetaData().getColumnCount();
+System.out.println(new Throwable().getStackTrace()[0]);
+int count = rs.getMetaData().getColumnCount();
 		while(rs.next()){ 
 			for(int i=1; i<=count; i++){
 				System.out.print(rs.getString(i) + '\t');
 			} 
 			System.out.println();
 		}
-
-   	}
+}
    	
    	/**
 	 * Returns the localized 3-letters month.
@@ -368,6 +382,7 @@ public class BasicTestCase extends TestCase {
 	 * @return 3-letters month.
 	 */
    	static String getMonth3L(int ordinal) {
-   		return MONTHS[ordinal - 1];
-   	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return MONTHS[ordinal - 1];
+}
 }

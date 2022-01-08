@@ -72,67 +72,75 @@ abstract class Command {
      * @see SQLParser#insert()
      */
     void addColumnExpression( Expression column ) throws SQLException{
-        columnExpressions.add( column );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+columnExpressions.add( column );
+}
 
     void addParameter( ExpressionValue param ){
-        params.add( param );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+params.add( param );
+}
 	
 
     /**
      * check if all parameters are set
      */
     void verifyParams() throws SQLException{
-        for(int p=0; p<params.size(); p++){
+System.out.println(new Throwable().getStackTrace()[0]);
+for(int p=0; p<params.size(); p++){
             if(((ExpressionValue)params.get(p)).isEmpty())
             	throw SmallSQLException.create(Language.PARAM_EMPTY, new Integer(p+1));
         }
-    }
+}
 
     /**
      * Clear all parameters of a PreparedStatement
      */
     void clearParams(){
-        for(int p=0; p<params.size(); p++){
+System.out.println(new Throwable().getStackTrace()[0]);
+for(int p=0; p<params.size(); p++){
             ((ExpressionValue)params.get(p)).clear();
         }
-    }
+}
 
 	/**
 	 * Get a PreparedStatement parameter.
 	 * The idx starts with 1.
 	 */
 	private ExpressionValue getParam(int idx) throws SQLException{
-		if(idx < 1 || idx > params.size())
+System.out.println(new Throwable().getStackTrace()[0]);
+if(idx < 1 || idx > params.size())
 			throw SmallSQLException.create(Language.PARAM_IDX_OUT_RANGE, new Object[] { new Integer(idx), new Integer(params.size())});
 		return ((ExpressionValue)params.get(idx-1));
-	}
+}
 	
     /**
      * Set value of a PreparedStatement parameter.
      * The idx starts with 1.
      */
     void setParamValue(int idx, Object value, int dataType) throws SQLException{
-		getParam(idx).set( value, dataType );
+System.out.println(new Throwable().getStackTrace()[0]);
+getParam(idx).set( value, dataType );
 		if(log.isLogging()){
 			log.println("param"+idx+'='+value+"; type="+dataType);
 		}
-    }
+}
 
 	/**
 	 * Set value of a PreparedStatement parameter.
 	 * The idx starts with 1.
 	 */
 	void setParamValue(int idx, Object value, int dataType, int length) throws SQLException{
-		getParam(idx).set( value, dataType, length );
+System.out.println(new Throwable().getStackTrace()[0]);
+getParam(idx).set( value, dataType, length );
 		if(log.isLogging()){
 			log.println("param"+idx+'='+value+"; type="+dataType+"; length="+length);
 		}
-	}
+}
 
     final void execute(SSConnection con, SSStatement st) throws SQLException{
-    	int savepoint = con.getSavepoint();
+System.out.println(new Throwable().getStackTrace()[0]);
+int savepoint = con.getSavepoint();
         try{
             executeImpl( con, st );
         }catch(Throwable e){
@@ -141,23 +149,26 @@ abstract class Command {
         }finally{
             if(con.getAutoCommit()) con.commit();
         }
-    }
+}
 
     abstract void executeImpl(SSConnection con, SSStatement st) throws Exception;
 
     SSResultSet getQueryResult() throws SQLException{
-        if(rs == null)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(rs == null)
         	throw SmallSQLException.create(Language.RSET_NOT_PRODUCED);
         return rs;
-    }
+}
 
     SSResultSet getResultSet(){
-        return rs;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return rs;
+}
 
     int getUpdateCount(){
-        return updateCount;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return updateCount;
+}
     
     
     /**
@@ -165,17 +176,23 @@ abstract class Command {
      * @return ever false
      */
     boolean getMoreResults(){
-    	rs = null;
+System.out.println(new Throwable().getStackTrace()[0]);
+rs = null;
     	updateCount = -1;
     	return false;
-    }
+}
     
     
     /**
      * Set the max rows. Need to be override in the Commands that support it. 
      */
-	void setMaxRows(int max){/* Empty because not supported for the most Commands */}
+	void setMaxRows(int max){
+System.out.println(new Throwable().getStackTrace()[0]);
+}
     
     
-    int getMaxRows(){return -1;}
+    int getMaxRows(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return -1;
+}
 }

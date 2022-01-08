@@ -42,48 +42,56 @@ public class SSResultSetMetaData implements ResultSetMetaData {
     Expressions columns;
 
     public int getColumnCount() throws SQLException {
-        return columns.size();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return columns.size();
+}
     
     
     public boolean isAutoIncrement(int column) throws SQLException {
-        return getColumnExpression( column ).isAutoIncrement();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).isAutoIncrement();
+}
     
     
     public boolean isCaseSensitive(int column) throws SQLException {
-        return getColumnExpression( column ).isCaseSensitive();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).isCaseSensitive();
+}
     
     
     public boolean isSearchable(int column) throws SQLException {
-    	int type = getColumnExpression( column ).getType();
+System.out.println(new Throwable().getStackTrace()[0]);
+int type = getColumnExpression( column ).getType();
         return type == Expression.NAME || type == Expression.FUNCTION;
-    }
+}
     
     
     public boolean isCurrency(int column) throws SQLException {
-        switch(getColumnExpression( column ).getDataType()){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(getColumnExpression( column ).getDataType()){
             case SQLTokenizer.MONEY:
             case SQLTokenizer.SMALLMONEY:
                 return true;
         }
         return false;
-    }
+}
     
     
     public int isNullable(int column) throws SQLException {
-        return getColumnExpression( column ).isNullable() ? columnNullable : columnNoNulls;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).isNullable() ? columnNullable : columnNoNulls;
+}
     
     
     public boolean isSigned(int column) throws SQLException {
-		return isSignedDataType(getColumnExpression( column ).getDataType());
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return isSignedDataType(getColumnExpression( column ).getDataType());
+}
     
     
 	static boolean isSignedDataType(int dataType) {
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.SMALLINT:
 			case SQLTokenizer.INT:
 			case SQLTokenizer.BIGINT:
@@ -97,16 +105,18 @@ public class SSResultSetMetaData implements ResultSetMetaData {
 				return true;
 		}
 		return false;
-	}
+}
 	
     
 	static boolean isNumberDataType(int dataType) {
-		return isSignedDataType(dataType) || dataType == SQLTokenizer.TINYINT;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return isSignedDataType(dataType) || dataType == SQLTokenizer.TINYINT;
+}
 	
     
 	static boolean isBinaryDataType(int dataType) {
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.BINARY:
 			case SQLTokenizer.VARBINARY:
 			case SQLTokenizer.LONGVARBINARY:
@@ -114,11 +124,12 @@ public class SSResultSetMetaData implements ResultSetMetaData {
 				return true;
 		}
 		return false;
-	}
+}
 	
 	
 	static int getDisplaySize(int dataType, int precision, int scale){
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.BIT:
 				return 1; // 1 and 0
 			case SQLTokenizer.BOOLEAN:
@@ -155,11 +166,12 @@ public class SSResultSetMetaData implements ResultSetMetaData {
 			default:
 				return precision;
 		}
-	}
+}
 	
     
 	static int getDataTypePrecision(int dataType, int defaultValue){
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.NULL:
 				return 0;
 			case SQLTokenizer.BIT:
@@ -212,50 +224,64 @@ public class SSResultSetMetaData implements ResultSetMetaData {
 		if(defaultValue == -1)
 			throw new Error("Precision:"+SQLTokenizer.getKeyWord(dataType));
 		return defaultValue;
-	}
+}
 	
 	
     public int getColumnDisplaySize(int column) throws SQLException {
-        return getColumnExpression( column ).getDisplaySize();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).getDisplaySize();
+}
     public String getColumnLabel(int column) throws SQLException {
-        return getColumnExpression( column ).getAlias();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).getAlias();
+}
     public String getColumnName(int column) throws SQLException {
-        return getColumnExpression( column ).getAlias();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).getAlias();
+}
     public String getSchemaName(int column) throws SQLException {
-        return null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
     public int getPrecision(int column) throws SQLException {
-        return getColumnExpression( column ).getPrecision();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).getPrecision();
+}
     public int getScale(int column) throws SQLException {
-        return getColumnExpression( column ).getScale();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).getScale();
+}
     public String getTableName(int column) throws SQLException {
-        return getColumnExpression( column ).getTableName();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).getTableName();
+}
     public String getCatalogName(int column) throws SQLException {
-        return null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
     public int getColumnType(int column) throws SQLException {
-        return SQLTokenizer.getSQLDataType(getColumnExpression( column ).getDataType() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.getSQLDataType(getColumnExpression( column ).getDataType() );
+}
     public String getColumnTypeName(int column) throws SQLException {
-        return SQLTokenizer.getKeyWord( getColumnExpression( column ).getDataType() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.getKeyWord( getColumnExpression( column ).getDataType() );
+}
     public boolean isReadOnly(int column) throws SQLException {
-        return !getColumnExpression( column ).isDefinitelyWritable();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return !getColumnExpression( column ).isDefinitelyWritable();
+}
     public boolean isWritable(int column) throws SQLException {
-        return getColumnExpression( column ).isDefinitelyWritable();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).isDefinitelyWritable();
+}
     public boolean isDefinitelyWritable(int column) throws SQLException {
-        return getColumnExpression( column ).isDefinitelyWritable();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getColumnExpression( column ).isDefinitelyWritable();
+}
     public String getColumnClassName(int column) throws SQLException {
-        switch(getColumnType(column)){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(getColumnType(column)){
             case Types.TINYINT:
             case Types.SMALLINT:
             case Types.INTEGER:
@@ -294,7 +320,7 @@ public class SSResultSetMetaData implements ResultSetMetaData {
                     return "java.sql.Clob";
             default: return "java.lang.Object";
         }
-    }
+}
 
 /*========================================================
 
@@ -303,28 +329,30 @@ private methods
 =========================================================*/
 
 	final int getColumnIdx( int column ) throws SQLException{
-		if(column < 1 || column > columns.size())
+System.out.println(new Throwable().getStackTrace()[0]);
+if(column < 1 || column > columns.size())
 			throw SmallSQLException.create( Language.COL_IDX_OUT_RANGE, String.valueOf(column));
 		return column-1;
-	}
+}
 
     final Expression getColumnExpression( int column ) throws SQLException{
-        return columns.get( getColumnIdx( column ) );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return columns.get( getColumnIdx( column ) );
+}
 
 
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 
 }

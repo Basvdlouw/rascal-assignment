@@ -52,15 +52,17 @@ public class TableStorePage extends StorePage{
 	   
     
     byte[] getData(){
-    	return page;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return page;
+}
 
 
     /**
      * Returns the final position of the page back.
      */
     long commit() throws SQLException{
-		if(nextLock != null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(nextLock != null){
 			// save only the last version of this page
 			fileOffset = nextLock.commit();
 			nextLock = null;
@@ -70,10 +72,11 @@ public class TableStorePage extends StorePage{
     	if(lockType == TableView.LOCK_READ)
     		return fileOffset;
     	return super.commit();
-    }
+}
 
     
     final void freeLock(){
-    	table.freeLock(this);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+table.freeLock(this);
+}
 }

@@ -50,585 +50,698 @@ final class SSDatabaseMetaData implements DatabaseMetaData {
 	}
 	
     public boolean allProceduresAreCallable() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean allTablesAreSelectable() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public String getURL() throws SQLException {
-    	Database database = con.getDatabase(true);
+System.out.println(new Throwable().getStackTrace()[0]);
+Database database = con.getDatabase(true);
     	if(database == null)
 			return SSDriver.URL_PREFIX;
     	return SSDriver.URL_PREFIX + ':' + database.getName();
-    }
+}
 	
 	
     public String getUserName() {
-    	return "";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "";
+}
 	
 	
     public boolean isReadOnly() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean nullsAreSortedHigh() {
-		return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean nullsAreSortedLow() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean nullsAreSortedAtStart() {
-		return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean nullsAreSortedAtEnd() {
-		return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public String getDatabaseProductName() {
-    	return "SmallSQL Database";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "SmallSQL Database";
+}
 	
 	
     public String getDatabaseProductVersion() {
-    	return getDriverVersion();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDriverVersion();
+}
 	
 	
     public String getDriverName(){
-    	return "SmallSQL Driver";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "SmallSQL Driver";
+}
 	
 	
     public String getDriverVersion() {
-    	return getDriverMajorVersion() + "." + SSDriver.drv.getMinorVersion();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDriverMajorVersion() + "." + SSDriver.drv.getMinorVersion();
+}
 	
 	
     public int getDriverMajorVersion() {
-    	return SSDriver.drv.getMajorVersion();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return SSDriver.drv.getMajorVersion();
+}
 	
 	
     public int getDriverMinorVersion() {
-		return SSDriver.drv.getMinorVersion();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return SSDriver.drv.getMinorVersion();
+}
 	
 	
     public boolean usesLocalFiles() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean usesLocalFilePerTable() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsMixedCaseIdentifiers() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean storesUpperCaseIdentifiers() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean storesLowerCaseIdentifiers() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean storesMixedCaseIdentifiers() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsMixedCaseQuotedIdentifiers() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean storesUpperCaseQuotedIdentifiers() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean storesLowerCaseQuotedIdentifiers() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean storesMixedCaseQuotedIdentifiers() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public String getIdentifierQuoteString() {
-    	return "\"";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "\"";
+}
 	
 	
     public String getSQLKeywords() {
-    	return "database,use";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "database,use";
+}
     
     
     private String getFunctions(int from, int to){
-		StringBuffer buf = new StringBuffer();
+System.out.println(new Throwable().getStackTrace()[0]);
+StringBuffer buf = new StringBuffer();
 		for(int i=from; i<=to; i++){
 			if(i != from) buf.append(',');
 			buf.append( SQLTokenizer.getKeyWord(i) );
 		}
 		return buf.toString();
-    }
+}
     
     
     public String getNumericFunctions() {
-    	return getFunctions(SQLTokenizer.ABS, SQLTokenizer.TRUNCATE);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getFunctions(SQLTokenizer.ABS, SQLTokenizer.TRUNCATE);
+}
     
     
     public String getStringFunctions() {
-		return getFunctions(SQLTokenizer.ASCII, SQLTokenizer.UCASE);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getFunctions(SQLTokenizer.ASCII, SQLTokenizer.UCASE);
+}
     
     
     public String getSystemFunctions() {
-		return getFunctions(SQLTokenizer.IFNULL, SQLTokenizer.IIF);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getFunctions(SQLTokenizer.IFNULL, SQLTokenizer.IIF);
+}
     
     
     public String getTimeDateFunctions() {
-		return getFunctions(SQLTokenizer.CURDATE, SQLTokenizer.YEAR);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getFunctions(SQLTokenizer.CURDATE, SQLTokenizer.YEAR);
+}
     
     
     public String getSearchStringEscape() {
-    	return "\\";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "\\";
+}
     
     
     public String getExtraNameCharacters() {
-    	return "#$Ã€Ã�Ã‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃ�ÃŽÃ�Ã�Ã‘Ã’Ã“Ã”Ã•Ã–Ã˜Ã™ÃšÃ›ÃœÃ�ÃžÃŸÃ Ã¡Ã¢Ã£Ã¤Ã¥Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¾Ã¿";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "#$Ãƒâ‚¬Ãƒï¿½Ãƒâ€šÃƒÆ’Ãƒâ€žÃƒâ€¦Ãƒâ€ Ãƒâ€¡ÃƒË†Ãƒâ€°ÃƒÅ Ãƒâ€¹ÃƒÅ’Ãƒï¿½ÃƒÅ½Ãƒï¿½Ãƒï¿½Ãƒâ€˜Ãƒâ€™Ãƒâ€œÃƒâ€�Ãƒâ€¢Ãƒâ€“ÃƒËœÃƒâ„¢ÃƒÅ¡Ãƒâ€ºÃƒÅ“Ãƒï¿½ÃƒÅ¾ÃƒÅ¸ÃƒÂ ÃƒÂ¡ÃƒÂ¢ÃƒÂ£ÃƒÂ¤ÃƒÂ¥ÃƒÂ¦ÃƒÂ§ÃƒÂ¨ÃƒÂ©ÃƒÂªÃƒÂ«ÃƒÂ¬ÃƒÂ­ÃƒÂ®ÃƒÂ¯ÃƒÂ°ÃƒÂ±ÃƒÂ²ÃƒÂ³ÃƒÂ´ÃƒÂµÃƒÂ¶ÃƒÂ¸ÃƒÂ¹ÃƒÂºÃƒÂ»ÃƒÂ¼ÃƒÂ½ÃƒÂ¾ÃƒÂ¿";
+}
 	
 	
     public boolean supportsAlterTableWithAddColumn() {
-        /**@todo: Implement this java.sql.DatabaseMetaData method*/
-        throw new java.lang.UnsupportedOperationException("Method supportsAlterTableWithAddColumn() not yet implemented.");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw new java.lang.UnsupportedOperationException("Method supportsAlterTableWithAddColumn() not yet implemented.");
+}
     public boolean supportsAlterTableWithDropColumn() {
-        /**@todo: Implement this java.sql.DatabaseMetaData method*/
-        throw new java.lang.UnsupportedOperationException("Method supportsAlterTableWithDropColumn() not yet implemented.");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw new java.lang.UnsupportedOperationException("Method supportsAlterTableWithDropColumn() not yet implemented.");
+}
 	
 	
     public boolean supportsColumnAliasing() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean nullPlusNonNullIsNull() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsConvert() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsConvert(int fromType, int toType) {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsTableCorrelationNames() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsDifferentTableCorrelationNames() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsExpressionsInOrderBy() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsOrderByUnrelated() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsGroupBy() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsGroupByUnrelated() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsGroupByBeyondSelect() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsLikeEscapeClause() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsMultipleResultSets() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsMultipleTransactions() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsNonNullableColumns() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsMinimumSQLGrammar() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsCoreSQLGrammar() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsExtendedSQLGrammar() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsANSI92EntryLevelSQL() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsANSI92IntermediateSQL() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsANSI92FullSQL() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsIntegrityEnhancementFacility() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsOuterJoins() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsFullOuterJoins() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsLimitedOuterJoins() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public String getSchemaTerm() {
-    	return "owner";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "owner";
+}
 	
 	
     public String getProcedureTerm() {
-    	return "procedure";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "procedure";
+}
 	
 	
     public String getCatalogTerm() {
-    	return "database";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return "database";
+}
 	
 	
     public boolean isCatalogAtStart() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public String getCatalogSeparator() {
-    	return ".";
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return ".";
+}
 	
 	
     public boolean supportsSchemasInDataManipulation() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsSchemasInProcedureCalls() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsSchemasInTableDefinitions() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsSchemasInIndexDefinitions() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsSchemasInPrivilegeDefinitions() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsCatalogsInDataManipulation() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsCatalogsInProcedureCalls() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsCatalogsInTableDefinitions() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsCatalogsInIndexDefinitions() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsCatalogsInPrivilegeDefinitions() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsPositionedDelete() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsPositionedUpdate() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsSelectForUpdate() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsStoredProcedures() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsSubqueriesInComparisons() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsSubqueriesInExists() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsSubqueriesInIns() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsSubqueriesInQuantifieds() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsCorrelatedSubqueries() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsUnion() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsUnionAll() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsOpenCursorsAcrossCommit() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsOpenCursorsAcrossRollback() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsOpenStatementsAcrossCommit() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsOpenStatementsAcrossRollback() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public int getMaxBinaryLiteralLength() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxCharLiteralLength() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxColumnNameLength() {
-    	return 255;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 255;
+}
 	
 	
     public int getMaxColumnsInGroupBy() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxColumnsInIndex() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxColumnsInOrderBy() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxColumnsInSelect() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxColumnsInTable() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxConnections() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxCursorNameLength() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxIndexLength() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxSchemaNameLength() {
-    	return 255;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 255;
+}
 	
 	
     public int getMaxProcedureNameLength() {
-    	return 255;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 255;
+}
 	
 	
     public int getMaxCatalogNameLength() {
-    	return 255;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 255;
+}
 	
 	
     public int getMaxRowSize() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public boolean doesMaxRowSizeIncludeBlobs() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public int getMaxStatementLength() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxStatements() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxTableNameLength() {
-    	return 255;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 255;
+}
 	
 	
     public int getMaxTablesInSelect() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getMaxUserNameLength() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getDefaultTransactionIsolation() {
-    	return Connection.TRANSACTION_READ_COMMITTED;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Connection.TRANSACTION_READ_COMMITTED;
+}
 	
 	
     public boolean supportsTransactions() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsTransactionIsolationLevel(int level) {
-    	switch(level){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(level){
 			case Connection.TRANSACTION_NONE:
 			case Connection.TRANSACTION_READ_UNCOMMITTED:
     		case Connection.TRANSACTION_READ_COMMITTED:
@@ -637,45 +750,52 @@ final class SSDatabaseMetaData implements DatabaseMetaData {
 				return true;
     	}
     	return false;
-    }
+}
 	
 	
     public boolean supportsDataDefinitionAndDataManipulationTransactions() {
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsDataManipulationTransactionsOnly() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean dataDefinitionCausesTransactionCommit() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean dataDefinitionIgnoredInTransactions() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public ResultSet getProcedures(String catalog, String schemaPattern, String procedureNamePattern) throws SQLException {
-		String[] colNames = {"PROCEDURE_CAT", "PROCEDURE_SCHEM", "PROCEDURE_NAME", "", "", "", "REMARKS", "PROCEDURE_TYPE"};  
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"PROCEDURE_CAT", "PROCEDURE_SCHEM", "PROCEDURE_NAME", "", "", "", "REMARKS", "PROCEDURE_TYPE"};  
 		Object[][] data   = new Object[0][];
 		return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
 	
     public ResultSet getProcedureColumns(String catalog, String schemaPattern, String procedureNamePattern, String columnNamePattern) throws SQLException {
-		String[] colNames = {"PROCEDURE_CAT", "PROCEDURE_SCHEM", "PROCEDURE_NAME", "COLUMN_NAME", "COLUMN_TYPE", "DATA_TYPE", "TYPE_NAME", "PRECISION", "LENGTH", "SCALE", "RADIX", "NULLABLE", "REMARKS" };
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"PROCEDURE_CAT", "PROCEDURE_SCHEM", "PROCEDURE_NAME", "COLUMN_NAME", "COLUMN_TYPE", "DATA_TYPE", "TYPE_NAME", "PRECISION", "LENGTH", "SCALE", "RADIX", "NULLABLE", "REMARKS" };
 		Object[][] data   = new Object[0][];
 		return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
 	
     public ResultSet getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) throws SQLException {
-		String[] colNames = {"TABLE_CAT","TABLE_SCHEM","TABLE_NAME","TABLE_TYPE","REMARKS","TYPE_CAT","TYPE_SCHEM","TYPE_NAME","SELF_REFERENCING_COL_NAME","REF_GENERATION"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TABLE_CAT","TABLE_SCHEM","TABLE_NAME","TABLE_TYPE","REMARKS","TYPE_CAT","TYPE_SCHEM","TYPE_NAME","SELF_REFERENCING_COL_NAME","REF_GENERATION"};
 		Database database;
 		if(catalog == null){ 
 			database = con.getDatabase(true);
@@ -724,111 +844,124 @@ final class SSDatabaseMetaData implements DatabaseMetaData {
 		order.add( new ExpressionName("TABLE_NAME") );
 		cmdSelect.setOrder( order );
 		return new SSResultSet( st, cmdSelect);
-    }
+}
 	
 	
     public ResultSet getSchemas() throws SQLException {
-		String[] colNames = {"TABLE_SCHEM"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TABLE_SCHEM"};
 		Object[][] data   = new Object[0][];
 		return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
     
     public ResultSet getCatalogs() throws SQLException {
-    	String[] colNames = {"TABLE_CAT"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TABLE_CAT"};
     	Object[][] data   = Database.getCatalogs(con.getDatabase(true));
     	return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
     
     public ResultSet getTableTypes() throws SQLException {
-		String[] colNames = {"TABLE_TYPE"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TABLE_TYPE"};
 		Object[][] data   = {{"SYSTEM TABLE"}, {"TABLE"}, {"VIEW"}};
 		return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
     
     public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) throws SQLException {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "COLUMN_NAME", "DATA_TYPE", "TYPE_NAME", "COLUMN_SIZE", "BUFFER_LENGTH", "DECIMAL_DIGITS", "NUM_PREC_RADIX", "NULLABLE", "REMARKS", "COLUMN_DEF", "SQL_DATA_TYPE", "SQL_DATETIME_SUB", "CHAR_OCTET_LENGTH", "ORDINAL_POSITION", "IS_NULLABLE"};
 			Object[][] data   = con.getDatabase(false).getColumns(con, tableNamePattern, columnNamePattern);
 			return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
 		} catch (Exception e) {
 			throw SmallSQLException.createFromException(e);
 		}
-    }
+}
 	
 	
     public ResultSet getColumnPrivileges(String catalog, String schema, String table, String columnNamePattern) throws SQLException {
-        String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "COLUMN_NAME", "GRANTOR", "GRANTEE", "PRIVILEGE", "IS_GRANTABLE"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "COLUMN_NAME", "GRANTOR", "GRANTEE", "PRIVILEGE", "IS_GRANTABLE"};
         /**@todo: Implement this java.sql.DatabaseMetaData method*/
         throw new java.lang.UnsupportedOperationException("Method getColumnPrivileges() not yet implemented.");
-    }
+}
     
     
     public ResultSet getTablePrivileges(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
-        String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "GRANTOR", "GRANTEE", "PRIVILEGE", "IS_GRANTABLE"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "GRANTOR", "GRANTEE", "PRIVILEGE", "IS_GRANTABLE"};
         /**@todo: Implement this java.sql.DatabaseMetaData method*/
         throw new java.lang.UnsupportedOperationException("Method getTablePrivileges() not yet implemented.");
-    }
+}
 	
 	
     public ResultSet getBestRowIdentifier(String catalog, String schema, String table, int scope, boolean nullable) throws SQLException {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			String[] colNames = {"SCOPE", "COLUMN_NAME", "DATA_TYPE", "TYPE_NAME", "COLUMN_SIZE", "BUFFER_LENGTH", "DECIMAL_DIGITS", "PSEUDO_COLUMN"};
 			Object[][] data   = con.getDatabase(false).getBestRowIdentifier(con, table);
 			return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
 		} catch (Exception e) {
 			throw SmallSQLException.createFromException(e);
 		}
-    }
+}
 	
 	
     public ResultSet getVersionColumns(String catalog, String schema, String table) throws SQLException {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			String[] colNames = {"SCOPE", "COLUMN_NAME", "DATA_TYPE", "TYPE_NAME", "COLUMN_SIZE", "BUFFER_LENGTH", "DECIMAL_DIGITS", "PSEUDO_COLUMN"};
 			Object[][] data   = new Object[0][0];
 			return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
 		} catch (Exception e) {
 			throw SmallSQLException.createFromException(e);
 		}
-    }
+}
 	
 	
     public ResultSet getPrimaryKeys(String catalog, String schema, String table) throws SQLException {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "COLUMN_NAME", "KEY_SEQ", "PK_NAME"};
 			Object[][] data   = con.getDatabase(false).getPrimaryKeys(con, table);
 			return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
 		} catch (Exception e) {
 			throw SmallSQLException.createFromException(e);
 		}
-    }
+}
 	
 	
     public ResultSet getImportedKeys(String catalog, String schema, String table) throws SQLException {
-		return getCrossReference( null, null, null, null, null, table );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getCrossReference( null, null, null, null, null, table );
+}
 	
 	
     public ResultSet getExportedKeys(String catalog, String schema, String table) throws SQLException {
-		return getCrossReference( null, null, table, null, null, null );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getCrossReference( null, null, table, null, null, null );
+}
 	
 	
     public ResultSet getCrossReference(String primaryCatalog, String primarySchema, String primaryTable, String foreignCatalog, String foreignSchema, String foreignTable) throws SQLException {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			String[] colNames = {"PKTABLE_CAT", "PKTABLE_SCHEM", "PKTABLE_NAME", "PKCOLUMN_NAME", "FKTABLE_CAT", "FKTABLE_SCHEM", "FKTABLE_NAME", "FKCOLUMN_NAME", "KEY_SEQ", "UPDATE_RULE", "DELETE_RULE", "FK_NAME", "PK_NAME", "DEFERRABILITY"};
 			Object[][] data   = con.getDatabase(false).getReferenceKeys(con, primaryTable, foreignTable);
 			return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
 		} catch (Exception e) {
 			throw SmallSQLException.createFromException(e);
 		}
-    }
+}
 	
 	
     public ResultSet getTypeInfo() throws SQLException {
-		String[] colNames = {		"TYPE_NAME", 				"DATA_TYPE", 																	"PRECISION", 	"LITERAL_PREFIX", "LITERAL_SUFFIX", 		"CREATE_PARAMS", "NULLABLE", 	 "CASE_SENSITIVE", "SEARCHABLE", "UNSIGNED_ATTRIBUTE", "FIXED_PREC_SCALE", "AUTO_INCREMENT", "LOCAL_TYPE_NAME", "MINIMUM_SCALE", "MAXIMUM_SCALE", "SQL_DATA_TYPE", "SQL_DATETIME_SUB", "NUM_PREC_RADIX"};
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {		"TYPE_NAME", 				"DATA_TYPE", 																	"PRECISION", 	"LITERAL_PREFIX", "LITERAL_SUFFIX", 		"CREATE_PARAMS", "NULLABLE", 	 "CASE_SENSITIVE", "SEARCHABLE", "UNSIGNED_ATTRIBUTE", "FIXED_PREC_SCALE", "AUTO_INCREMENT", "LOCAL_TYPE_NAME", "MINIMUM_SCALE", "MAXIMUM_SCALE", "SQL_DATA_TYPE", "SQL_DATETIME_SUB", "NUM_PREC_RADIX"};
 		Object[][] data   = {
 		 {SQLTokenizer.getKeyWord(SQLTokenizer.UNIQUEIDENTIFIER),Utils.getShort(SQLTokenizer.getSQLDataType( SQLTokenizer.UNIQUEIDENTIFIER)), Utils.getInteger(36),      	"'",  "'",  null, 				Utils.getShort(typeNullable), Boolean.FALSE, Utils.getShort(typeSearchable), null,          Boolean.FALSE, Boolean.FALSE, null, null,                null,                null, null, null},
 		 {SQLTokenizer.getKeyWord(SQLTokenizer.BIT),             Utils.getShort(SQLTokenizer.getSQLDataType( SQLTokenizer.BIT) ),             Utils.getInteger(1),      	null, null, null, 				Utils.getShort(typeNullable), Boolean.FALSE, Utils.getShort(typeSearchable), null,          Boolean.FALSE, Boolean.FALSE, null, Utils.getInteger(0), Utils.getInteger(0), null, null, null},
@@ -864,234 +997,262 @@ final class SSDatabaseMetaData implements DatabaseMetaData {
 		};
 		//TODO add more data types to the list
 		return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
 	
     public ResultSet getIndexInfo(String catalog, String schema, String table, boolean unique, boolean approximate) throws SQLException {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			String[] colNames = {"TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "NON_UNIQUE", "INDEX_QUALIFIER", "INDEX_NAME", "TYPE", "ORDINAL_POSITION", "COLUMN_NAME", "ASC_OR_DESC", "CARDINALITY", "PAGES", "FILTER_CONDITION"};
 			Object[][] data   = con.getDatabase(false).getIndexInfo(con, table, unique);
 			return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
 		} catch (Exception e) {
 			throw SmallSQLException.createFromException(e);
 		}
-    }
+}
 	
 	
     public boolean supportsResultSetType(int type) {
-		switch(type){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(type){
 			case ResultSet.TYPE_FORWARD_ONLY:
 			case ResultSet.TYPE_SCROLL_INSENSITIVE:
 			case ResultSet.TYPE_SCROLL_SENSITIVE:
 				return true;
 		}
 		return false;
-    }
+}
 	
 	
     public boolean supportsResultSetConcurrency(int type, int concurrency) {
-		if(type >= ResultSet.TYPE_FORWARD_ONLY && type <= ResultSet.TYPE_SCROLL_SENSITIVE &&
+System.out.println(new Throwable().getStackTrace()[0]);
+if(type >= ResultSet.TYPE_FORWARD_ONLY && type <= ResultSet.TYPE_SCROLL_SENSITIVE &&
 			concurrency >= ResultSet.CONCUR_READ_ONLY && concurrency <= ResultSet.CONCUR_UPDATABLE)
 			return true;
 		return false;
-    }
+}
 	
 	
     public boolean ownUpdatesAreVisible(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean ownDeletesAreVisible(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 
 	
 	public boolean ownInsertsAreVisible(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean othersUpdatesAreVisible(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean othersDeletesAreVisible(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean othersInsertsAreVisible(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean updatesAreDetected(int type) {
-		return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean deletesAreDetected(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean insertsAreDetected(int type) {
-		return supportsResultSetType(type);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return supportsResultSetType(type);
+}
 	
 	
     public boolean supportsBatchUpdates() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public ResultSet getUDTs(String catalog, String schemaPattern, String typeNamePattern, int[] types) throws SQLException {
-		String[] colNames = {"TYPE_CAT", "TYPE_SCHEM", "TYPE_NAME", "CLASS_NAME", "DATA_TYPE", "REMARKS"};        
+System.out.println(new Throwable().getStackTrace()[0]);
+String[] colNames = {"TYPE_CAT", "TYPE_SCHEM", "TYPE_NAME", "CLASS_NAME", "DATA_TYPE", "REMARKS"};        
 		Object[][] data   = new Object[0][];
 		return new SSResultSet( st, Utils.createMemoryCommandSelect( con, colNames, data));
-    }
+}
 	
 	
     public Connection getConnection() {
-    	return con;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return con;
+}
 	
 	
     public boolean supportsSavepoints() {
-    	return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsNamedParameters() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsMultipleOpenResults() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public boolean supportsGetGeneratedKeys() {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
-        /**@todo: Implement this java.sql.DatabaseMetaData method*/
-        throw new java.lang.UnsupportedOperationException("Method getSuperTypes() not yet implemented.");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw new java.lang.UnsupportedOperationException("Method getSuperTypes() not yet implemented.");
+}
     public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
-        /**@todo: Implement this java.sql.DatabaseMetaData method*/
-        throw new java.lang.UnsupportedOperationException("Method getSuperTables() not yet implemented.");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw new java.lang.UnsupportedOperationException("Method getSuperTables() not yet implemented.");
+}
     public ResultSet getAttributes(String catalog, String schemaPattern, String typeNamePattern, String attributeNamePattern) throws SQLException {
-        /**@todo: Implement this java.sql.DatabaseMetaData method*/
-        throw new java.lang.UnsupportedOperationException("Method getAttributes() not yet implemented.");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw new java.lang.UnsupportedOperationException("Method getAttributes() not yet implemented.");
+}
 	
 	
     public boolean supportsResultSetHoldability(int holdability) {
-		return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 	
     public int getResultSetHoldability() {
-		return ResultSet.HOLD_CURSORS_OVER_COMMIT;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return ResultSet.HOLD_CURSORS_OVER_COMMIT;
+}
 	
 	
     public int getDatabaseMajorVersion() {
-    	return getDriverMajorVersion();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDriverMajorVersion();
+}
 	
 	
     public int getDatabaseMinorVersion() {
-		return getDriverMinorVersion();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDriverMinorVersion();
+}
 	
 	
     public int getJDBCMajorVersion() {
-    	return 3;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 3;
+}
 	
 	
     public int getJDBCMinorVersion() {
-    	return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
 	
 	
     public int getSQLStateType() {
-		return sqlStateSQL99;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return sqlStateSQL99;
+}
 	
 	
     public boolean locatorsUpdateCopy() {
-		return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	
     public boolean supportsStatementPooling() {
-		return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public RowIdLifetime getRowIdLifetime() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public ResultSet getSchemas(String catalog, String schemaPattern)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public boolean autoCommitFailureClosesAllResultSets() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public ResultSet getClientInfoProperties() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public ResultSet getFunctions(String catalog, String schemaPattern,
 			String functionNamePattern) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public ResultSet getFunctionColumns(String catalog, String schemaPattern,
 			String functionNamePattern, String columnNamePattern)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 }

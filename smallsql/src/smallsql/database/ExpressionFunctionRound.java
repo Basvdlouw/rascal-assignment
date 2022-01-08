@@ -35,15 +35,20 @@ package smallsql.database;
 
 final class ExpressionFunctionRound extends ExpressionFunctionReturnP1Number {
 
-    final int getFunction(){ return SQLTokenizer.ROUND; }
+    final int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.ROUND;
+}
 
     boolean isNull() throws Exception{
-        return param1.isNull() || param2.isNull();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return param1.isNull() || param2.isNull();
+}
 	
 
     final double getDouble() throws Exception{
-		if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
 		final int places = param2.getInt();
 		double value = param1.getDouble();
 		long factor = 1;
@@ -65,7 +70,7 @@ final class ExpressionFunctionRound extends ExpressionFunctionReturnP1Number {
 			value *= factor;
 		}
 		return value;
-    }
+}
 	
 
 }

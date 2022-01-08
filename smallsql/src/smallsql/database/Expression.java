@@ -57,38 +57,48 @@ abstract class Expression implements Cloneable{
 	}
 	
 	protected Object clone() throws CloneNotSupportedException{
-		return super.clone();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return super.clone();
+}
 	
-	final String getName(){ 
-		return name; 
-	}
+	final String getName(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return name;
+}
 
-	final void setName(String name){ 
-		this.alias = this.name = name; 
-	}
+	final void setName(String name){
+System.out.println(new Throwable().getStackTrace()[0]);
+this.alias = this.name = name;
+}
 
-	final String getAlias(){ 
-		return alias; 
-	}
+	final String getAlias(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return alias;
+}
 
-	final void setAlias(String alias){ 
-		this.alias = alias; 
-	}
+	final void setAlias(String alias){
+System.out.println(new Throwable().getStackTrace()[0]);
+this.alias = alias;
+}
 
     void setParams( Expression[] params ){
-        this.params = params;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.params = params;
+}
     
     /**
      * Replace the idx parameter. You need to use this method to modify the <code>params</code> 
      * array because there there can be other references to the <code>params</code>. 
      */
     void setParamAt( Expression param, int idx){
-    	params[idx] = param;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+params[idx] = param;
+}
 
-    final Expression[] getParams(){ return params; }
+    final Expression[] getParams(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return params;
+}
     
     /**
      * Optimize the expression after a command was compiled. 
@@ -96,18 +106,20 @@ abstract class Expression implements Cloneable{
      * @throws SQLException 
      */
     void optimize() throws SQLException{
-        if(params != null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(params != null){
             for(int p=0; p<params.length; p++){
                 params[p].optimize();
             }
         }
-    }
+}
 
 	/**
 	 * Is used in GroupResult.
 	 */
 	public boolean equals(Object expr){
-		if(!(expr instanceof Expression)) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!(expr instanceof Expression)) return false;
 		if( ((Expression)expr).type == type){
 			
 			Expression[] p1 = ((Expression)expr).params;
@@ -125,7 +137,7 @@ abstract class Expression implements Cloneable{
 			if(name1.equalsIgnoreCase(name2)) return true;
 		}
 		return false;
-	}
+}
 
     
     abstract boolean isNull() throws Exception;
@@ -147,12 +159,13 @@ abstract class Expression implements Cloneable{
     abstract Object getObject() throws Exception;
 
 	final Object getApiObject() throws Exception{
-		Object obj = getObject();
+System.out.println(new Throwable().getStackTrace()[0]);
+Object obj = getObject();
 		if(obj instanceof Mutable){
 			return ((Mutable)obj).getImmutableObject();
 		}
 		return obj;
-	}
+}
 
     abstract String getString() throws Exception;
 
@@ -160,7 +173,10 @@ abstract class Expression implements Cloneable{
 
     abstract int getDataType();
 
-    final int getType(){return type;}
+    final int getType(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return type;
+}
 
 	/*=======================================================================
 	 
@@ -169,23 +185,27 @@ abstract class Expression implements Cloneable{
 	=======================================================================*/
 
 	String getTableName(){
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 	
 
 	int getPrecision(){
-		return SSResultSetMetaData.getDataTypePrecision( getDataType(), -1 );
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return SSResultSetMetaData.getDataTypePrecision( getDataType(), -1 );
+}
 	
 	
 	
 	int getScale(){
-		return getScale(getDataType());
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return getScale(getDataType());
+}
 	
 	
 	final static int getScale(int dataType){
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.MONEY:
 			case SQLTokenizer.SMALLMONEY:
 				return 4;
@@ -196,28 +216,33 @@ abstract class Expression implements Cloneable{
 				return 38;
 			default: return 0;
 		}
-	}
+}
 
 
 	int getDisplaySize(){
-		return SSResultSetMetaData.getDisplaySize(getDataType(), getPrecision(), getScale());
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return SSResultSetMetaData.getDisplaySize(getDataType(), getPrecision(), getScale());
+}
 
 	boolean isDefinitelyWritable(){
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	boolean isAutoIncrement(){
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	boolean isCaseSensitive(){
-		return false; 
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	boolean isNullable(){
-		return true; 
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 
 
     static final int VALUE      = 1;

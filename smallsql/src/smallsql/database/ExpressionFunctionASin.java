@@ -35,10 +35,14 @@ package smallsql.database;
 
 final class ExpressionFunctionASin extends ExpressionFunctionReturnFloat {
 
-    final int getFunction(){ return SQLTokenizer.ASIN; }
+    final int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.ASIN;
+}
 
     final double getDouble() throws Exception{
-		if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         return Math.asin( param1.getDouble() );
-    }
+}
 }

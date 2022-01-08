@@ -66,7 +66,8 @@ public class TestDataTypes extends BasicTestCase{
     }
 
     public void tearDown(){
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
             st.execute("drop table " + table);
@@ -74,14 +75,16 @@ public class TestDataTypes extends BasicTestCase{
         }catch(Throwable e){
             //e.printStackTrace();
         }
-    }
+}
 
     public void setUp(){
-        tearDown();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+tearDown();
+}
 
     public void runTest() throws Throwable {
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         st.execute("Create Table " + table +"(abc " + datatype + ")");
         String name = "abc";
@@ -100,7 +103,7 @@ public class TestDataTypes extends BasicTestCase{
             case Types.VARCHAR:
             case Types.LONGVARCHAR:
             case Types.CLOB:
-                values = new Object[]{null,"qwert", "asdfg", "hjhjhj", "1234567890 qwertzuiop 1234567890 asdfghjklö 1234567890 yxcvbnm,.- 1234567890 "};
+                values = new Object[]{null,"qwert", "asdfg", "hjhjhj", "1234567890 qwertzuiop 1234567890 asdfghjklÃ¶ 1234567890 yxcvbnm,.- 1234567890 "};
                 quote  = "\'";
                 break;
             case Types.BIGINT:
@@ -309,11 +312,12 @@ public class TestDataTypes extends BasicTestCase{
         }
         st2.close();
         checkValues( st, values, needTrim);
-    }
+}
 	
 	
 	private void checkValues(Statement st, Object[] values, boolean needTrim) throws Exception{
-        ResultSet rs = st.executeQuery("SELECT * From " + table);
+System.out.println(new Throwable().getStackTrace()[0]);
+ResultSet rs = st.executeQuery("SELECT * From " + table);
 
         int i = 0;
         while(rs.next()){
@@ -321,18 +325,20 @@ public class TestDataTypes extends BasicTestCase{
             i++;
         }
         rs.close();
-	}
+}
 
 
     public static Test suite() throws Exception{
-        TestSuite theSuite = new TestSuite("Data Types");
+System.out.println(new Throwable().getStackTrace()[0]);
+TestSuite theSuite = new TestSuite("Data Types");
         for(int i=0; i<DATATYPES.length; i++){
             theSuite.addTest(new TestDataTypes( DATATYPES[i] ) );
         }
         return theSuite;
-    }
+}
 
     public static void main(String[] argv) {
-        junit.swingui.TestRunner.main(new String[]{TestDataTypes.class.getName()});
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+junit.swingui.TestRunner.main(new String[]{TestDataTypes.class.getName()});
+}
 }

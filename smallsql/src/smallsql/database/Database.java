@@ -65,7 +65,8 @@ final class Database{
 	 * @param create   if the database not exist then create it
 	 */
     static Database getDatabase(String name, SSConnection con, boolean create) throws SQLException{
-        if(name == null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(name == null){
             return null;
         }
         if(name.startsWith("file:")){
@@ -91,14 +92,15 @@ final class Database{
             db.connections.put(con, null);
             return db;
         }
-    }
+}
     
     
     private static Database getDatabase(SSConnection con, String name) throws SQLException{
-		return name == null ?
+System.out.println(new Throwable().getStackTrace()[0]);
+return name == null ?
 					con.getDatabase(false) :
 					getDatabase( name, con, false );
-    }
+}
     
 
     /**
@@ -126,19 +128,22 @@ final class Database{
     }
 
     String getName(){
-        return name;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return name;
+}
     
 	boolean isReadOnly(){
-	    return readonly;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return readonly;
+}
 	
 
 	/**
 	 * Remove a connection from this database.
 	 */
 	static final void closeConnection(SSConnection con) throws SQLException{
-		synchronized(databases){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(databases){
 			Iterator iterator = databases.values().iterator();
 			while(iterator.hasNext()){
 				Database database = (Database)iterator.next();
@@ -154,14 +159,15 @@ final class Database{
 				}
 			}
 		}
-	}
+}
 	
 
 	/**
 	 * Close all tables and views of this Database.
 	 */
 	private final void close() throws Exception{
-		synchronized(tableViews){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(tableViews){
 			Iterator iterator = tableViews.values().iterator();
 			while(iterator.hasNext()){
 				TableView tableView = (TableView)iterator.next();
@@ -170,11 +176,12 @@ final class Database{
 			}
 		}
 		master.close();
-	}
+}
 	
     static TableView getTableView(SSConnection con, String catalog, String tableName) throws SQLException{
-    	return getDatabase( con, catalog).getTableView( con, tableName);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDatabase( con, catalog).getTableView( con, tableName);
+}
 
     
     /**
@@ -185,7 +192,8 @@ final class Database{
      * @throws SQLException if the table or view does not exists
      */
     TableView getTableView(SSConnection con, String tableName) throws SQLException{
-        synchronized(tableViews){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(tableViews){
             TableView tableView = tableViews.get(tableName);
             if(tableView == null){
                 // FIXME it should block only one table and not all tables, loading of the table should outside of the global synchronized
@@ -194,16 +202,18 @@ final class Database{
             }
             return tableView;
         }
-    }
+}
     
 
 	static void dropTable(SSConnection con, String catalog, String tableName) throws Exception{
-		getDatabase( con, catalog).dropTable( con, tableName);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+getDatabase( con, catalog).dropTable( con, tableName);
+}
 	
 
     void dropTable(SSConnection con, String tableName) throws Exception{
-        synchronized(tableViews){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(tableViews){
             Table table = (Table)tableViews.get( tableName );
             if(table != null){
 				tableViews.remove( tableName );
@@ -212,7 +222,7 @@ final class Database{
             	Table.drop( this, tableName );
             }
         }
-    }
+}
     
     
     /**
@@ -220,14 +230,16 @@ final class Database{
      * @param tableViewName the name of the object
      */
     void removeTableView(String tableViewName){
-        synchronized(tableViews){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(tableViews){
             tableViews.remove( tableViewName );
         }
-    }
+}
     
     
     void replaceTable( Table oldTable, Table newTable) throws Exception{
-        synchronized(tableViews){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(tableViews){
             tableViews.remove( oldTable.name );
             tableViews.remove( newTable.name );
             oldTable.close();
@@ -244,34 +256,37 @@ final class Database{
             }
             tmpFile.delete();
         }
-    }
+}
     
 
 	static void dropView(SSConnection con, String catalog, String tableName) throws Exception{
-		getDatabase( con, catalog).dropView(tableName);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+getDatabase( con, catalog).dropView(tableName);
+}
 	
 
 	void dropView(String viewName) throws Exception{
-		synchronized(tableViews){
+System.out.println(new Throwable().getStackTrace()[0]);
+synchronized(tableViews){
 			Object view = tableViews.remove( viewName );
 			if(view != null && !(view instanceof View))
 				throw SmallSQLException.create(Language.VIEWDROP_NOT_VIEW, viewName);
 			
 			View.drop( this, viewName );
 		}
-	}
+}
     
     
     private void checkForeignKeys( SSConnection con, ForeignKeys foreignKeys ) throws SQLException{
-        for(int i=0; i<foreignKeys.size(); i++){
+System.out.println(new Throwable().getStackTrace()[0]);
+for(int i=0; i<foreignKeys.size(); i++){
             ForeignKey foreignKey = foreignKeys.get(i);
             TableView pkTable = getTableView(con, foreignKey.pkTable);
             if(!(pkTable instanceof Table)){
                 throw SmallSQLException.create(Language.FK_NOT_TABLE, foreignKey.pkTable);
             }
         }
-    }
+}
     
 
     /**
@@ -283,34 +298,35 @@ final class Database{
      * @throws Exception
      */
 	void createTable(SSConnection con, String name, Columns columns, IndexDescriptions indexes, ForeignKeys foreignKeys) throws Exception{
-        checkForeignKeys( con, foreignKeys );
+System.out.println(new Throwable().getStackTrace()[0]);
+checkForeignKeys( con, foreignKeys );
         // createFile() can run only one Thread success (it is atomic)
         // Thats the create of the Table does not need in the Synchronized.
         Table table = new Table( this, con, name, columns, indexes, foreignKeys);
         synchronized(tableViews){
             tableViews.put( name, table);
         }
-    }
+}
 
 
     /**
      * It is used to create temp Table for ALTER TABLE and co.
      */
     Table createTable(SSConnection con, String tableName, Columns columns, IndexDescriptions oldIndexes, IndexDescriptions newIndexes, ForeignKeys foreignKeys) throws Exception{
-        checkForeignKeys( con, foreignKeys );
+System.out.println(new Throwable().getStackTrace()[0]);
+checkForeignKeys( con, foreignKeys );
         Table table = new Table( this, con, tableName, columns, oldIndexes, newIndexes, foreignKeys);
         synchronized(tableViews){
             tableViews.put( tableName, table);
         }
         return table;
-    }
+}
     
     
 	void createView(SSConnection con, String viewName, String sql) throws Exception{
-		// createFile() can run only one Thread success (it is atomic)
-		// Thats the create of the View does not need in the Synchronized.
-		new View( this, con, viewName, sql);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+new View( this, con, viewName, sql);
+}
 
 
     /**
@@ -320,7 +336,8 @@ final class Database{
      * @return
      */
     static Object[][] getCatalogs(Database database){
-    	List catalogs = new ArrayList();
+System.out.println(new Throwable().getStackTrace()[0]);
+List catalogs = new ArrayList();
     	File baseDir = (database != null) ?
     					database.directory.getParentFile() :
 						new File(".");
@@ -338,11 +355,12 @@ final class Database{
 		Object[][] result = new Object[catalogs.size()][];
 		catalogs.toArray(result);
 		return result;
-    }
+}
 	
     
 	Strings getTables(String tablePattern){
-		Strings list = new Strings();
+System.out.println(new Throwable().getStackTrace()[0]);
+Strings list = new Strings();
 		File dirs[] = directory.listFiles();    
 		if(dirs != null)
 			if(tablePattern == null) tablePattern = "%"; 
@@ -354,11 +372,12 @@ final class Database{
 				}
 			}
     	return list;
-    }
+}
 	
     
     Object[][] getColumns( SSConnection con, String tablePattern, String colPattern) throws Exception{
-    	List rows = new ArrayList();
+System.out.println(new Throwable().getStackTrace()[0]);
+List rows = new ArrayList();
 		Strings tables = getTables(tablePattern);
     	for(int i=0; i<tables.size(); i++){
     		String tableName = tables.get(i);
@@ -395,11 +414,12 @@ final class Database{
 		Object[][] result = new Object[rows.size()][];
 		rows.toArray(result);
 		return result;
-    }
+}
 	
 	
 	Object[][] getReferenceKeys(SSConnection con, String pkTable, String fkTable) throws SQLException{
-		List rows = new ArrayList();
+System.out.println(new Throwable().getStackTrace()[0]);
+List rows = new ArrayList();
 		Strings tables = (pkTable != null) ? getTables(pkTable) : getTables(fkTable);
 		for(int t=0; t<tables.size(); t++){
     		String tableName = tables.get(t);
@@ -437,12 +457,13 @@ final class Database{
 		}
 		Object[][] result = new Object[rows.size()][];
 		rows.toArray(result);
-		return result;		
-	}
+		return result;
+}
 	
 	
 	Object[][] getBestRowIdentifier(SSConnection con, String table) throws SQLException{
-		List rows = new ArrayList();
+System.out.println(new Throwable().getStackTrace()[0]);
+List rows = new ArrayList();
 		Strings tables = getTables(table);
 		for(int t=0; t<tables.size(); t++){
     		String tableName = tables.get(t);
@@ -473,12 +494,13 @@ final class Database{
 		}
 		Object[][] result = new Object[rows.size()][];
 		rows.toArray(result);
-		return result;		
-	}
+		return result;
+}
 
 	
 	Object[][] getPrimaryKeys(SSConnection con, String table) throws SQLException{
-		List rows = new ArrayList();
+System.out.println(new Throwable().getStackTrace()[0]);
+List rows = new ArrayList();
 		Strings tables = getTables(table);
 		for(int t=0; t<tables.size(); t++){
     		String tableName = tables.get(t);
@@ -504,12 +526,13 @@ final class Database{
 		}
 		Object[][] result = new Object[rows.size()][];
 		rows.toArray(result);
-		return result;		
-	}
+		return result;
+}
 	
 	
 	Object[][] getIndexInfo( SSConnection con, String table, boolean unique) throws SQLException {
-		List rows = new ArrayList();
+System.out.println(new Throwable().getStackTrace()[0]);
+List rows = new ArrayList();
 		Strings tables = getTables(table);
 		Short type = Utils.getShort( DatabaseMetaData.tableIndexOther );
 		for(int t=0; t<tables.size(); t++){
@@ -542,5 +565,5 @@ final class Database{
 		Object[][] result = new Object[rows.size()][];
 		rows.toArray(result);
 		return result;
-	}
+}
 }

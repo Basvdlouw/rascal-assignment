@@ -56,11 +56,12 @@ public class SSDriver implements Driver {
     
 
     public Connection connect(String url, Properties info) throws SQLException{
-        if(!acceptsURL(url)){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!acceptsURL(url)){
             return null;
         }
         return new SSConnection(parse(url, info));
-    }
+}
 
 
     /**
@@ -73,7 +74,8 @@ public class SSDriver implements Driver {
      * @return a new Properties object
      */
     private Properties parse(String url, Properties info) throws SQLException {
-        Properties props = (Properties)info.clone();
+System.out.println(new Throwable().getStackTrace()[0]);
+Properties props = (Properties)info.clone();
         if(!acceptsURL(url)){
             return props;
         }
@@ -101,34 +103,39 @@ public class SSDriver implements Driver {
             }
         }
         return props;
-    }
+}
 
 
     public boolean acceptsURL(String url){
-        return url.startsWith(URL_PREFIX);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return url.startsWith(URL_PREFIX);
+}
 
 
     public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
     throws SQLException {
-        Properties props = parse(url, info);
+System.out.println(new Throwable().getStackTrace()[0]);
+Properties props = parse(url, info);
         DriverPropertyInfo[] driverInfos = new DriverPropertyInfo[1];
         driverInfos[0] = new DriverPropertyInfo("dbpath", props.getProperty("dbpath"));
         return driverInfos;
-    }
+}
     
     
     public int getMajorVersion() {
-        return 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 0;
+}
     
     
     public int getMinorVersion() {
-        return 21;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return 21;
+}
     
     
     public boolean jdbcCompliant() {
-        return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 }

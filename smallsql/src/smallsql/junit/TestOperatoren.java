@@ -93,7 +93,8 @@ public class TestOperatoren extends BasicTestCase {
     }
 
     public void tearDown(){
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
             st.execute("drop table " + table);
@@ -101,10 +102,11 @@ public class TestOperatoren extends BasicTestCase {
         }catch(Throwable e){
             //e.printStackTrace();
         }
-    }
+}
 
     public void setUp(){
-        tearDown();
+System.out.println(new Throwable().getStackTrace()[0]);
+tearDown();
         try{
             Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
@@ -143,11 +145,12 @@ public class TestOperatoren extends BasicTestCase {
         }catch(Throwable e){
             e.printStackTrace();
         }
-    }
+}
 
 
     public void runTest() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         ResultSet rs;
 
@@ -248,29 +251,32 @@ public class TestOperatoren extends BasicTestCase {
 		pr.close();
 
         st.close();
-    }
+}
 
     public static Test suite() throws Exception{
-        TestSuite theSuite = new TestSuite("Operatoren");
+System.out.println(new Throwable().getStackTrace()[0]);
+TestSuite theSuite = new TestSuite("Operatoren");
         for(int i=0; i<TESTS.length; i++){
             theSuite.addTest(new TestOperatoren( TESTS[i] ) );
         }
         return theSuite;
-    }
+}
 
     public static void main(String[] argv) {
-        junit.swingui.TestRunner.main(new String[]{TestOperatoren.class.getName()});
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+junit.swingui.TestRunner.main(new String[]{TestOperatoren.class.getName()});
+}
 
 
 
     private static TestValue a(String dataType, Object small, Object large){
-        TestValue value = new TestValue();
+System.out.println(new Throwable().getStackTrace()[0]);
+TestValue value = new TestValue();
         value.dataType  = dataType;
         value.small     = small;
         value.large     = large;
         return value;
-    }
+}
 
     private static class TestValue{
         String dataType;

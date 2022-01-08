@@ -58,19 +58,22 @@ abstract class ExpressionFunction extends Expression {
     abstract int getFunction();
 
     byte[] getBytes() throws Exception{
-        return ExpressionValue.getBytes(getObject(), getDataType());
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return ExpressionValue.getBytes(getObject(), getDataType());
+}
 
     void setParams( Expression[] params ){
-        super.setParams( params );
+System.out.println(new Throwable().getStackTrace()[0]);
+super.setParams( params );
         if(params.length >0) param1 = params[0] ;
         if(params.length >1) param2 = params[1] ;
         if(params.length >2) param3 = params[2] ;
         if(params.length >3) param4 = params[3] ;
-    }
+}
 
 	final void setParamAt( Expression param, int idx){
-		switch(idx){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(idx){
 			case 0:
 				param1 = param;
 				break;
@@ -85,17 +88,18 @@ abstract class ExpressionFunction extends Expression {
 				break;
 		}
 		super.setParamAt( param, idx );
-	}
+}
 	
 
 	/**
 	 * Is used in GroupResult.
 	 */
 	public boolean equals(Object expr){
-		if(!super.equals(expr)) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!super.equals(expr)) return false;
 		if(!(expr instanceof ExpressionFunction)) return false;
 		return ((ExpressionFunction)expr).getFunction() == getFunction();
-	}
+}
 
 	
     /**
@@ -103,22 +107,24 @@ abstract class ExpressionFunction extends Expression {
      * @param dataType A data type const from SQLTokenizer.
      */
 	SQLException createUnspportedDataType( int dataType ){
-		Object[] params = {
+System.out.println(new Throwable().getStackTrace()[0]);
+Object[] params = {
 				SQLTokenizer.getKeyWord(dataType),
 				SQLTokenizer.getKeyWord(getFunction())
 		};
         return SmallSQLException.create(Language.UNSUPPORTED_DATATYPE_FUNC, params);
-    }
+}
 
     /**
      * Create a SQLException that the current function can not convert the specific data type.
      * @param dataType A data type const from SQLTokenizer.
      */
     SQLException createUnspportedConversion( int dataType ){
-    	Object[] params = {
+System.out.println(new Throwable().getStackTrace()[0]);
+Object[] params = {
     			SQLTokenizer.getKeyWord(dataType),
     			SQLTokenizer.getKeyWord(getFunction())
     	};
         return SmallSQLException.create(Language.UNSUPPORTED_CONVERSION_FUNC, params);
-    }
+}
 }

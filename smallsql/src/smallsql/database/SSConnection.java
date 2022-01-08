@@ -93,10 +93,11 @@ public class SSConnection implements Connection {
      * @throws SQLException If not connected and returnNull is false.
      */
     Database getDatabase(boolean returnNull) throws SQLException{
-        testClosedConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+testClosedConnection();
     	if(!returnNull && database == null) throw SmallSQLException.create(Language.DB_NOTCONNECTED);
     	return database;
-    }
+}
 
     /**
      * Get a monitor object for all synchronized blocks on connection base. Multiple calls return the same object.
@@ -104,52 +105,61 @@ public class SSConnection implements Connection {
      * @return a unique object of this connection
      */
     Object getMonitor(){
-        return this;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return this;
+}
     
     public Statement createStatement() throws SQLException {
-        return new SSStatement(this);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSStatement(this);
+}
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return new SSPreparedStatement( this, sql);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSPreparedStatement( this, sql);
+}
     public CallableStatement prepareCall(String sql) throws SQLException {
-        return new SSCallableStatement( this, sql);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSCallableStatement( this, sql);
+}
     
     
     public String nativeSQL(String sql){
-        return sql;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return sql;
+}
     
     
     public void setAutoCommit(boolean autoCommit) throws SQLException {
-		if(log.isLogging()) log.println("AutoCommit:"+autoCommit);
+System.out.println(new Throwable().getStackTrace()[0]);
+if(log.isLogging()) log.println("AutoCommit:"+autoCommit);
     	if(this.autoCommit != autoCommit){
     		commit();
     		this.autoCommit = autoCommit;
     	}
-    }
+}
     
     
     public boolean getAutoCommit(){
-        return autoCommit;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return autoCommit;
+}
     
     
 	/**
 	 * Add a page for later commit or rollback. 
 	 */
 	void add(TransactionStep storePage) throws SQLException{
-		testClosedConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+testClosedConnection();
 		synchronized(getMonitor()){
             commitPages.add(storePage);
         }
-	}
+}
 	
 	
     public void commit() throws SQLException {
-        log.println("Commit");
+System.out.println(new Throwable().getStackTrace()[0]);
+log.println("Commit");
         testClosedConnection();
         synchronized(getMonitor()){
     	try{
@@ -169,14 +179,15 @@ public class SSConnection implements Connection {
     		throw SmallSQLException.createFromException(e);
     	}
         }
-    }
+}
     
 	
 	/**
 	 * Discard all changes of a file because it was deleted.
 	 */
 	void rollbackFile(FileChannel raFile) throws SQLException{
-		testClosedConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+testClosedConnection();
 		// remove the all commits that point to this table
 		synchronized(getMonitor()){
             for(int i = commitPages.size() - 1; i >= 0; i--){
@@ -187,11 +198,12 @@ public class SSConnection implements Connection {
                 }
             }
         }
-	}
+}
 	
     
     void rollback(int savepoint) throws SQLException{
-		testClosedConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+testClosedConnection();
 		synchronized(getMonitor()){
             for(int i = commitPages.size() - 1; i >= savepoint; i--){
                 TransactionStep page = (TransactionStep)commitPages.remove(i);
@@ -199,11 +211,12 @@ public class SSConnection implements Connection {
                 page.freeLock();
             }
         }
-    }
+}
     
     
     public void rollback() throws SQLException {
-		log.println("Rollback");
+System.out.println(new Throwable().getStackTrace()[0]);
+log.println("Rollback");
 		testClosedConnection();
         synchronized(getMonitor()){
             int count = commitPages.size();
@@ -215,15 +228,16 @@ public class SSConnection implements Connection {
             commitPages.clear();
 			transactionTime = System.currentTimeMillis();
         }
-    }
+}
     
     
     public void close() throws SQLException {
-        rollback();
+System.out.println(new Throwable().getStackTrace()[0]);
+rollback();
 		database = null;
         commitPages = null;
 		Database.closeConnection(this);
-    }
+}
     
 	/**
      * Test if the connection was closed. for example from another thread.
@@ -232,83 +246,96 @@ public class SSConnection implements Connection {
      *             if the connection was closed.
      */
 	final void testClosedConnection() throws SQLException{
-		if(isClosed()) throw SmallSQLException.create(Language.CONNECTION_CLOSED);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isClosed()) throw SmallSQLException.create(Language.CONNECTION_CLOSED);
+}
     
     public boolean isClosed(){
-        return (commitPages == null);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (commitPages == null);
+}
     
     
     public DatabaseMetaData getMetaData(){
-        return metadata;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return metadata;
+}
     
     
     public void setReadOnly(boolean readOnly){
-        //TODO Connection ReadOnly implementing
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+}
     
     
     public boolean isReadOnly(){
-        return readonly;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return readonly;
+}
     
     
     public void setCatalog(String catalog) throws SQLException {
-        testClosedConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+testClosedConnection();
         database = Database.getDatabase(catalog, this, false);
-    }
+}
     
     
     public String getCatalog(){
-    	if(database == null)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(database == null)
     		return "";
         return database.getName();
-    }
+}
     
     
     public void setTransactionIsolation(int level) throws SQLException {
-    	if(!metadata.supportsTransactionIsolationLevel(level)) {
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!metadata.supportsTransactionIsolationLevel(level)) {
     		throw SmallSQLException.create(Language.ISOLATION_UNKNOWN, String.valueOf(level));
     	}
-        isolationLevel = level;        
-    }
+        isolationLevel = level;
+}
     
     
     public int getTransactionIsolation(){
-        return isolationLevel;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return isolationLevel;
+}
     
     
     public SQLWarning getWarnings(){
-        return null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
     
     
     public void clearWarnings(){
-        //TODO support for Warnings
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+}
     
     
     public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
-        return new SSStatement( this, resultSetType, resultSetConcurrency);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSStatement( this, resultSetType, resultSetConcurrency);
+}
     
     
     public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-        return new SSPreparedStatement( this, sql, resultSetType, resultSetConcurrency);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSPreparedStatement( this, sql, resultSetType, resultSetConcurrency);
+}
     
     
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-        return new SSCallableStatement( this, sql, resultSetType, resultSetConcurrency);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSCallableStatement( this, sql, resultSetType, resultSetConcurrency);
+}
     
     
     public Map getTypeMap(){
-        return null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
     
     
     //public void setTypeMap(Map map){
@@ -317,33 +344,39 @@ public class SSConnection implements Connection {
     
     
     public void setHoldability(int holdability){
-        this.holdability = holdability;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.holdability = holdability;
+}
     
     
     public int getHoldability(){
-        return holdability;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return holdability;
+}
     
     
 	int getSavepoint() throws SQLException{
-		testClosedConnection();
-		return commitPages.size(); // the call is atomic, that it need not be synchronized
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+testClosedConnection();
+		return commitPages.size();
+}
 	
 	
     public Savepoint setSavepoint() throws SQLException {
-        return new SSSavepoint(getSavepoint(), null, transactionTime);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSSavepoint(getSavepoint(), null, transactionTime);
+}
     
     
     public Savepoint setSavepoint(String name) throws SQLException {
-		return new SSSavepoint(getSavepoint(), name, transactionTime);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSSavepoint(getSavepoint(), name, transactionTime);
+}
     
     
     public void rollback(Savepoint savepoint) throws SQLException {
-    	if(savepoint instanceof SSSavepoint){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(savepoint instanceof SSSavepoint){
     		if(((SSSavepoint)savepoint).transactionTime != transactionTime){
 				throw SmallSQLException.create(Language.SAVEPT_INVALID_TRANS);
     		}
@@ -351,137 +384,138 @@ public class SSConnection implements Connection {
     		return;
     	}
         throw SmallSQLException.create(Language.SAVEPT_INVALID_DRIVER, savepoint);
-    }
+}
     
     
     public void releaseSavepoint(Savepoint savepoint) throws SQLException {
-		if(savepoint instanceof SSSavepoint){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(savepoint instanceof SSSavepoint){
 			((SSSavepoint)savepoint).transactionTime = 0;
 			return;
 		}
 		throw SmallSQLException.create(Language.SAVEPT_INVALID_DRIVER, new Object[] { savepoint });
-    }
+}
     
     
     public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-		//TODO resultSetHoldability
-		return new SSStatement( this, resultSetType, resultSetConcurrency);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSStatement( this, resultSetType, resultSetConcurrency);
+}
     public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-		//TODO resultSetHoldability
-		return new SSPreparedStatement( this, sql);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSPreparedStatement( this, sql);
+}
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-    	//TODO resultSetHoldability
-		return new SSCallableStatement( this, sql, resultSetType, resultSetConcurrency);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return new SSCallableStatement( this, sql, resultSetType, resultSetConcurrency);
+}
     
     
     public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException {
-        SSPreparedStatement pr = new SSPreparedStatement( this, sql);
+System.out.println(new Throwable().getStackTrace()[0]);
+SSPreparedStatement pr = new SSPreparedStatement( this, sql);
         pr.setNeedGeneratedKeys(autoGeneratedKeys);
         return pr;
-    }
+}
     
     
     public PreparedStatement prepareStatement(String sql, int[] columnIndexes) throws SQLException {
-        SSPreparedStatement pr = new SSPreparedStatement( this, sql);
+System.out.println(new Throwable().getStackTrace()[0]);
+SSPreparedStatement pr = new SSPreparedStatement( this, sql);
         pr.setNeedGeneratedKeys(columnIndexes);
         return pr;
-    }
+}
     
     
     public PreparedStatement prepareStatement(String sql, String[] columnNames) throws SQLException {
-        SSPreparedStatement pr = new SSPreparedStatement( this, sql);
+System.out.println(new Throwable().getStackTrace()[0]);
+SSPreparedStatement pr = new SSPreparedStatement( this, sql);
         pr.setNeedGeneratedKeys(columnNames);
         return pr;
-    }
+}
 
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public Clob createClob() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public Blob createBlob() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public NClob createNClob() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public SQLXML createSQLXML() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public boolean isValid(int timeout) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public void setClientInfo(String name, String value)
 			throws SQLClientInfoException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setClientInfo(Properties properties)
 			throws SQLClientInfoException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public String getClientInfo(String name) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public Properties getClientInfo() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public Array createArrayOf(String typeName, Object[] elements)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public Struct createStruct(String typeName, Object[] attributes)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 }

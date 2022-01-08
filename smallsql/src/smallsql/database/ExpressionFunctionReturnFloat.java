@@ -36,52 +36,62 @@ package smallsql.database;
 abstract class ExpressionFunctionReturnFloat extends ExpressionFunction {
 
     boolean isNull() throws Exception{
-        return param1.isNull();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return param1.isNull();
+}
 
     final boolean getBoolean() throws Exception{
-        return getDouble() != 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDouble() != 0;
+}
 
 	final int getInt() throws Exception{
-        return (int)getDouble();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (int)getDouble();
+}
 
 	final long getLong() throws Exception{
-        return (long)getDouble();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (long)getDouble();
+}
 
 	final float getFloat() throws Exception{
-        return (float)getDouble();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (float)getDouble();
+}
 
 
     long getMoney() throws Exception{
-        return Utils.doubleToMoney(getDouble());
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Utils.doubleToMoney(getDouble());
+}
 
 	final MutableNumeric getNumeric() throws Exception{
-		if(isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return null;
 		double value = getDouble();
 		if(Double.isInfinite(value) || Double.isNaN(value))
 			return null;
 		return new MutableNumeric(value);
-    }
+}
 
 	final Object getObject() throws Exception{
-		if(isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return null;
 		return new Double(getDouble());
-    }
+}
 
 	final String getString() throws Exception{
-        Object obj = getObject();
+System.out.println(new Throwable().getStackTrace()[0]);
+Object obj = getObject();
         if(obj == null) return null;
         return obj.toString();
-    }
+}
 
 	final int getDataType() {
-		return SQLTokenizer.FLOAT;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.FLOAT;
+}
     
 
 }

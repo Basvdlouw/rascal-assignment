@@ -83,25 +83,29 @@ class SSStatement implements Statement{
 
 
     final public ResultSet executeQuery(String sql) throws SQLException{
-        executeImpl(sql);
+System.out.println(new Throwable().getStackTrace()[0]);
+executeImpl(sql);
         return cmd.getQueryResult();
-    }
+}
 
 
     final public int executeUpdate(String sql) throws SQLException{
-        executeImpl(sql);
+System.out.println(new Throwable().getStackTrace()[0]);
+executeImpl(sql);
         return cmd.getUpdateCount();
-    }
+}
 
 
     final public boolean execute(String sql) throws SQLException{
-        executeImpl(sql);
+System.out.println(new Throwable().getStackTrace()[0]);
+executeImpl(sql);
         return cmd.getResultSet() != null;
-    }
+}
 
 
     final private void executeImpl(String sql) throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         generatedKeys = null;
         try{
             con.log.println(sql);
@@ -116,150 +120,169 @@ class SSStatement implements Statement{
         needGeneratedKeys = false;
         generatedKeyIndexes = null;
         generatedKeyNames = null;
-    }
+}
 
 
     final public void close(){
-        con.log.println("Statement.close");
+System.out.println(new Throwable().getStackTrace()[0]);
+con.log.println("Statement.close");
         isClosed = true;
         cmd = null;
-        // TODO make Resources free;
-    }
+}
 
 
     final public int getMaxFieldSize(){
-        return maxFieldSize;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return maxFieldSize;
+}
 
 
     final public void setMaxFieldSize(int max){
-        maxFieldSize = max;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+maxFieldSize = max;
+}
 
 
     final public int getMaxRows(){
-        return maxRows;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return maxRows;
+}
 
 
     final public void setMaxRows(int max) throws SQLException{
-        if(max < 0)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(max < 0)
             throw SmallSQLException.create(Language.ROWS_WRONG_MAX, String.valueOf(max));
         maxRows = max;
-    }
+}
 
 
     final public void setEscapeProcessing(boolean enable) throws SQLException{
-        checkStatement();
-        // TODO enable/disable escape processing
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
+}
 
 
     final public int getQueryTimeout() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return queryTimeout;
-    }
+}
 
 
     final public void setQueryTimeout(int seconds) throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         queryTimeout = seconds;
-    }
+}
 
 
     final public void cancel() throws SQLException{
-        checkStatement();
-        // TODO Statement.cancel()
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
+}
 
 
     final public SQLWarning getWarnings(){
-        return null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 
     final public void clearWarnings(){
-        // TODO support for warnings
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 
     final public void setCursorName(String name) throws SQLException{
-        /** @todo: Implement this java.sql.Statement.setCursorName method */
-        throw SmallSQLException.create(Language.UNSUPPORTED_OPERATION, "setCursorName");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.UNSUPPORTED_OPERATION, "setCursorName");
+}
 
 
     final public ResultSet getResultSet() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return cmd.getResultSet();
-    }
+}
 
 
     final public int getUpdateCount() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return cmd.getUpdateCount();
-    }
+}
 
 
     final public boolean getMoreResults() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return getMoreResults(CLOSE_CURRENT_RESULT);
-    }
+}
 
 
     final public void setFetchDirection(int direction) throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         fetchDirection = direction;
-    }
+}
 
 
     final public int getFetchDirection() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return fetchDirection;
-    }
+}
 
 
     final public void setFetchSize(int rows) throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         fetchSize = rows;
-    }
+}
 
 
     final public int getFetchSize() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return fetchSize;
-    }
+}
 
 
     final public int getResultSetConcurrency() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return rsConcurrency;
-    }
+}
 
 
     final public int getResultSetType() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         return rsType;
-    }
+}
 
 
     final public void addBatch(String sql){
-        if(batches == null)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(batches == null)
             batches = new ArrayList();
         batches.add(sql);
-    }
+}
 
 
     public void clearBatch() throws SQLException{
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         if(batches == null)
             return;
         batches.clear();
-    }
+}
 
 
     public int[] executeBatch() throws BatchUpdateException{
-        if(batches == null)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(batches == null)
             return new int[0];
         final int[] result = new int[batches.size()];
         BatchUpdateException failed = null;
@@ -279,16 +302,18 @@ class SSStatement implements Statement{
         if(failed != null)
             throw failed;
         return result;
-    }
+}
 
 
     final public Connection getConnection(){
-        return con;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return con;
+}
 
 
     final public boolean getMoreResults(int current) throws SQLException{
-        switch(current){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(current){
         case CLOSE_ALL_RESULTS:
         // currently there exists only one ResultSet
         case CLOSE_CURRENT_RESULT:
@@ -303,11 +328,12 @@ class SSStatement implements Statement{
             throw SmallSQLException.create(Language.FLAGVALUE_INVALID, String.valueOf(current));
         }
         return cmd.getMoreResults();
-    }
+}
 
 
     final void setNeedGeneratedKeys(int autoGeneratedKeys) throws SQLException{
-        switch(autoGeneratedKeys){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(autoGeneratedKeys){
         case NO_GENERATED_KEYS:
             break;
         case RETURN_GENERATED_KEYS:
@@ -316,34 +342,39 @@ class SSStatement implements Statement{
         default:
             throw SmallSQLException.create(Language.ARGUMENT_INVALID, String.valueOf(autoGeneratedKeys));
         }
-    }
+}
 
 
     final void setNeedGeneratedKeys(int[] columnIndexes) throws SQLException{
-        needGeneratedKeys = columnIndexes != null;
+System.out.println(new Throwable().getStackTrace()[0]);
+needGeneratedKeys = columnIndexes != null;
         generatedKeyIndexes = columnIndexes;
-    }
+}
 
 
     final void setNeedGeneratedKeys(String[] columnNames) throws SQLException{
-        needGeneratedKeys = columnNames != null;
+System.out.println(new Throwable().getStackTrace()[0]);
+needGeneratedKeys = columnNames != null;
         generatedKeyNames = columnNames;
-    }
+}
 
 
     final boolean needGeneratedKeys(){
-        return needGeneratedKeys;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return needGeneratedKeys;
+}
 
 
     final int[] getGeneratedKeyIndexes(){
-        return generatedKeyIndexes;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return generatedKeyIndexes;
+}
 
 
     final String[] getGeneratedKeyNames(){
-        return generatedKeyNames;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return generatedKeyNames;
+}
 
 
     /**
@@ -352,97 +383,105 @@ class SSStatement implements Statement{
      * @param rs
      */
     final void setGeneratedKeys(ResultSet rs){
-        generatedKeys = rs;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+generatedKeys = rs;
+}
 
 
     final public ResultSet getGeneratedKeys() throws SQLException{
-        if(generatedKeys == null)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(generatedKeys == null)
             throw SmallSQLException.create(Language.GENER_KEYS_UNREQUIRED);
         return generatedKeys;
-    }
+}
 
 
     final public int executeUpdate(String sql, int autoGeneratedKeys) throws SQLException{
-        setNeedGeneratedKeys(autoGeneratedKeys);
+System.out.println(new Throwable().getStackTrace()[0]);
+setNeedGeneratedKeys(autoGeneratedKeys);
         return executeUpdate(sql);
-    }
+}
 
 
     final public int executeUpdate(String sql, int[] columnIndexes) throws SQLException{
-        setNeedGeneratedKeys(columnIndexes);
+System.out.println(new Throwable().getStackTrace()[0]);
+setNeedGeneratedKeys(columnIndexes);
         return executeUpdate(sql);
-    }
+}
 
 
     final public int executeUpdate(String sql, String[] columnNames) throws SQLException{
-        setNeedGeneratedKeys(columnNames);
+System.out.println(new Throwable().getStackTrace()[0]);
+setNeedGeneratedKeys(columnNames);
         return executeUpdate(sql);
-    }
+}
 
 
     final public boolean execute(String sql, int autoGeneratedKeys) throws SQLException{
-        setNeedGeneratedKeys(autoGeneratedKeys);
+System.out.println(new Throwable().getStackTrace()[0]);
+setNeedGeneratedKeys(autoGeneratedKeys);
         return execute(sql);
-    }
+}
 
 
     final public boolean execute(String sql, int[] columnIndexes) throws SQLException{
-        setNeedGeneratedKeys(columnIndexes);
+System.out.println(new Throwable().getStackTrace()[0]);
+setNeedGeneratedKeys(columnIndexes);
         return execute(sql);
-    }
+}
 
 
     final public boolean execute(String sql, String[] columnNames) throws SQLException{
-        setNeedGeneratedKeys(columnNames);
+System.out.println(new Throwable().getStackTrace()[0]);
+setNeedGeneratedKeys(columnNames);
         return execute(sql);
-    }
+}
 
 
     final public int getResultSetHoldability() throws SQLException{
-        /** @todo: Implement this java.sql.Statement method */
-        throw new java.lang.UnsupportedOperationException("Method getResultSetHoldability() not yet implemented.");
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw new java.lang.UnsupportedOperationException("Method getResultSetHoldability() not yet implemented.");
+}
 
 
     void checkStatement() throws SQLException{
-        if(isClosed){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isClosed){
             throw SmallSQLException.create(Language.STMT_IS_CLOSED);
         }
-    }
+}
 
 
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 
 	@Override
 	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 
 	@Override
 	public void setPoolable(boolean poolable) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 
 	@Override
 	public boolean isPoolable() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 }

@@ -57,66 +57,80 @@ public class ExpressionName extends Expression {
 	}
 
     void setNameAfterTableAlias(String name){
-        tableAlias = getName();
+System.out.println(new Throwable().getStackTrace()[0]);
+tableAlias = getName();
 		setName( name );
-    }
+}
     
     /**
      * Is used in GroupResult.
      */
     public boolean equals(Object expr){
-    	if(!super.equals(expr)) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!super.equals(expr)) return false;
     	if(!(expr instanceof ExpressionName)) return false;
     	if( ((ExpressionName)expr).fromEntry != fromEntry) return false;
     	return true;
-    }
+}
 
     boolean isNull() throws Exception{
-        return fromEntry.isNull(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.isNull(colIdx);
+}
 
     boolean getBoolean() throws Exception{
-        return fromEntry.getBoolean(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getBoolean(colIdx);
+}
 
     int getInt() throws Exception{
-        return fromEntry.getInt(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getInt(colIdx);
+}
 
     long getLong() throws Exception{
-        return fromEntry.getLong(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getLong(colIdx);
+}
 
     float getFloat() throws Exception{
-        return fromEntry.getFloat(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getFloat(colIdx);
+}
 
     double getDouble() throws Exception{
-        return fromEntry.getDouble(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getDouble(colIdx);
+}
 
     long getMoney() throws Exception{
-        return fromEntry.getMoney(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getMoney(colIdx);
+}
 
     MutableNumeric getNumeric() throws Exception{
-        return fromEntry.getNumeric(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getNumeric(colIdx);
+}
 
     Object getObject() throws Exception{
-        return fromEntry.getObject(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getObject(colIdx);
+}
 
     String getString() throws Exception{
-        return fromEntry.getString(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getString(colIdx);
+}
 
     byte[] getBytes() throws Exception{
-        return fromEntry.getBytes(colIdx);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry.getBytes(colIdx);
+}
 
     int getDataType(){
-		switch(getType()){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(getType()){
 			case NAME:
 			case GROUP_BY:
 				return fromEntry.getDataType(colIdx);
@@ -130,64 +144,74 @@ public class ExpressionName extends Expression {
 				return SQLTokenizer.INT;
 			default: throw new Error();
 		}
-    }
+}
 
     /**
      * Set the DataSource and the index in the DataSource. The first column has the index 0.
      * The Table object is using to request the Column description.
      */
     void setFrom( DataSource fromEntry, int colIdx, TableView table ){
-        this.fromEntry  = fromEntry;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.fromEntry  = fromEntry;
         this.colIdx     = colIdx;
         this.table      = table;
         // Because the DataSource is a TableResult the colIdx of both is identical
         this.column		= table.columns.get(colIdx);
-    }
+}
 
 	/**
 	 * Set the DataSource and the index in the DataSource. The first column has the index 0.
 	 * The Table object is using to request the Column description.
 	 */
 	void setFrom( DataSource fromEntry, int colIdx, Column column ){
-		this.fromEntry  = fromEntry;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.fromEntry  = fromEntry;
 		this.colIdx     = colIdx;
 		this.column		= column;
-	}
+}
     
     
     DataSource getDataSource(){
-        return fromEntry;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return fromEntry;
+}
     
 
-    String getTableAlias(){ return tableAlias; }
+    String getTableAlias(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return tableAlias;
+}
 
 	/**
 	 * Get the table of this column
 	 * @return
 	 */
 	final TableView getTable(){
-		return table;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return table;
+}
 
 	/**
 	 * Get index of the column in the table
 	 * @return
 	 */
 	final int getColumnIndex(){
-		return colIdx;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return colIdx;
+}
 	
 
 	final Column getColumn(){
-		return column;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column;
+}
 	
 
 	final public String toString(){
-        if(tableAlias == null) return String.valueOf(getAlias());
+System.out.println(new Throwable().getStackTrace()[0]);
+if(tableAlias == null) return String.valueOf(getAlias());
         return tableAlias + "." + getAlias();
-    }
+}
 
 
 	/*=======================================================================
@@ -197,38 +221,46 @@ public class ExpressionName extends Expression {
 	=======================================================================*/
 
 	String getTableName(){
-		if(table != null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(table != null){
 			return table.getName();
 		}
 		return null;
-	}
+}
 
 	int getPrecision(){
-		return column.getPrecision();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column.getPrecision();
+}
 
 	int getScale(){
-		return column.getScale();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column.getScale();
+}
 
 	int getDisplaySize(){
-		return column.getDisplaySize();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column.getDisplaySize();
+}
 
 	boolean isAutoIncrement(){
-		return column.isAutoIncrement();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column.isAutoIncrement();
+}
 	
 	boolean isCaseSensitive(){
-		return column.isCaseSensitive();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column.isCaseSensitive();
+}
 
 	boolean isNullable(){
-		return column.isNullable();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return column.isNullable();
+}
 
 	boolean isDefinitelyWritable(){
-		return true;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 
 }

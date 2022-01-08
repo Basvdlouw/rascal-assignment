@@ -43,7 +43,8 @@ public class CommandSet extends Command {
     }
 
     void executeImpl(SSConnection con, SSStatement st) throws java.sql.SQLException {
-        switch(type){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(type){
             case SQLTokenizer.LEVEL:
                 con.isolationLevel = isolationLevel;
                 break;
@@ -53,5 +54,5 @@ public class CommandSet extends Command {
             default:
                 throw new Error();
         }
-    }
+}
 }

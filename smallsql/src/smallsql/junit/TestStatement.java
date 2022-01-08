@@ -46,17 +46,19 @@ public class TestStatement extends BasicTestCase {
 
     
     protected void setUp() throws Exception{
-    	if(init) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(init) return;
 		Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		dropTable( con, "statement");
 		st.execute("Create Table statement (c varchar(30), i counter)");
 		init = true;
-    }
+}
     
     
     public void testBatchUpate() throws Exception{
-		Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		
 		assertEquals("Result Length wrong", 0, st.executeBatch().length );
@@ -78,18 +80,20 @@ public class TestStatement extends BasicTestCase {
 			assertEquals("Update Count", 1, result[i]);
 		}
 		assertRowCount(10, "Select * From statement");
-    }
+}
     
     
     public void testMultiValues() throws Exception{
-		Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
     	assertEquals("Update Count:", 10, st.executeUpdate("Insert Into statement(c) Values('abc1'),('abc2'),('abc3'),('abc4'),('abc5'),('abc6'),('abc7'),('abc8'),('abc9'),('abc10')"));
-    }
+}
     
 
     public void testMaxRows() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         st.setMaxRows(5);
         ResultSet rs = st.executeQuery("Select * From statement");
@@ -117,11 +121,12 @@ public class TestStatement extends BasicTestCase {
         pr.setMaxRows(4);
         rs = pr.executeQuery();
         assertRowCount(4,rs);
-    }
+}
     
     
     public void testMoreResults() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         
         ResultSet rs = st.executeQuery("Select * From statement");
@@ -154,19 +159,21 @@ public class TestStatement extends BasicTestCase {
         assertFalse( st.getMoreResults() );
         assertNull( "getResultSet()", st.getResultSet() );
         assertEquals( "getUpdateCount()", -1, st.getUpdateCount() );
-    }
+}
     
     
     public void testGetConnection() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         
         assertEquals(con, st.getConnection() );
-    }
+}
     
     
     public void testFetch() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         
         st.setFetchDirection(ResultSet.FETCH_FORWARD);
@@ -177,11 +184,12 @@ public class TestStatement extends BasicTestCase {
         
         st.setFetchSize(123);
         assertEquals( st.getFetchSize(), 123);
-    }
+}
     
     
     public void testGeneratedKeys() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         ResultSet rs;
         
@@ -237,11 +245,12 @@ public class TestStatement extends BasicTestCase {
         assertEquals("ColumnCount",1,rs.getMetaData().getColumnCount());
         assertEquals("ColumnCount","i",rs.getMetaData().getColumnName(1));
         assertRowCount(1,rs);
-    }
+}
     
     
     public void testGeneratedKeysWithPrepare() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         ResultSet rs;
         
         PreparedStatement pr = con.prepareStatement("Insert Into statement(c) Values('key1')", Statement.NO_GENERATED_KEYS);
@@ -301,11 +310,12 @@ public class TestStatement extends BasicTestCase {
         assertEquals("ColumnCount",1,rs.getMetaData().getColumnCount());
         assertEquals("ColumnCount","i",rs.getMetaData().getColumnName(1));
         assertRowCount(1,rs);
-    }
+}
     
     
     public void testResultSetType() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         
         assertEquals(ResultSet.TYPE_SCROLL_SENSITIVE, st.getResultSetType());
@@ -315,12 +325,12 @@ public class TestStatement extends BasicTestCase {
         
         assertEquals(ResultSet.TYPE_SCROLL_SENSITIVE, rs.getType());
         assertEquals(ResultSet.CONCUR_UPDATABLE, rs.getConcurrency());
-    }
+}
 
     
     public void testOther() throws Exception{
-        //now we test all not implemented code
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         
         //curently there are no known warnings
@@ -334,14 +344,15 @@ public class TestStatement extends BasicTestCase {
         
         st.setMaxFieldSize(100);
         assertEquals("MaxFieldSize", 100, st.getMaxFieldSize() );
-    }
+}
     
     
     public void testTruncate() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         
         st.execute("Truncate table statement");
         assertRowCount(0, "Select * From statement");
-    }
+}
 }

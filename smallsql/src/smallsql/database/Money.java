@@ -59,32 +59,39 @@ public class Money extends Number implements Mutable{
     
 
     public static Money createFromUnscaledValue(long value){
-        Money money = new Money();
+System.out.println(new Throwable().getStackTrace()[0]);
+Money money = new Money();
         money.value = value;
         return money;
-    }
+}
 
     public static Money createFromUnscaledValue(int value){
-        Money money = new Money();
+System.out.println(new Throwable().getStackTrace()[0]);
+Money money = new Money();
         money.value = value;
         return money;
-    }
+}
 
     public int intValue() {
-        return (int)(value / 10000.0);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (int)(value / 10000.0);
+}
     public float floatValue() {
-        return value / 10000.0F;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return value / 10000.0F;
+}
     public double doubleValue() {
-        return value / 10000.0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return value / 10000.0;
+}
     public long longValue() {
-        return (long)(value / 10000.0);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (long)(value / 10000.0);
+}
 
     public String toString(){
-		StringBuffer buffer = new StringBuffer();
+System.out.println(new Throwable().getStackTrace()[0]);
+StringBuffer buffer = new StringBuffer();
 		buffer.append(longValue()).append('.');
 		final long v = Math.abs(value);
 		buffer.append( (char)((v % 10000) / 1000 + '0') );
@@ -93,27 +100,31 @@ public class Money extends Number implements Mutable{
 		buffer.append( (char)((v % 10) + '0') );
 		
         return buffer.toString();
-    }
+}
 
     public boolean equals(Object obj){
-        return (obj instanceof Money && ((Money)obj).value == value);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (obj instanceof Money && ((Money)obj).value == value);
+}
 
     public int hashCode(){
-        return (int)(value ^ (value >>> 32));
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (int)(value ^ (value >>> 32));
+}
 
     public long unscaledValue(){
-        return value;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return value;
+}
 
     public static long parseMoney( String str ){
-        // FIXME implement it without a detour over the double 
-        return Utils.doubleToMoney(Double.parseDouble( str ));
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Utils.doubleToMoney(Double.parseDouble( str ));
+}
     
     private byte[] toByteArray(){
-    	byte[] bytes = new byte[8];
+System.out.println(new Throwable().getStackTrace()[0]);
+byte[] bytes = new byte[8];
     	
 		int offset = 0;
 		bytes[offset++] = (byte)(value >> 56);
@@ -125,17 +136,19 @@ public class Money extends Number implements Mutable{
 		bytes[offset++] = (byte)(value >> 8);
 		bytes[offset++] = (byte)(value);
     	return bytes;
-    }
+}
     
 	public BigDecimal toBigDecimal(){
-		if(value == 0) return ZERO;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value == 0) return ZERO;
 		return new BigDecimal( new BigInteger( toByteArray() ), 4 );
-	}
+}
 
 
 	public Object getImmutableObject(){
-		return toBigDecimal();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return toBigDecimal();
+}
 	
 	static private final BigDecimal ZERO = new BigDecimal("0.0000");
 }

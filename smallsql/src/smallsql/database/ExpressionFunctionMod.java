@@ -35,16 +35,21 @@ package smallsql.database;
 
 final class ExpressionFunctionMod extends ExpressionFunctionReturnInt {
 
-    final int getFunction(){ return SQLTokenizer.MOD; }
+    final int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.MOD;
+}
 
 	
     boolean isNull() throws Exception{
-        return param1.isNull() || param2.isNull();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return param1.isNull() || param2.isNull();
+}
 
 	
     final int getInt() throws Exception{
-		if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         return param1.getInt() % param2.getInt();
-    }
+}
 }

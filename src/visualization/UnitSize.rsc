@@ -1,53 +1,34 @@
 module visualization::UnitSize
 
-import configuration::constants::sig::SigUnitSizeConstants;
-import utils::ProjectUtils;
-import utils::Visualization;
-import util::Math;
+
 import Calculate;
 import Map;
-import String;
+
 import analysis::m3::AST; 
+
+import utils::ProjectUtils;
+import utils::Visualization;
+
 import vis::Render;
 import vis::Figure;
+import vis::KeySym;
 
 
 private str WINDOW_NAME = "Unit Sizes";
 
-@doc{
-	Visualizes units by unit size. Units less than the provided risk level are not shown in the visualization.
-	The visualization is interactive, user will be navigated to the src code of the related unit on click, unit size is displayed on screen per unit
-	
-	Parameters 
-	- loc project to visualize
-	- int unitSizeRiskLevel in loc (units smaller than unitSizeRiskLevel are not shown in visualization), this is used to exclude small units from the visualization
-}
-public void visualizeUnitSizes(loc project) {
-	render(WINDOW_NAME, createUnitSizeSelector(project));
-}
-
-private void visualize(loc project, int unitSizeRiskLevel) {
+private void visualizeUnitSizes(loc project, int riskLevel) {
 	map[Declaration, int] unitSizes = calculateProjectUnitSizePerUnit(project);
 	render(WINDOW_NAME, treemap(
 			[ 
 				createUnitInteractiveBox(<unit, size>)
-				| <unit,size> <- toRel(unitSizes), size >= unitSizeRiskLevel
+				| <unit,size> <- toRel(unitSizes), size >= riskLevel
 			])		
 	);
 }
 
-// choices don't support integers so we need to temporarily cast to str..
-private Figure createUnitSizeSelector(project) {
-	return	vcat(
-				[
-					text("Choose a unit size filter, unit sizes smaller than the provided filter are excluded from the visualization"),
-					choice([toString(SIG_UNIT_SIZE_LOW_RISK), 
-							toString(SIG_UNIT_SIZE_MODERATE_RISK), 
-							toString(SIG_UNIT_SIZE_HIGH_RISK)], 
-							void(str x) {
-							visualize(project, toInt(x));
-						}
-					)
-				]
-			);
-}
+public bool(int, map[KeyModifier,bool]) unitSizesCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
+	if(btn == 1) {
+		visualizeUnitSizes(project, riskLevel);
+	}
+	return true;
+}; 
