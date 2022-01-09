@@ -4,10 +4,10 @@ import vis::Figure;
 import vis::Render;
 import vis::KeySym;
 
-import visualization::Components;
 import visualization::Draw;
 
 import util::Editors;
+import utils::Visualization;
 
 import IO;
 

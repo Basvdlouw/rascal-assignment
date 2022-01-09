@@ -1,16 +1,14 @@
 module visualization::Menu
 
-import configuration::constants::Project;
-
 import visualization::UnitSize;
 import visualization::UnitComplexity;
-import visualization::Duplication;
-import visualization::Components;
 import visualization::ProjectSelector;
 import visualization::ProjectAnalyzer;
 
 import vis::Figure;
 import vis::Render;
+
+import utils::Visualization;
 
 // Settings
 private str WINDOW_NAME = "SIG Maintainability Analyzer"; // If a figure tab with name already exists, it will be reused.
@@ -19,17 +17,16 @@ private Color MENU_BG_COLOR = color("grey", .5); // light grey
 private str FONT_NAME = "Monospaced";
 
 public void visualize(list[loc] projects) {
-	render(WINDOW_NAME, // window name
-		createMenu(WINDOW_NAME, // menu title
+	render(WINDOW_NAME, 
+		createMenu(WINDOW_NAME, 
 			 createMainContent(
-			 	projectSelector(projects), // project selector
+			 	projectSelector(projects), 
 			 	projectAnalyzer()
 			 )
 		)
 	);
 }
 
-// menu: title, content
 public Figure createMenu(str title, Figure content) {
 	str titleColor = "white";
 	int titleSize = 30;
@@ -57,32 +54,3 @@ public Figure createMainContent(Figure left, Figure right) {
 		gap(gapSize), startGap(true), endGap(true)), fillColor(MENU_BG_COLOR)
 	);
 }
-
-
-// should give some loading feedback if possible
-//private void loadMenu(loc project) {
-//  return render(WINDOW_NAME, vcat(
-//  			[
-//  				text("Selected Project: <project.authority>"),
-//  				button("Select different project", void() {render(WINDOW_NAME, createProjectSelector());}),
-//  				button("Visualize Unit Sizes", void() {visualizeUnitSizes(project);}),
-//  				button("Visualize Cyclomatic Complexity", void() {visualizeCyclomaticComplexity(project);})
-//  				//button("Visualize Duplication", void() {visualizeUnitSizes(project);}),
-//  			]
-//  		)
-//  	);
-//}
-
-
-//private Figure createProjectSelector() {
-//	return vcat(
-//				[
-//					button("Select SMALLSQL", void(){
-//						loadMenu(SMALLSQL);
-//						}),
-//					button("Select HSQLDB", void(){
-//						loadMenu(HSQLDB);
-//						})
-//				]
-//			);
-//}
