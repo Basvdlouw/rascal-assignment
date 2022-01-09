@@ -89,13 +89,14 @@ public class ExpressionValue extends Expression {
 	 * Is used in GroupResult.
 	 */
 	public boolean equals(Object expr){
-		if(!super.equals(expr)) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!super.equals(expr)) return false;
 		if(!(expr instanceof ExpressionValue)) return false;
 		Object v = ((ExpressionValue)expr).value;
 		if(v == value) return true;
 		if(value == null) return false;
 		return value.equals(v);
-	}
+}
 
 	
 /*==============================================================================
@@ -105,7 +106,8 @@ methods for Grouping
 	 * Accumulate the value of the expression to this aggregate function value. 
 	 */
     void accumulate(Expression expr) throws Exception{
-		int type = getType();
+System.out.println(new Throwable().getStackTrace()[0]);
+int type = getType();
 		if(type != GROUP_BY) expr = expr.getParams()[0];
 		switch(type){
 			case GROUP_BY:
@@ -258,7 +260,7 @@ methods for Grouping
 				break;
 			default: throw new Error();
 		}
-	}
+}
 
     
     /**
@@ -267,7 +269,8 @@ methods for Grouping
      * @throws Exception
      */
 	private void initValue(Expression expr) throws Exception{
-		dataType = expr.getDataType();
+System.out.println(new Throwable().getStackTrace()[0]);
+dataType = expr.getDataType();
 		switch(dataType){
 			case SQLTokenizer.TINYINT:
 			case SQLTokenizer.SMALLINT:
@@ -302,24 +305,27 @@ methods for Grouping
 				// is used for MAX and MIN
 				value = expr.getObject();
 		}
-	}
+}
 /*==============================================================================
 methods for PreparedStatement parameters
 ==============================================================================*/
     private static final Object EMPTY = new Object();
     final boolean isEmpty(){
-        return value == EMPTY;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return value == EMPTY;
+}
 
     final void clear(){
-        value = EMPTY;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+value = EMPTY;
+}
     
 
 	final void set( Object value, int _dataType, int length ) throws SQLException{
-		set( value, _dataType );
+System.out.println(new Throwable().getStackTrace()[0]);
+set( value, _dataType );
 		this.length = length;
-	}
+}
 	
 	
     /**
@@ -330,7 +336,8 @@ methods for PreparedStatement parameters
      * @throws SQLException If the newValue is not a instance of a know class. 
      */
     final void set( Object newValue, int newDataType ) throws SQLException{
-        this.value      = newValue;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.value      = newValue;
         this.dataType   = newDataType;
         if(dataType < 0){
             if(newValue == null)
@@ -376,29 +383,33 @@ methods for PreparedStatement parameters
             else
                 throw SmallSQLException.create(Language.PARAM_CLASS_UNKNOWN, newValue.getClass().getName());
         }
-    }
+}
     
 
     final void set(ExpressionValue val){
-    	this.value 		= val.value;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.value 		= val.value;
     	this.dataType	= val.dataType;
     	this.length		= val.length;
-    }
+}
 /*==============================================================================
 overriden abstact methods extends from expression
 ==============================================================================*/
 
 
     boolean isNull(){
-        return getObject() == null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getObject() == null;
+}
 
     boolean getBoolean() throws Exception{
-		return getBoolean( getObject(), dataType );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getBoolean( getObject(), dataType );
+}
 	
 	static boolean getBoolean(Object obj, int dataType) throws Exception{
-        if(obj == null) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return false;
         switch(dataType){
             case SQLTokenizer.BIT:
             case SQLTokenizer.BOOLEAN:
@@ -414,14 +425,16 @@ overriden abstact methods extends from expression
                 return ((Number)obj).doubleValue() != 0;
             default: return Utils.string2boolean( obj.toString() );
         }
-    }
+}
 
     int getInt() throws Exception{
-		return getInt( getObject(), dataType );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getInt( getObject(), dataType );
+}
 	
 	static int getInt(Object obj, int dataType) throws Exception{
-        if(obj == null) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
             case SQLTokenizer.BOOLEAN:
@@ -449,14 +462,16 @@ overriden abstact methods extends from expression
 				}catch(Throwable th){/* A NumberFormatException can occur if it a floating point number */}
 				return (int)Double.parseDouble( str );
         }
-    }
+}
 
     long getLong() throws Exception{
-    	return getLong( getObject(), dataType);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getLong( getObject(), dataType);
+}
     
 	static long getLong(Object obj, int dataType) throws Exception{
-       if(obj == null) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
             case SQLTokenizer.BOOLEAN:
@@ -483,14 +498,16 @@ overriden abstact methods extends from expression
 					return (long)Double.parseDouble( str );
 				}
         }
-    }
+}
 
     float getFloat() throws Exception{
-		return getFloat( getObject(), dataType);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getFloat( getObject(), dataType);
+}
 	
 	static float getFloat(Object obj, int dataType) throws Exception{
-        if(obj == null) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
                 return (obj.equals(Boolean.TRUE)) ? 1 : 0;
@@ -508,14 +525,16 @@ overriden abstact methods extends from expression
 				return ((DateTime)obj).getTimeMillis();
             default: return Float.parseFloat( obj.toString() );
         }
-    }
+}
 
     double getDouble() throws Exception{
-		return getDouble( getObject(), dataType);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDouble( getObject(), dataType);
+}
 	
 	static double getDouble(Object obj, int dataType) throws Exception{
-        if(obj == null) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
                 return (obj.equals(Boolean.TRUE)) ? 1 : 0;
@@ -531,16 +550,18 @@ overriden abstact methods extends from expression
 				return ((DateTime)obj).getTimeMillis();
             default: return Double.parseDouble( obj.toString() );
         }
-    }
+}
 
 
     long getMoney() throws Exception{
-		return getMoney( getObject(), dataType );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getMoney( getObject(), dataType );
+}
 
 
     static long getMoney(Object obj, int dataType) throws Exception{
-        if(obj == null) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
                 return (obj == Boolean.TRUE) ? 10000 : 0;
@@ -558,16 +579,18 @@ overriden abstact methods extends from expression
             	return ((Money)obj).value;
             default: return Money.parseMoney( obj.toString() );
         }
-	}
+}
 
 
     MutableNumeric getNumeric(){
-		return getNumeric( getObject(), dataType );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getNumeric( getObject(), dataType );
+}
 
 
     static MutableNumeric getNumeric(Object obj, int dataType){
-        if(obj == null) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return null;
         switch(dataType){
             case SQLTokenizer.BIT:
                 return new MutableNumeric( (obj == Boolean.TRUE) ? 1 : 0);
@@ -596,32 +619,36 @@ overriden abstact methods extends from expression
 				return new MutableNumeric( (BigDecimal)obj );
             default: return new MutableNumeric( obj.toString() );
         }
-	}
+}
 
 
     Object getObject(){
-        if(isEmpty()){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isEmpty()){
             return null;
         }
         return value;
-    }
+}
 
     String getString(){
-        Object obj = getObject();
+System.out.println(new Throwable().getStackTrace()[0]);
+Object obj = getObject();
         if(obj == null) return null;
         if(dataType == SQLTokenizer.BIT){
             return (obj == Boolean.TRUE) ? "1" : "0";
         }
         return obj.toString();
-    }
+}
 
     byte[] getBytes() throws Exception{
-    	return getBytes( getObject(), dataType);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getBytes( getObject(), dataType);
+}
     
     
 	static byte[] getBytes(Object obj, int dataType) throws Exception{
-		if(obj == null) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(obj == null) return null;
 		switch(dataType){
 			case SQLTokenizer.BINARY:
 			case SQLTokenizer.VARBINARY:
@@ -642,13 +669,14 @@ overriden abstact methods extends from expression
                 return Utils.float2bytes( ((Number)obj).floatValue() );
 			default: throw createUnsupportedConversion(dataType, obj, SQLTokenizer.VARBINARY);
 		}
-	}
+}
     
     
 
     final int getDataType(){
-        return dataType;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return dataType;
+}
 
 	/*=======================================================================
 	 
@@ -657,11 +685,13 @@ overriden abstact methods extends from expression
 	=======================================================================*/
 
 	String getTableName(){
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	final int getPrecision(){
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.VARCHAR:
 			case SQLTokenizer.CHAR:
 				return ((String)value).length();
@@ -671,11 +701,12 @@ overriden abstact methods extends from expression
 			default: 
 				return super.getPrecision();
 		}
-	}
+}
 	
 	
 	int getScale(){
-		switch(dataType){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(dataType){
 			case SQLTokenizer.DECIMAL:
 			case SQLTokenizer.NUMERIC:
 				MutableNumeric obj = getNumeric();
@@ -683,18 +714,19 @@ overriden abstact methods extends from expression
 			default:
 				return getScale(dataType);
 		}
-	}
+}
 	
 
 	static SQLException createUnsupportedConversion( int fromDataType, Object obj, int toDataType ){
-		Object[] params = {
+System.out.println(new Throwable().getStackTrace()[0]);
+Object[] params = {
 			SQLTokenizer.getKeyWord(fromDataType),
 			obj,
 			SQLTokenizer.getKeyWord(toDataType)
 		};
 		
         return SmallSQLException.create(Language.UNSUPPORTED_CONVERSION, params);
-    }
+}
 
 
 }

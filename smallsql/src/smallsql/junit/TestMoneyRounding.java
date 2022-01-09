@@ -44,14 +44,16 @@ public class TestMoneyRounding extends TestCase{
     static final String table = "TestMoneyRounding";
 
     public void setUp() throws SQLException{
-        tearDown();
+System.out.println(new Throwable().getStackTrace()[0]);
+tearDown();
 		Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		st.execute("create table " + table + "(a money, b smallmoney)");
-    }
+}
 
     public void tearDown(){
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
             st.execute("drop table " + table);
@@ -59,10 +61,11 @@ public class TestMoneyRounding extends TestCase{
         }catch(Throwable e){
             //e.printStackTrace();
         }
-    }
+}
 
     public void testMoney1() throws Exception{
-            Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
             int firstValue = -10000;
             for(int i=firstValue; i<10000; i++){
@@ -70,11 +73,12 @@ public class TestMoneyRounding extends TestCase{
             }
             st.close();
             verify(firstValue);
-    }
+}
     
     
     private void verify(int firstValue) throws Exception{
-		Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("Select * FROM " + table);
 		long i = firstValue;
@@ -95,11 +99,12 @@ public class TestMoneyRounding extends TestCase{
 			i++;
 		}
 		st.close();
-    }
+}
     
     
 	public void testMoney2() throws Exception{
-			Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
 			Statement st = con.createStatement();
 			int firstValue = -10000;
 			for(int i=firstValue; i<10000; i++){
@@ -107,6 +112,6 @@ public class TestMoneyRounding extends TestCase{
 			}
 			st.close();
 			verify(firstValue);
-	}
+}
     
 }

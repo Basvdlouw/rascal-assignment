@@ -53,28 +53,31 @@ public class CommandInsert extends Command {
 
 
     void addColumnExpression(Expression column) throws SQLException{
-        if(columnExpressions.indexOf(column) >= 0){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(columnExpressions.indexOf(column) >= 0){
             throw SmallSQLException.create(Language.COL_DUPLICATE, column);
         }
         super.addColumnExpression(column);
-    }
+}
 
 
     void addValues(Expressions values){
-        // this.values = values;
-		this.cmdSel = new CommandSelect(log, values );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.cmdSel = new CommandSelect(log, values );
+}
     
     
     void addValues( CommandSelect cmdSel ){
-    	this.cmdSel = cmdSel;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.cmdSel = cmdSel;
+}
 
     /**
      * The method compile set all needed reference links after the Parsing
      */
-    private void compile(SSConnection con) throws Exception{    	
-        TableView tableView = con.getDatabase(false).getTableView( con, name);
+    private void compile(SSConnection con) throws Exception{
+System.out.println(new Throwable().getStackTrace()[0]);
+TableView tableView = con.getDatabase(false).getTableView( con, name);
         if(!(tableView instanceof Table))
         	throw SmallSQLException.create(Language.VIEW_INSERT);
         table = (Table)tableView;
@@ -107,13 +110,13 @@ public class CommandInsert extends Command {
 			if(columnExpressions.size() != cmdSel.columnExpressions.size())
 					throw SmallSQLException.create(Language.COL_VAL_UNMATCH);
         }
-    }
+}
     
 
 
     void executeImpl(SSConnection con, SSStatement st) throws Exception {
-        // on first time and on change of the table we need to recompile
-        if(table == null || tableTimestamp != table.getTimestamp()) compile( con );
+System.out.println(new Throwable().getStackTrace()[0]);
+if(table == null || tableTimestamp != table.getTimestamp()) compile( con );
 
 		final IndexDescriptions indexes = table.indexes;
 		
@@ -186,6 +189,6 @@ public class CommandInsert extends Command {
                 st.setGeneratedKeys(new SSResultSet( st, Utils.createMemoryCommandSelect( con, keyColumnNames.toArray(), data)));
             }
         }
-    }
+}
 
 }

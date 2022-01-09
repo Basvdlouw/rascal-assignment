@@ -1,53 +1,117 @@
 module visualization::UnitSize
 
-import configuration::constants::sig::SigUnitSizeConstants;
-import utils::ProjectUtils;
-import utils::Visualization;
-import util::Math;
+
 import Calculate;
 import Map;
-import String;
+
 import analysis::m3::AST; 
+
+import configuration::constants::sig::SigUnitSizeConstants;
+
+import utils::ProjectUtils;
+import utils::Visualization;
+
 import vis::Render;
 import vis::Figure;
+import vis::KeySym;
+
+import visualization::Draw;
+
+import IO;
 
 
+private int riskLevel = 0;
 private str WINDOW_NAME = "Unit Sizes";
+list[bool] hovered = [false, false, false, false];
 
-@doc{
-	Visualizes units by unit size. Units less than the provided risk level are not shown in the visualization.
-	The visualization is interactive, user will be navigated to the src code of the related unit on click, unit size is displayed on screen per unit
-	
-	Parameters 
-	- loc project to visualize
-	- int unitSizeRiskLevel in loc (units smaller than unitSizeRiskLevel are not shown in visualization), this is used to exclude small units from the visualization
-}
-public void visualizeUnitSizes(loc project) {
-	render(WINDOW_NAME, createUnitSizeSelector(project));
-}
-
-private void visualize(loc project, int unitSizeRiskLevel) {
+private void visualizeUnitSizes(loc project, int riskLevel) {
 	map[Declaration, int] unitSizes = calculateProjectUnitSizePerUnit(project);
-	render(WINDOW_NAME, treemap(
+	render("<project.authority> - <WINDOW_NAME>", treemap(
 			[ 
 				createUnitInteractiveBox(<unit, size>)
-				| <unit,size> <- toRel(unitSizes), size >= unitSizeRiskLevel
+				| <unit,size> <- toRel(unitSizes), size >= riskLevel
 			])		
 	);
 }
 
-// choices don't support integers so we need to temporarily cast to str..
-private Figure createUnitSizeSelector(project) {
-	return	vcat(
-				[
-					text("Choose a unit size filter, unit sizes smaller than the provided filter are excluded from the visualization"),
-					choice([toString(SIG_UNIT_SIZE_LOW_RISK), 
-							toString(SIG_UNIT_SIZE_MODERATE_RISK), 
-							toString(SIG_UNIT_SIZE_HIGH_RISK)], 
-							void(str x) {
-							visualize(project, toInt(x));
-						}
+public bool(int, map[KeyModifier,bool]) unitSizesCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
+	if(riskLevel == 0) {
+		println("Select a filter before running calculation");
+		return false;
+	}
+	if(btn == 1) {
+		println("Calculating unit sizes....");
+		visualizeUnitSizes(project, riskLevel);
+		redraw();
+	}
+	return true;
+}; 
+
+public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
+	if(btn == 1) {
+		riskLevel = risk;
+		println("Only units with a unit size higher than <riskLevel> will be displayed when visualization is started");
+		redraw();
+	}
+	return true;
+}; 
+
+private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor) {
+	return box(	
+	 		text(riskLevel, fontSize(12), fontColor(hovered[index] ? hoveredColor : defaultColor)),
+			top()
+		);
+}
+
+public Figure unitSizeItem(loc project) {
+	Color hoveredColor = color("red");
+	Color defaultColor = color("white");
+	return computeFigure(
+				Figure() {
+					return 
+					hcat([ 
+					box(	
+	 					text("Unit size", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
+						top(),
+						onMouseDown(unitSizesCallback(project, riskLevel)), 
+						onMouseEnter(void() {
+							hovered[0] = true;
+						}),
+						onMouseExit(void() { 							
+							hovered[0] = false;
+						})
+					),
+					box(
+						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor), 
+						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_LOW_RISK)), 
+						onMouseEnter(void() { 
+							hovered[1] = true;
+						}),
+						onMouseExit(void() { 							
+							hovered[1] = false;
+						})
+					),
+					box(
+						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor), 
+						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_MODERATE_RISK)), 
+						onMouseEnter(void() { 
+							hovered[2] = true;
+						}),
+						onMouseExit(void() {						
+							hovered[2] = false;
+						})
+					),
+					box(
+						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor), 
+						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_HIGH_RISK)), 
+						onMouseEnter(void() { 
+							hovered[3] = true;
+						}),
+						onMouseExit(void() {						
+							hovered[3] = false;
+						})
 					)
-				]
-			);
+				]);
+			}
+		);
 }

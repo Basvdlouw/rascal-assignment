@@ -50,7 +50,8 @@ class MutableNumeric extends Number implements Mutable{
     }
     
     private void setValue(byte[] complement){
-        int length = complement.length;
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = complement.length;
         if(length == 0){
             value   = EMPTY_INTS;
             signum  = 0;
@@ -75,7 +76,7 @@ class MutableNumeric extends Number implements Mutable{
             }
             value[v] = temp;
         }
-    }
+}
 
     MutableNumeric(int complement){
         if(complement == 0){
@@ -155,8 +156,9 @@ class MutableNumeric extends Number implements Mutable{
     
     
     int[] getInternalValue(){
-        return value;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return value;
+}
 	
 
     /**
@@ -164,18 +166,20 @@ class MutableNumeric extends Number implements Mutable{
      * @param num the added value
      */
     void add(MutableNumeric num){
-		if(num.scale < scale){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(num.scale < scale){
 			num.setScale(scale);
 		}else
 		if(num.scale > scale){
 			setScale(num.scale);
 		}
         add( num.signum, num.value );
-    }
+}
 	
 
     private void add( int sig2, int[] val2){
-        if(val2.length > value.length){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(val2.length > value.length){
             int[] temp = val2;
             val2 = value;
             value = temp;
@@ -187,7 +191,7 @@ class MutableNumeric extends Number implements Mutable{
             sub(val2);
         else
             add(val2);
-    }
+}
 
     
     /**
@@ -197,7 +201,8 @@ class MutableNumeric extends Number implements Mutable{
      * @param val2 the added value
      */
     private void add( int[] val2){
-        long temp = 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+long temp = 0;
         int v1 = value.length;
         for(int v2 = val2.length; v2>0; ){
             temp = (value[--v1] & 0xFFFFFFFFL) + (val2 [--v2] & 0xFFFFFFFFL) + (temp >>> 32);
@@ -211,7 +216,7 @@ class MutableNumeric extends Number implements Mutable{
         if(uebertrag){
 			resizeValue(1);
         }
-    }
+}
     
     
     
@@ -220,11 +225,12 @@ class MutableNumeric extends Number implements Mutable{
      * @param highBits Is the high value that is save on the resize place.
      */
 	private void resizeValue(int highBits){
-		int val[] = new int[value.length+1];
+System.out.println(new Throwable().getStackTrace()[0]);
+int val[] = new int[value.length+1];
 		val[0] = highBits;
 		System.arraycopy(value, 0, val, 1, value.length);
 		value = val;
-    }
+}
 	 
     
     /**
@@ -232,14 +238,15 @@ class MutableNumeric extends Number implements Mutable{
      * @param num the subtracted  value
      */
     void sub(MutableNumeric num){
-		if(num.scale < scale){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(num.scale < scale){
 			num.setScale(scale);
 		}else
 		if(num.scale > scale){
 			setScale(num.scale);
 		}
         add( -num.signum, num.value );
-    }
+}
 
     /**
      * Subtract the value to the current MutableNumeric Object and change it.
@@ -248,7 +255,8 @@ class MutableNumeric extends Number implements Mutable{
      * @param val2 the subtracted  value
      */
     private void sub(int[] val2){
-        long temp = 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+long temp = 0;
         int v1 = value.length;
         for(int v2 = val2.length; v2>0; ){
             temp = (value[--v1] & 0xFFFFFFFFL) - (val2 [--v2] & 0xFFFFFFFFL) + (temp >>>= 32);
@@ -266,18 +274,19 @@ class MutableNumeric extends Number implements Mutable{
                 value[i] = (i == last) ? -value[i] : ~value[i];
             }
         }
-    }
+}
 
     void mul(MutableNumeric num){
-		//TODO performance
-		BigDecimal big = toBigDecimal().multiply(num.toBigDecimal() );
+System.out.println(new Throwable().getStackTrace()[0]);
+BigDecimal big = toBigDecimal().multiply(num.toBigDecimal() );
 		setValue( big.unscaledValue().toByteArray() );
 		scale = big.scale();
 		signum = big.signum();
-    }
+}
 
 	final void mul(int factor){
-		if(factor < 0){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(factor < 0){
 			factor = - factor;
 			signum = -signum;
 		}
@@ -290,30 +299,31 @@ class MutableNumeric extends Number implements Mutable{
 		if(carryover > 0){
 			resizeValue( (int)carryover );
 		}
-	}
+}
 	
 
     void div(MutableNumeric num){
-    	//TODO performance
-		int newScale = Math.max(scale+5, num.scale +4);
+System.out.println(new Throwable().getStackTrace()[0]);
+int newScale = Math.max(scale+5, num.scale +4);
 		BigDecimal big = toBigDecimal().divide(num.toBigDecimal(), newScale, BigDecimal.ROUND_HALF_EVEN);
 		setValue( big.unscaledValue().toByteArray() );
 		scale = big.scale();
 		signum = big.signum();
-    }
+}
 	
 
 	final void div(int quotient){
-		//increment the scale with 5
-		mul(100000);
+System.out.println(new Throwable().getStackTrace()[0]);
+mul(100000);
 		scale += 5;
 		
 		divImpl(quotient);
-	}
+}
 	
 	
-	final private void divImpl(int quotient){	
-		if(quotient == 1) return;
+	final private void divImpl(int quotient){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(quotient == 1) return;
 		if(quotient < 0){
 			quotient = - quotient;
 			signum = -signum;
@@ -338,26 +348,27 @@ class MutableNumeric extends Number implements Mutable{
 			System.arraycopy(value, 1, temp, 0, valueLength-1);
 			value = temp;
 		}
-			
-	}
+}
 	
 	
     void mod(MutableNumeric num){
-    	//TODO performance
-		num = new MutableNumeric( doubleValue() % num.doubleValue() );
+System.out.println(new Throwable().getStackTrace()[0]);
+num = new MutableNumeric( doubleValue() % num.doubleValue() );
 		value = num.value;
 		scale = num.scale;
 		signum = num.signum;
-    }
+}
 
 
 	int getScale(){
-	    return scale;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return scale;
+}
     
     
 	void setScale(int newScale){
-		if(newScale == scale) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(newScale == scale) return;
 		int factor = 1;
 		if(newScale > scale){
 			for(;newScale>scale; scale++){
@@ -378,7 +389,7 @@ class MutableNumeric extends Number implements Mutable{
 			}
 			divImpl(factor);		
 		}
-	}
+}
 	
 	
 	
@@ -387,25 +398,28 @@ class MutableNumeric extends Number implements Mutable{
      * @return Returns the signum.
      */
     int getSignum() {
-        return signum;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return signum;
+}
     
     
     void setSignum(int signum){
-        this.signum = signum;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.signum = signum;
+}
     
 
     void floor(){
-		//TODO performance
-		int oldScale = scale;
+System.out.println(new Throwable().getStackTrace()[0]);
+int oldScale = scale;
 		setScale(0);
 		setScale(oldScale);
-	}
+}
 	
 
     private void negate(byte[] complement){
-        int last = complement.length-1;
+System.out.println(new Throwable().getStackTrace()[0]);
+int last = complement.length-1;
         for(int i=0; i<=last; i++){
             complement[i] = (byte)( (i == last) ? -complement[i] : ~complement[i]);
         }
@@ -413,7 +427,7 @@ class MutableNumeric extends Number implements Mutable{
             last--;
             complement[last]++;
         }
-    }
+}
 
     
     /**
@@ -422,7 +436,8 @@ class MutableNumeric extends Number implements Mutable{
      * @return the 2 complement of this object
      */
     byte[] toByteArray(){
-        if(signum == 0) return EMPTY_BYTES;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(signum == 0) return EMPTY_BYTES;
         byte[] complement;
         int offset;
 
@@ -450,15 +465,17 @@ class MutableNumeric extends Number implements Mutable{
             complement[offset++] = (byte)(val);
         }
         return complement;
-    }
+}
 
     public int intValue(){
-        return Utils.long2int(longValue());
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Utils.long2int(longValue());
+}
     
 
     public long longValue(){
-        if(value.length == 0 || signum == 0){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value.length == 0 || signum == 0){
             return 0;
         }else{
             if (value.length == 1 && (value[0] > 0)){
@@ -483,11 +500,12 @@ class MutableNumeric extends Number implements Mutable{
             	return (signum > 0) ? Long.MAX_VALUE : Long.MIN_VALUE;
             }
         }
-    }
+}
     
 
     public float floatValue(){
-        if(value.length == 0 || signum == 0){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value.length == 0 || signum == 0){
             return 0;
         }else{
             if (value.length == 1 && (value[0] > 0)){
@@ -507,10 +525,11 @@ class MutableNumeric extends Number implements Mutable{
                 return new BigDecimal( new BigInteger( toByteArray() ), scale ).floatValue();
             }
         }
-    }
+}
 
     public double doubleValue(){
-        if(value.length == 0 || signum == 0){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value.length == 0 || signum == 0){
             return 0;
         }else{
             if (value.length == 1 && (value[0] > 0)){
@@ -530,10 +549,11 @@ class MutableNumeric extends Number implements Mutable{
                 return new BigDecimal( new BigInteger( toByteArray() ), scale ).doubleValue();
             }
         }
-    }
+}
 
     public String toString(){
-        StringBuffer buf = new StringBuffer();
+System.out.println(new Throwable().getStackTrace()[0]);
+StringBuffer buf = new StringBuffer();
         if(value.length == 0 || signum == 0){
             buf.append( '0' );
         }else{
@@ -560,31 +580,35 @@ class MutableNumeric extends Number implements Mutable{
         }
         if (signum < 0) buf.insert( 0, '-');
         return buf.toString();
-    }
+}
     
     public int compareTo(MutableNumeric numeric){
-    	//TODO performance
-		return toBigDecimal().compareTo(numeric.toBigDecimal());
-    }           
+System.out.println(new Throwable().getStackTrace()[0]);
+return toBigDecimal().compareTo(numeric.toBigDecimal());
+}           
 
 	public boolean equals(Object obj){
-		if(!(obj instanceof MutableNumeric)) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!(obj instanceof MutableNumeric)) return false;
 		return compareTo((MutableNumeric)obj) == 0;
-	}
+}
 	
     public BigDecimal toBigDecimal(){
-		if(signum == 0) return new BigDecimal( BigInteger.ZERO, scale);
+System.out.println(new Throwable().getStackTrace()[0]);
+if(signum == 0) return new BigDecimal( BigInteger.ZERO, scale);
         return new BigDecimal( new BigInteger( toByteArray() ), scale );
-    }
+}
 
     public BigDecimal toBigDecimal(int newScale){
-        if(newScale == this.scale) return toBigDecimal();
+System.out.println(new Throwable().getStackTrace()[0]);
+if(newScale == this.scale) return toBigDecimal();
         return toBigDecimal().setScale( newScale, BigDecimal.ROUND_HALF_EVEN);
-    }
+}
 
 	public Object getImmutableObject(){
-		return toBigDecimal();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return toBigDecimal();
+}
 	
 
     private static final byte[] EMPTY_BYTES = new byte[0];

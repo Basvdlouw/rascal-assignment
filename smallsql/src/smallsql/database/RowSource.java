@@ -72,15 +72,17 @@ abstract class RowSource {
 	 * Equals to ResultSet.isBeforeFirst().
 	 */
 	boolean isBeforeFirst() throws SQLException{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
 
 	/**
 	 * Equals to ResultSet.isFirst().
 	 */
 	boolean isFirst() throws SQLException{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
     
 
 	/**
@@ -90,43 +92,49 @@ abstract class RowSource {
     abstract boolean first() throws Exception;
 
 	boolean previous() throws Exception{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
 	
     abstract boolean next() throws Exception;
     
     
 	boolean last() throws Exception{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
 	
 	
 	/**
 	 * Equals to ResultSet.isLast().
 	 */
 	boolean isLast() throws Exception{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
 
 	/**
 	 * Equals to ResultSet.isAfterLast().
 	 */
 	boolean isAfterLast() throws SQLException, Exception{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
     
 
 	abstract void afterLast() throws Exception;
 	
 	
 	boolean absolute(int row) throws Exception{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
 	
 	
 	boolean relative(int rows) throws Exception{
-		throw SmallSQLException.create(Language.RSET_FWDONLY);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.RSET_FWDONLY);
+}
 	
 	
 	abstract int getRow() throws Exception;
@@ -177,13 +185,15 @@ abstract class RowSource {
 	 * @return 
 	 */
     boolean hasAlias(){
-    	return true;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return true;
+}
 	
 
     void setAlias(String name) throws SQLException{
-        throw SmallSQLException.create(Language.ALIAS_UNSUPPORTED);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw SmallSQLException.create(Language.ALIAS_UNSUPPORTED);
+}
     
     /**
      * Perform some operation on some RowSources per ResultSet. For example the grouping

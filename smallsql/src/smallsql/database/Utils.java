@@ -57,19 +57,23 @@ class Utils {
 	}
     
     static String createTableViewFileName(Database database, String name){
-        return database.getName() + '/' + name + TABLE_VIEW_EXTENTION;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return database.getName() + '/' + name + TABLE_VIEW_EXTENTION;
+}
 
 	static String createLobFileName(Database database, String name){
-		return database.getName() + '/' + name + LOB_EXTENTION;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return database.getName() + '/' + name + LOB_EXTENTION;
+}
 
 	static String createIdxFileName(Database database, String name){
-		return database.getName() + '/' + name + IDX_EXTENTION;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return database.getName() + '/' + name + IDX_EXTENTION;
+}
 
 	static boolean like(String value, String pattern){
-		if(value == null || pattern == null) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value == null || pattern == null) return false;
 		if(pattern.length() == 0) return true;
 
 		int mIdx = 0;//index in mask Array
@@ -119,63 +123,72 @@ class Utils {
 		}
 		while(value.length() > sIdx && !range) return false;
 		return true;
-	}
+}
 	
 	
 	static int long2int(long value){
-		if(value > Integer.MAX_VALUE)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value > Integer.MAX_VALUE)
 			return Integer.MAX_VALUE;
 		if(value < Integer.MIN_VALUE)
 			return Integer.MIN_VALUE;
 		return (int)value;
-	}
+}
 	
 	static long double2long(double value){
-		if(value > Long.MAX_VALUE)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value > Long.MAX_VALUE)
 			return Long.MAX_VALUE;
 		if(value < Long.MIN_VALUE)
 			return Long.MIN_VALUE;
 		return (long)value;
-	}
+}
 
 
 
     static float bytes2float( byte[] bytes ){
-        return Float.intBitsToFloat( bytes2int( bytes ) );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Float.intBitsToFloat( bytes2int( bytes ) );
+}
 
     static double bytes2double( byte[] bytes ){
-        return Double.longBitsToDouble( bytes2long( bytes ) );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Double.longBitsToDouble( bytes2long( bytes ) );
+}
 
     static long bytes2long( byte[] bytes ){
-        long result = 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+long result = 0;
         int length = Math.min( 8, bytes.length);
         for(int i=0; i<length; i++){
             result = (result << 8) | (bytes[i] & 0xFF);
         }
         return result;
-    }
+}
 
     static int bytes2int( byte[] bytes ){
-        int result = 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+int result = 0;
         int length = Math.min( 4, bytes.length);
         for(int i=0; i<length; i++){
             result = (result << 8) | (bytes[i] & 0xFF);
         }
         return result;
-    }
+}
 
     static byte[] double2bytes( double value ){
-        return long2bytes(Double.doubleToLongBits(value));
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return long2bytes(Double.doubleToLongBits(value));
+}
 
     static byte[] float2bytes( float value ){
-        return int2bytes(Float.floatToIntBits(value));
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return int2bytes(Float.floatToIntBits(value));
+}
 
     static byte[] long2bytes( long value ){
-        byte[] result = new byte[8];
+System.out.println(new Throwable().getStackTrace()[0]);
+byte[] result = new byte[8];
         result[0] = (byte)(value >> 56);
         result[1] = (byte)(value >> 48);
         result[2] = (byte)(value >> 40);
@@ -185,34 +198,38 @@ class Utils {
         result[6] = (byte)(value >> 8);
         result[7] = (byte)(value);
         return result;
-    }
+}
     
     static int money2int( long value ) {
-		if (value < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+System.out.println(new Throwable().getStackTrace()[0]);
+if (value < Integer.MIN_VALUE) return Integer.MIN_VALUE;
 		else if (value > Integer.MAX_VALUE) return Integer.MAX_VALUE;
 		else return (int) value;
-	}
+}
 
 	static byte[] int2bytes( int value ){
-		byte[] result = new byte[4];
+System.out.println(new Throwable().getStackTrace()[0]);
+byte[] result = new byte[4];
 		result[0] = (byte)(value >> 24);
 		result[1] = (byte)(value >> 16);
 		result[2] = (byte)(value >> 8);
 		result[3] = (byte)(value);
 		return result;
-	}
+}
 
     static String bytes2hex( byte[] bytes ){
-        StringBuffer buf = new StringBuffer(bytes.length << 1);
+System.out.println(new Throwable().getStackTrace()[0]);
+StringBuffer buf = new StringBuffer(bytes.length << 1);
         for(int i=0; i<bytes.length; i++){
             buf.append( digits[ (bytes[i] >> 4) & 0x0F ] );
             buf.append( digits[ (bytes[i]     ) & 0x0F ] );
         }
         return buf.toString();
-    }
+}
 
     static byte[] hex2bytes( char[] hex, int offset, int length) throws SQLException{
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             byte[] bytes = new byte[length / 2];
             for(int i=0; i<bytes.length; i++){
                 bytes[i] = (byte)((hexDigit2int( hex[ offset++ ] ) << 4)
@@ -222,17 +239,19 @@ class Utils {
         }catch(Exception e){
              throw SmallSQLException.create(Language.SEQUENCE_HEX_INVALID, String.valueOf(offset)); /*, offset*/
         }
-    }
+}
 
     private static int hexDigit2int(char digit){
-        if(digit >= '0' && digit <= '9') return digit - '0';
+System.out.println(new Throwable().getStackTrace()[0]);
+if(digit >= '0' && digit <= '9') return digit - '0';
         digit |= 0x20;
         if(digit >= 'a' && digit <= 'f') return digit - 'W'; // -'W'  ==  -'a' + 10
         throw new RuntimeException();
-    }
+}
 
     static byte[] unique2bytes( String unique ) throws SQLException{
-        char[] chars = unique.toCharArray();
+System.out.println(new Throwable().getStackTrace()[0]);
+char[] chars = unique.toCharArray();
         byte[] daten = new byte[16];
         daten[3] = hex2byte( chars, 0 );
         daten[2] = hex2byte( chars, 2 );
@@ -255,19 +274,21 @@ class Utils {
         daten[14] = hex2byte( chars, 32 );
         daten[15] = hex2byte( chars, 34 );
         return daten;
-    }
+}
 
     private static byte hex2byte( char[] hex, int offset) throws SQLException{
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
                 return (byte)((hexDigit2int( hex[ offset++ ] ) << 4)
                                 | hexDigit2int( hex[ offset++ ] ));
         }catch(Exception e){
              throw SmallSQLException.create(Language.SEQUENCE_HEX_INVALID_STR, new Object[] { new Integer(offset), new String(hex) });
         }
-    }
+}
 
     static String bytes2unique( byte[] daten, int offset ){
-    	if(daten.length-offset < 16){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(daten.length-offset < 16){
     		byte[] temp = new byte[16];
     		System.arraycopy(daten, offset, temp, 0, daten.length-offset);
     		daten = temp;
@@ -312,40 +333,45 @@ class Utils {
         chars[34] = digits[ (daten[offset+15] >> 4) & 0x0F ];
         chars[35] = digits[ (daten[offset+15]     ) & 0x0F ];
         return new String(chars);
-    }
+}
 
     static boolean string2boolean( String val){
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             return Double.parseDouble( val ) != 0;
         }catch(NumberFormatException e){/*ignore it if it not a number*/}
         return "true".equalsIgnoreCase( val ) || "yes".equalsIgnoreCase( val ) || "t".equalsIgnoreCase( val );
-    }
+}
 	
 	
 	static long doubleToMoney(double value){
-		if(value < 0)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value < 0)
 			return (long)(value * 10000 - 0.5);
 		return (long)(value * 10000 + 0.5);
-	}
+}
 
     static int indexOf( char value, char[] str, int offset, int length ){
-        value |= 0x20;
+System.out.println(new Throwable().getStackTrace()[0]);
+value |= 0x20;
         for(int end = offset+length;offset < end; offset++){
             if((str[offset] | 0x20) == value) return offset;
         }
         return -1;
-    }
+}
 
     static int indexOf( int value, int[] list ){
-        int offset = 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+int offset = 0;
         for(int end = list.length; offset < end; offset++){
             if((list[offset]) == value) return offset;
         }
         return -1;
-    }
+}
 
     static int indexOf( byte[] value, byte[] list, int offset ){
-        int length = value.length;
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = value.length;
         loop1:
         for(int end = list.length-length; offset <= end; offset++){
             for(int i=0; i<length; i++ ){
@@ -356,10 +382,11 @@ class Utils {
             return offset;
         }
         return -1;
-    }
+}
 
     static int compareBytes( byte[] leftBytes, byte[] rightBytes){
-        int length = Math.min( leftBytes.length, rightBytes.length );
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = Math.min( leftBytes.length, rightBytes.length );
         int comp = 0;
         for(int i=0; i<length; i++){
             if(leftBytes[i] != rightBytes[i]){
@@ -371,7 +398,7 @@ class Utils {
             comp = leftBytes.length < rightBytes.length ? -1 : 1;
         }
         return comp;
-    }
+}
 	
     
     /**
@@ -382,7 +409,8 @@ class Utils {
      * @throws SQLException
      */
     static CommandSelect createMemoryCommandSelect( SSConnection con, String[] colNames, Object[][] data) throws SQLException{
-		MemoryResult source = new MemoryResult(data, colNames.length);
+System.out.println(new Throwable().getStackTrace()[0]);
+MemoryResult source = new MemoryResult(data, colNames.length);
 		CommandSelect cmd = new CommandSelect(con.log);
 		for(int i=0; i<colNames.length; i++){
 			ExpressionName expr = new ExpressionName(colNames[i]);
@@ -391,28 +419,30 @@ class Utils {
 		}
 		cmd.setSource(source);
 		return cmd;
-    }
+}
 	
 
 	/**
      *  recycle Integer objects, this is faster as to garbage the objects
 	 */
 	static final Integer getInteger(int value){
-		if(value >= -4 && value < 256){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value >= -4 && value < 256){
 			return integerCache[ value+4 ];		
 		}else
 			return new Integer(value);
-	}
+}
 	
 	/**
      * recycle Integer objects, this is faster as to garbage the objects
 	 */
 	static final Short getShort(int value){
-		if(value >= -4 && value < 256){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(value >= -4 && value < 256){
 			return shortCache[ value+4 ];		
 		}else
 			return new Short((short)value);
-	}
+}
     
     
     /**
@@ -428,7 +458,8 @@ class Utils {
      *             If the file can't lock.
      */
     static final FileChannel openRaFile( File file, boolean readonly ) throws FileNotFoundException, SQLException{
-        RandomAccessFile raFile = new RandomAccessFile(file, readonly ? "r" : "rw" );
+System.out.println(new Throwable().getStackTrace()[0]);
+RandomAccessFile raFile = new RandomAccessFile(file, readonly ? "r" : "rw" );
         FileChannel channel = raFile.getChannel();
         if( !readonly ){
             try{
@@ -443,7 +474,7 @@ class Utils {
             }
         }
         return channel;
-    }
+}
     
     
     /**
@@ -453,16 +484,18 @@ class Utils {
      * @return the list of ExpressionName instances
      */
     static final Expressions getExpressionNameFromTree(Expression tree){
-        Expressions list = new Expressions();
+System.out.println(new Throwable().getStackTrace()[0]);
+Expressions list = new Expressions();
         getExpressionNameFromTree( list, tree );
         return list;
-    }
+}
     
     /**
      * Scan the tree recursively.
      */
     private static final void getExpressionNameFromTree(Expressions list, Expression tree){
-        if(tree.getType() == Expression.NAME ){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(tree.getType() == Expression.NAME ){
             list.add(tree);
         }
         Expression[] params = tree.getParams();
@@ -471,7 +504,7 @@ class Utils {
                 getExpressionNameFromTree( list, tree );
             }
         }
-    }
+}
 
     final static char[] digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 }

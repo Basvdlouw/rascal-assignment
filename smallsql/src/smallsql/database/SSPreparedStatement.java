@@ -58,159 +58,185 @@ class SSPreparedStatement extends SSStatement implements PreparedStatement {
     }
 
     public ResultSet executeQuery() throws SQLException {
-		executeImp();
+System.out.println(new Throwable().getStackTrace()[0]);
+executeImp();
         return cmd.getQueryResult();
-    }
+}
     
     public int executeUpdate() throws SQLException {
-		executeImp();
+System.out.println(new Throwable().getStackTrace()[0]);
+executeImp();
 		return cmd.getUpdateCount();
-    }
+}
     
 	final private void executeImp() throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
 		cmd.verifyParams();
         if(getMaxRows() != 0 && (top == -1 || top > getMaxRows()))
             cmd.setMaxRows(getMaxRows());
 		cmd.execute( con, this);
-	}
+}
     
     public void setNull(int parameterIndex, int sqlType) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, null, SQLTokenizer.NULL);
-    }
+}
     
     
     public void setBoolean(int parameterIndex, boolean x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, x ? Boolean.TRUE : Boolean.FALSE, SQLTokenizer.BOOLEAN);
-    }
+}
     
     
     public void setByte(int parameterIndex, byte x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, new Integer(x), SQLTokenizer.TINYINT);
-    }
+}
     
     
     public void setShort(int parameterIndex, short x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, new Integer(x), SQLTokenizer.SMALLINT);
-    }
+}
     
     
     public void setInt(int parameterIndex, int x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, new Integer(x), SQLTokenizer.INT);
-    }
+}
     
     
     public void setLong(int parameterIndex, long x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, new Long(x), SQLTokenizer.BIGINT);
-    }
+}
     
     
     public void setFloat(int parameterIndex, float x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, new Float(x), SQLTokenizer.REAL);
-    }
+}
     
     
     public void setDouble(int parameterIndex, double x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, new Double(x), SQLTokenizer.DOUBLE);
-    }
+}
     
     
     public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, x, SQLTokenizer.DECIMAL);
-    }
+}
     
     
     public void setString(int parameterIndex, String x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, x, SQLTokenizer.VARCHAR);
-    }
+}
     
     
     public void setBytes(int parameterIndex, byte[] x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, x, SQLTokenizer.BINARY);
-    }
+}
     
     
     public void setDate(int parameterIndex, Date x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, DateTime.valueOf(x), SQLTokenizer.DATE);
-    }
+}
     
     
     public void setTime(int parameterIndex, Time x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, DateTime.valueOf(x), SQLTokenizer.TIME);
-    }
+}
     
     
     public void setTimestamp(int parameterIndex, Timestamp x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, DateTime.valueOf(x), SQLTokenizer.TIMESTAMP);
-    }
+}
     
     
     public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
 		cmd.setParamValue( parameterIndex, x, SQLTokenizer.LONGVARCHAR, length);
-    }
+}
     
     
     public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setUnicodeStream() not yet implemented.");
-    }
+}
     
     
     public void setBinaryStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
 		cmd.setParamValue( parameterIndex, x, SQLTokenizer.LONGVARBINARY, length);
-    }
+}
     
     
     public void clearParameters() throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.clearParams();
-    }
+}
     
     
     public void setObject(int parameterIndex, Object x, int targetSqlType, int scale) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
     	//FIXME Scale to consider 
 		cmd.setParamValue( parameterIndex, x, -1);
-    }
+}
     
     
     public void setObject(int parameterIndex, Object x, int targetSqlType) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, x, -1);
-    }
+}
     
     
     public void setObject(int parameterIndex, Object x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         cmd.setParamValue( parameterIndex, x, -1);
-    }
+}
     
     
     public boolean execute() throws SQLException {
-		executeImp();
+System.out.println(new Throwable().getStackTrace()[0]);
+executeImp();
         return cmd.getResultSet() != null;
-    }
+}
     
     
     public void addBatch() throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
     	try{
 	    	final Expressions params = cmd.params;
 	    	final int size = params.size();
@@ -223,17 +249,19 @@ class SSPreparedStatement extends SSStatement implements PreparedStatement {
     	}catch(Exception e){
     		throw SmallSQLException.createFromException(e);
     	}
-    }
+}
     
     
 	public void clearBatch() throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
 		if(batches != null) batches.clear();
-	}
+}
 	
 	
     public int[] executeBatch() throws BatchUpdateException {
-		if(batches == null || batches.size() == 0) return new int[0];
+System.out.println(new Throwable().getStackTrace()[0]);
+if(batches == null || batches.size() == 0) return new int[0];
 		int[] result = new int[batches.size()];
 		BatchUpdateException failed = null;
 		for(int b=0; b<batches.size(); b++){
@@ -257,40 +285,46 @@ class SSPreparedStatement extends SSStatement implements PreparedStatement {
     	if(failed != null)
     		throw failed;
     	return result;
-	}
+}
 	
 	
     public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setCharacterStream() not yet implemented.");
-    }
+}
     
     
     public void setRef(int i, Ref x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setRef() not yet implemented.");
-    }
+}
     public void setBlob(int i, Blob x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setBlob() not yet implemented.");
-    }
+}
     public void setClob(int i, Clob x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setClob() not yet implemented.");
-    }
+}
     public void setArray(int i, Array x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setArray() not yet implemented.");
-    }
+}
 	
 	
     public ResultSetMetaData getMetaData() throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
 		if(cmd instanceof CommandSelect){
 			try{
 				((CommandSelect)cmd).compile(con);
@@ -302,189 +336,176 @@ class SSPreparedStatement extends SSStatement implements PreparedStatement {
 			}
 		}
 		return null;
-    }
+}
 	
 	
     public void setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setDate() not yet implemented.");
-    }
+}
     public void setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setTime() not yet implemented.");
-    }
+}
     public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setTimestamp() not yet implemented.");
-    }
+}
     public void setNull(int paramIndex, int sqlType, String typeName) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setNull() not yet implemented.");
-    }
+}
     public void setURL(int parameterIndex, URL x) throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
         /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method setURL() not yet implemented.");
-    }
+}
     public ParameterMetaData getParameterMetaData() throws SQLException {
-        checkStatement();
+System.out.println(new Throwable().getStackTrace()[0]);
+checkStatement();
        /**@todo: Implement this java.sql.PreparedStatement method*/
         throw new java.lang.UnsupportedOperationException("Method getParameterMetaData() not yet implemented.");
-    }
+}
 
 	@Override
 	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public void setPoolable(boolean poolable) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public boolean isPoolable() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return null;
+}
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
 	@Override
 	public void setRowId(int parameterIndex, RowId x) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setNString(int parameterIndex, String value)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setNCharacterStream(int parameterIndex, Reader value,
 			long length) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setNClob(int parameterIndex, NClob value) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setClob(int parameterIndex, Reader reader, long length)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setBlob(int parameterIndex, InputStream inputStream, long length)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setNClob(int parameterIndex, Reader reader, long length)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setSQLXML(int parameterIndex, SQLXML xmlObject)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setAsciiStream(int parameterIndex, InputStream x, long length)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setBinaryStream(int parameterIndex, InputStream x, long length)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setCharacterStream(int parameterIndex, Reader reader,
 			long length) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setAsciiStream(int parameterIndex, InputStream x)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setBinaryStream(int parameterIndex, InputStream x)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setCharacterStream(int parameterIndex, Reader reader)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setNCharacterStream(int parameterIndex, Reader value)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setClob(int parameterIndex, Reader reader) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setBlob(int parameterIndex, InputStream inputStream)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 
 	@Override
 	public void setNClob(int parameterIndex, Reader reader) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+}
 }

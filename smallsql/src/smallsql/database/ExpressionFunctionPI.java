@@ -35,13 +35,18 @@ package smallsql.database;
 
 final class ExpressionFunctionPI extends ExpressionFunctionReturnFloat {
 
-    final int getFunction(){ return SQLTokenizer.PI; }
+    final int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.PI;
+}
 
     boolean isNull() throws Exception{
-        return false;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
     final double getDouble() throws Exception{
-        return Math.PI;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Math.PI;
+}
 }

@@ -41,8 +41,9 @@ public class Language_it extends Language {
 	}
 	
 	public String[][] getEntries() {
-		return ENTRIES;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return ENTRIES;
+}
 	
 	//////////////////////////////////////////////////////////////////////
 	// MESSAGES
@@ -50,28 +51,28 @@ public class Language_it extends Language {
 	
 	private final String[][] ENTRIES = {
 { UNSUPPORTED_OPERATION           , "Operazione non supportata: {0}." },
-{ CANT_LOCK_FILE                  , "Impossibile bloccare il file ''{0}''. Un database SmallSQL Database può essere aperto da un unico processo." },
+{ CANT_LOCK_FILE                  , "Impossibile bloccare il file ''{0}''. Un database SmallSQL Database puÃ² essere aperto da un unico processo." },
 
-{ DB_EXISTENT                     , "Il database ''{0}'' è già esistente." },
+{ DB_EXISTENT                     , "Il database ''{0}'' Ã¨ giÃ  esistente." },
 { DB_NONEXISTENT                  , "Il database ''{0}'' Non esiste." },
-{ DB_NOT_DIRECTORY                , "La directory ''{0}'' non è un database SmallSQL." },
-{ DB_NOTCONNECTED                 , "L''utente non è connesso a un database." },
+{ DB_NOT_DIRECTORY                , "La directory ''{0}'' non Ã¨ un database SmallSQL." },
+{ DB_NOTCONNECTED                 , "L''utente non Ã¨ connesso a un database." },
 
-{ CONNECTION_CLOSED               , "La connessione è già chiusa." },
+{ CONNECTION_CLOSED               , "La connessione Ã¨ giÃ  chiusa." },
 
-{ VIEW_INSERT                     , "INSERT non è supportato per una view." },
-{ VIEWDROP_NOT_VIEW               , "Non è possibile effettuare DROP VIEW con ''{0}'' perché non è una view." },
-{ VIEW_CANTDROP                   , "Non si può effettuare drop sulla view ''{0}''." },
+{ VIEW_INSERT                     , "INSERT non Ã¨ supportato per una view." },
+{ VIEWDROP_NOT_VIEW               , "Non Ã¨ possibile effettuare DROP VIEW con ''{0}'' perchÃ© non Ã¨ una view." },
+{ VIEW_CANTDROP                   , "Non si puÃ² effettuare drop sulla view ''{0}''." },
 
-{ RSET_NOT_PRODUCED               , "Nessun ResultSet è stato prodotto." },
-{ RSET_READONLY                   , "Il ResultSet è di sola lettura." },
-{ RSET_FWDONLY                    , "Il ResultSet è forward only." }, // no real translation
-{ RSET_CLOSED                     , "Il ResultSet è chiuso." },
-{ RSET_NOT_INSERT_ROW             , "Il cursore non è attualmente nella riga ''InsertRow''." },
-{ RSET_ON_INSERT_ROW              , "Il cursore è attualmente nella riga ''InsertRow''." },
-{ ROWSOURCE_READONLY              , "Il Rowsource è di sola lettura." },
+{ RSET_NOT_PRODUCED               , "Nessun ResultSet Ã¨ stato prodotto." },
+{ RSET_READONLY                   , "Il ResultSet Ã¨ di sola lettura." },
+{ RSET_FWDONLY                    , "Il ResultSet Ã¨ forward only." }, // no real translation
+{ RSET_CLOSED                     , "Il ResultSet Ã¨ chiuso." },
+{ RSET_NOT_INSERT_ROW             , "Il cursore non Ã¨ attualmente nella riga ''InsertRow''." },
+{ RSET_ON_INSERT_ROW              , "Il cursore Ã¨ attualmente nella riga ''InsertRow''." },
+{ ROWSOURCE_READONLY              , "Il Rowsource Ã¨ di sola lettura." },
 
-{ STMT_IS_CLOSED                  , "Lo Statement è in stato chiuso." },
+{ STMT_IS_CLOSED                  , "Lo Statement Ã¨ in stato chiuso." },
 
 { SUBQUERY_COL_COUNT              , "Il conteggio delle colonne nella subquery deve essere 1 e non {0}." },
 { JOIN_DELETE                     , "DeleteRow non supportato nelle join." },
@@ -79,19 +80,19 @@ public class Language_it extends Language {
 { DELETE_WO_FROM                  , "DeleteRow necessita un''espressione FROM." },
 { INSERT_WO_FROM                  , "InsertRow necessita un''espressione FROM." },
 
-{ TABLE_CANT_RENAME               , "La tabella ''{0}'' non può essere rinominata." },
-{ TABLE_CANT_DROP                 , "Non si può effettuare DROP della tabella ''{0}''." },
-{ TABLE_CANT_DROP_LOCKED          , "Non si può effettuare DROP della tabella ''{0}'' perché è in LOCK." },
+{ TABLE_CANT_RENAME               , "La tabella ''{0}'' non puÃ² essere rinominata." },
+{ TABLE_CANT_DROP                 , "Non si puÃ² effettuare DROP della tabella ''{0}''." },
+{ TABLE_CANT_DROP_LOCKED          , "Non si puÃ² effettuare DROP della tabella ''{0}'' perchÃ© Ã¨ in LOCK." },
 { TABLE_CORRUPT_PAGE              , "Pagina della tabella corrotta alla posizione: {0}." },
-{ TABLE_MODIFIED                  , "La tabella ''{0}'' è stata modificata." },
-{ TABLE_DEADLOCK                  , "Deadlock: non si può mettere un lock sulla tabella ''{0}''." },
+{ TABLE_MODIFIED                  , "La tabella ''{0}'' Ã¨ stata modificata." },
+{ TABLE_DEADLOCK                  , "Deadlock: non si puÃ² mettere un lock sulla tabella ''{0}''." },
 { TABLE_OR_VIEW_MISSING           , "La tabella/view ''{0}'' non esiste." },
 { TABLE_FILE_INVALID              , "Il file ''{0}'' non include una tabella SmallSQL valida." },
-{ TABLE_OR_VIEW_FILE_INVALID      , "Il file ''{0}'' non è un contenitore valido di tabella/view." },
-{ TABLE_EXISTENT                  , "La tabella/vista ''{0}'' è già esistente." },
+{ TABLE_OR_VIEW_FILE_INVALID      , "Il file ''{0}'' non Ã¨ un contenitore valido di tabella/view." },
+{ TABLE_EXISTENT                  , "La tabella/vista ''{0}'' Ã¨ giÃ  esistente." },
 
-{ FK_NOT_TABLE                    , "''{0}'' non è una tabella." },
-{ PK_ONLYONE                      , "Una tabella può avere solo una primary key." },
+{ FK_NOT_TABLE                    , "''{0}'' non Ã¨ una tabella." },
+{ PK_ONLYONE                      , "Una tabella puÃ² avere solo una primary key." },
 { KEY_DUPLICATE                   , "Chiave duplicata." },
 
 { MONTH_TOOLARGE                  , "Valore del mese troppo alto del in DATE o TIMESTAMP ''{0}''." },
@@ -100,7 +101,7 @@ public class Language_it extends Language {
 { MINUTES_TOOLARGE                , "Valore dei minuti troppo alto in TIME o TIMESTAMP ''{0}''." },
 { SECS_TOOLARGE                   , "Valore dei secondi troppo alto in TIME o TIMESTAMP ''{0}''." },
 { MILLIS_TOOLARGE                 , "VAlore dei millisecondi troppo alto in TIMESTAMP ''{0}''." },
-{ DATETIME_INVALID                , "''{0}'' è un DATE, TIME or TIMESTAMP non valido." },
+{ DATETIME_INVALID                , "''{0}'' Ã¨ un DATE, TIME or TIMESTAMP non valido." },
 
 { UNSUPPORTED_CONVERSION_OPER     , "Conversione non supportata verso il tipo di dato ''{0}'' dal tipo ''{1}'' per l''operazione ''{2}''." },
 { UNSUPPORTED_DATATYPE_OPER       , "Tipo di dato ''{0}'' non supportato per l''operazione ''{1}''." },
@@ -109,7 +110,7 @@ public class Language_it extends Language {
 { UNSUPPORTED_TYPE_CONV           , "Tipo non supportato per la funzione CONVERT: {0}." },
 { UNSUPPORTED_TYPE_SUM            , "Tipo non supportato per la funzione SUM: ''{0}''." },
 { UNSUPPORTED_TYPE_MAX            , "Tipo non supportato per la funzione MAX: ''{0}''." },
-{ UNSUPPORTED_CONVERSION          , "Non è possible convertire ''{0}'' [{1}] in ''{2}''." },
+{ UNSUPPORTED_CONVERSION          , "Non Ã¨ possible convertire ''{0}'' [{1}] in ''{2}''." },
 { INSERT_INVALID_LEN              , "Lunghezza non valida ''{0}'' per la funzione INSERT." },
 { SUBSTR_INVALID_LEN              , "Lunghezza non valida ''{0}'' per la funzione SUBSTRING." },
 
@@ -119,42 +120,42 @@ public class Language_it extends Language {
 { VALUE_CANT_CONVERT              , "Impossible convertire un valore {0} in un valore {1}." },
 
 { BYTEARR_INVALID_SIZE            , "Lunghezza non valida per un array di bytes: {0}." },
-{ LOB_DELETED                     , "L''oggetto LOB è stato cancellato." },
+{ LOB_DELETED                     , "L''oggetto LOB Ã¨ stato cancellato." },
 
 { PARAM_CLASS_UNKNOWN             , "Classe sconosciuta (''{0}'') per il parametro." },
-{ PARAM_EMPTY                     , "Il parametro {0} è vuoto." },
-{ PARAM_IDX_OUT_RANGE             , "L''indice {0} per il parametro è fuori dall''intervallo consentito ( 1 <= n <= {1} )." },
+{ PARAM_EMPTY                     , "Il parametro {0} Ã¨ vuoto." },
+{ PARAM_IDX_OUT_RANGE             , "L''indice {0} per il parametro Ã¨ fuori dall''intervallo consentito ( 1 <= n <= {1} )." },
 
 { COL_DUPLICATE                	  , "Nome di colonna duplicato: ''{0}''." },
 { COL_MISSING                     , "Colonna ''{0}'' non trovata." },
-{ COL_VAL_UNMATCH                 , "Il conteggio di colonne e valori non è identico." },
+{ COL_VAL_UNMATCH                 , "Il conteggio di colonne e valori non Ã¨ identico." },
 { COL_INVALID_SIZE                , "Lunghezza non valida ({0}) per la colonna ''{1}''." },
 { COL_WRONG_PREFIX                , "Il prefisso di colonna ''{0}'' non coincide con un alias o nome di tabella usato nella query." },
-{ COL_READONLY                    , "La colonna ''{0}'' è di sola lettura." },
+{ COL_READONLY                    , "La colonna ''{0}'' Ã¨ di sola lettura." },
 { COL_INVALID_NAME                , "Nome di colonna non valido ''{0}''." },
 { COL_IDX_OUT_RANGE               , "Indice di colonna fuori dall''intervallo valido: {0}." },
-{ COL_AMBIGUOUS                   , "Il nome di colonna ''{0}'' è ambiguo." },
+{ COL_AMBIGUOUS                   , "Il nome di colonna ''{0}'' Ã¨ ambiguo." },
 
 { GROUP_AGGR_INVALID              , "Funzione di aggregrazione non valida per la clausola GROUP BY: ({0})." },
-{ GROUP_AGGR_NOTPART              , "L''espressione ''{0}'' non è parte di una funzione di aggregazione o della clausola GROUP BY." },
+{ GROUP_AGGR_NOTPART              , "L''espressione ''{0}'' non Ã¨ parte di una funzione di aggregazione o della clausola GROUP BY." },
 { ORDERBY_INTERNAL                , "Errore interno per ORDER BY." },
 { UNION_DIFFERENT_COLS            , "SELECT appartenenti ad una UNION con numero di colonne differenti: {0} e {1}." },
 
-{ INDEX_EXISTS                    , "L''indice ''{0}'' è già esistente." },
+{ INDEX_EXISTS                    , "L''indice ''{0}'' Ã¨ giÃ  esistente." },
 { INDEX_MISSING                   , "L''indice ''{0}'' non esiste." },
-{ INDEX_FILE_INVALID              , "Il file ''{0}'' non è un contenitore valido per un indice." },
+{ INDEX_FILE_INVALID              , "Il file ''{0}'' non Ã¨ un contenitore valido per un indice." },
 { INDEX_CORRUPT                   , "Errore durante il caricamento dell''indice. File dell''indice corrotto: ''{0}''." },
 { INDEX_TOOMANY_EQUALS            , "Troppe voci uguali nell''indice." },
 
-{ FILE_TOONEW                     , "La versione ({0}) del file ''{1}'' è troppo recente per questo runtime." },
-{ FILE_TOOOLD                     , "La versione ({0}) del file ''{1}'' è troppo vecchia per questo runtime." },
+{ FILE_TOONEW                     , "La versione ({0}) del file ''{1}'' Ã¨ troppo recente per questo runtime." },
+{ FILE_TOOOLD                     , "La versione ({0}) del file ''{1}'' Ã¨ troppo vecchia per questo runtime." },
 { FILE_CANT_DELETE                , "File ''(0)'' non possono essere eliminati." },
 
-{ ROW_0_ABSOLUTE                  , "Il numero di riga 0 non è valido per il metodo ''absolute()''." },
+{ ROW_0_ABSOLUTE                  , "Il numero di riga 0 non Ã¨ valido per il metodo ''absolute()''." },
 { ROW_NOCURRENT                   , "Nessuna riga corrente." },
 { ROWS_WRONG_MAX                  , "Numero massimo di righe non valido ({0})." },
-{ ROW_LOCKED                      , "La riga è bloccata da un''altra connessione." },
-{ ROW_DELETED                     , "Riga già cancellata." },
+{ ROW_LOCKED                      , "La riga Ã¨ bloccata da un''altra connessione." },
+{ ROW_DELETED                     , "Riga giÃ  cancellata." },
 
 { SAVEPT_INVALID_TRANS            , "SAVEPOINT non valido per questa transazione." },
 { SAVEPT_INVALID_DRIVER           , "SAVEPOINT non valido per questo driver {0}." },

@@ -35,10 +35,14 @@ package smallsql.database;
 
 final class ExpressionFunctionLog extends ExpressionFunctionReturnFloat {
 
-    final int getFunction(){ return SQLTokenizer.LOG; }
+    final int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.LOG;
+}
 
     final double getDouble() throws Exception{
-		if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         return Math.log( param1.getDouble() );
-    }
+}
 }

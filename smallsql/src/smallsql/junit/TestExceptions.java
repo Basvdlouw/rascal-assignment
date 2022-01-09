@@ -74,17 +74,19 @@ public class TestExceptions extends BasicTestCase {
     
 
     private void init() throws Exception{
-    	if(init) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(init) return;
 		Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		dropTable( con, "exceptions");
 		st.execute("Create Table exceptions (c varchar(30), i int)");
 		init = true;
-    }
+}
     
     
     public void runTest() throws Exception{
-    	init();
+System.out.println(new Throwable().getStackTrace()[0]);
+init();
         Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
 		ResultSet rs = null;
@@ -108,26 +110,28 @@ public class TestExceptions extends BasicTestCase {
         }catch(SQLException sqle){
             assertSQLException( testValue.sqlstate, testValue.errorCode, sqle );
         }
-    }
+}
     
 
     public static Test suite() throws Exception{
-        TestSuite theSuite = new TestSuite("Exceptions");
+System.out.println(new Throwable().getStackTrace()[0]);
+TestSuite theSuite = new TestSuite("Exceptions");
         for(int i=0; i<TESTS.length; i++){
             theSuite.addTest(new TestExceptions( TESTS[i] ) );
         }
         return theSuite;
-    }
+}
     
 
     private static TestValue a(String sqlstate, int errorCode, int errorType, String sql ){
-        TestValue value = new TestValue();
+System.out.println(new Throwable().getStackTrace()[0]);
+TestValue value = new TestValue();
         value.sql       = sql;
         value.sqlstate  = sqlstate;
         value.errorCode = errorCode;
         value.errorType = errorType;
         return value;
-    }
+}
     
 
     private static class TestValue{

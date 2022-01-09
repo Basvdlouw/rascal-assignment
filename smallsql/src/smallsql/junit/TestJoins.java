@@ -95,19 +95,22 @@ public class TestJoins extends BasicTestCase {
 
 	
 	private void clear() throws SQLException{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         dropTable( con, table );
         dropTable( con, table2 );
         dropTable( con, table3 );
-	}
+}
 	
 	
     public void tearDown() throws SQLException{
-		clear();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+clear();
+}
 
     public void setUp() throws Exception{
-		clear();
+System.out.println(new Throwable().getStackTrace()[0]);
+clear();
         Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         st.execute("create table " + table + "(a " + testValue.dataType +" PRIMARY KEY, b " + testValue.dataType + ")");
@@ -123,10 +126,11 @@ public class TestJoins extends BasicTestCase {
 	    pr = con.prepareStatement("INSERT into " + table2 + " Values(?,?)");
 	    insertValues( pr );
         pr.close();
-    }
+}
 
     private void insertValues(PreparedStatement pr ) throws Exception{
-            pr.setObject( 1, testValue.small);
+System.out.println(new Throwable().getStackTrace()[0]);
+pr.setObject( 1, testValue.small);
             pr.setObject( 2, testValue.large);
             pr.execute();
 
@@ -153,10 +157,11 @@ public class TestJoins extends BasicTestCase {
             pr.setObject( 1, null);
             pr.setObject( 2, null);
             pr.execute();
-    }
+}
 
     public void runTest() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         ResultSet rs;
 
@@ -190,24 +195,26 @@ public class TestJoins extends BasicTestCase {
         assertRowCount( 5, "Select * from " + table + " INNER JOIN (SELECT DISTINCT c FROM " + table2 + ") t1 ON " + table + ".a = t1.c");
         
         st.close();
-    }
+}
 
     public static Test suite() throws Exception{
-        TestSuite theSuite = new TestSuite("Joins");
+System.out.println(new Throwable().getStackTrace()[0]);
+TestSuite theSuite = new TestSuite("Joins");
         for(int i=0; i<TESTS.length; i++){
             theSuite.addTest(new TestJoins( TESTS[i] ) );
         }
         return theSuite;
-    }
+}
 
 
     private static TestValue a(String dataType, Object small, Object large){
-        TestValue value = new TestValue();
+System.out.println(new Throwable().getStackTrace()[0]);
+TestValue value = new TestValue();
         value.dataType  = dataType;
         value.small     = small;
         value.large     = large;
         return value;
-    }
+}
 
     private static class TestValue{
         String dataType;

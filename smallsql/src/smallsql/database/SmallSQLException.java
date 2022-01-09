@@ -75,10 +75,11 @@ class SmallSQLException extends SQLException {
 	}
 	
 	private void init(){
-		this.isInit = true;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.isInit = true;
 		PrintWriter pw = DriverManager.getLogWriter();
-		if(pw != null) this.printStackTrace(pw);	
-	}
+		if(pw != null) this.printStackTrace(pw);
+}
 	
     /**
 	 * Sets the language for the specified locale.<br>
@@ -91,8 +92,8 @@ class SmallSQLException extends SQLException {
 	 *             in case of missing language resource.
 	 */
     static void setLanguage(Object localeObj) throws SQLException {
-    	// if already set and no lang passed, return!
-    	if (language != null && localeObj == null) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if (language != null && localeObj == null) return;
 
     	if (localeObj == null) {
     		language = Language.getDefaultLanguage(); 
@@ -100,34 +101,38 @@ class SmallSQLException extends SQLException {
     	else {
     		language = Language.getLanguage(localeObj.toString()); 
     	}
-    }
+}
     
 	public void printStackTrace(){
-		if(!isInit) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!isInit) return;
 		super.printStackTrace();
-	}
+}
     
 	public void printStackTrace(PrintStream ps){
-		if(!isInit) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!isInit) return;
 		super.printStackTrace(ps);
-	}
+}
     
 	public void printStackTrace(PrintWriter pw){
-		if(!isInit) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!isInit) return;
 		super.printStackTrace(pw);
-	}
+}
 	
 	//////////////////////////////////////////////////////////////////////
 	// FACTORY METHODS
 	//////////////////////////////////////////////////////////////////////
 	
     static SQLException create( String messageCode ) {
-    	assert (messageCode != null): "Fill parameters";
+System.out.println(new Throwable().getStackTrace()[0]);
+assert (messageCode != null): "Fill parameters";
     	
     	String message = translateMsg(messageCode, null);
     	String sqlState = language.getSqlState(messageCode);
         return new SmallSQLException(message, sqlState);
-    }
+}
     
     /**
 	 * Convenience method for passing only one parameter.<br>
@@ -142,19 +147,22 @@ class SmallSQLException extends SQLException {
 	 *            message parameter.
 	 */
     static SQLException create( String messageCode, Object param0 ) {
-    	String message = translateMsg(messageCode, new Object[] { param0 });
+System.out.println(new Throwable().getStackTrace()[0]);
+String message = translateMsg(messageCode, new Object[] { param0 });
     	String sqlState = language.getSqlState(messageCode);
         return new SmallSQLException(message, sqlState);
-    }
+}
 
     static SQLException create( String messageCode, Object[] params ) {
-    	String message = translateMsg(messageCode, params);
+System.out.println(new Throwable().getStackTrace()[0]);
+String message = translateMsg(messageCode, params);
     	String sqlState = language.getSqlState(messageCode);
         return new SmallSQLException(message, sqlState);
-    }
+}
     
     static SQLException createFromException( Throwable e ){
-        if(e instanceof SQLException) {
+System.out.println(new Throwable().getStackTrace()[0]);
+if(e instanceof SQLException) {
         	return (SQLException)e;
         }
         else {
@@ -162,7 +170,7 @@ class SmallSQLException extends SQLException {
         	String sqlState = language.getSqlState(Language.CUSTOM_MESSAGE);
         	return new SmallSQLException(e, message, sqlState);
         }
-    }
+}
     
     /**
 	 * Create an exception with the specified message and appends the passed
@@ -179,10 +187,11 @@ class SmallSQLException extends SQLException {
     static SQLException createFromException( String messageCode, Object param0, 
     		Throwable e )
     {
-    	String message = translateMsg(messageCode, new Object[] { param0 });
+System.out.println(new Throwable().getStackTrace()[0]);
+String message = translateMsg(messageCode, new Object[] { param0 });
     	String sqlState = language.getSqlState(messageCode);
         return new SmallSQLException(e, message, sqlState);
-    }
+}
     
 	//////////////////////////////////////////////////////////////////////
 	// MESSAGES ELABORATION METHODS
@@ -203,17 +212,19 @@ class SmallSQLException extends SQLException {
 	 * @return translated message.
 	 */
 	static String translateMsg(String messageCode, Object[] params) {
-		assert ( messageCode != null && params != null ): "Fill parameters. msgCode=" + messageCode + " params=" + params;
+System.out.println(new Throwable().getStackTrace()[0]);
+assert ( messageCode != null && params != null ): "Fill parameters. msgCode=" + messageCode + " params=" + params;
 		
 		String localized = language.getMessage(messageCode);		
-		return MessageFormat.format(localized, params); 
-	}
+		return MessageFormat.format(localized, params);
+}
 
 	/**
 	 * Strips the message out of the passed exception, if possible.
 	 */
 	private static String stripMsg(Throwable throwable) {
-		String msg = throwable.getMessage();
+System.out.println(new Throwable().getStackTrace()[0]);
+String msg = throwable.getMessage();
 		if(msg == null || msg.length() < 30){
 			String msg2 = throwable.getClass().getName();
 			msg2 = msg2.substring(msg2.lastIndexOf('.')+1);
@@ -222,6 +233,6 @@ class SmallSQLException extends SQLException {
 			return msg2;
 		}
 		
-		return throwable.getMessage(); 
-	}
+		return throwable.getMessage();
+}
 }

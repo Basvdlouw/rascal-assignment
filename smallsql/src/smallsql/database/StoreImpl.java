@@ -99,7 +99,8 @@ public class StoreImpl extends Store {
      * DELETE: Has no cache else only the filePos to write the flag.
     */
     static StoreImpl createStore( Table table, StorePage storePage, int type, long filePos ) throws SQLException{
-        try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
             StoreImpl store = new StoreImpl(table, storePage, type, filePos);
             switch(type){
                 case SQLTokenizer.LONGVARBINARY:
@@ -146,25 +147,27 @@ public class StoreImpl extends Store {
         } catch (Throwable th) {
             throw SmallSQLException.createFromException(th);
         }
-    }
+}
     
     
     /**
      * Recreate a StoreImpl from an uncommitted StorePage.
      */
 	static StoreImpl recreateStore( Table table, StorePage storePage, int type) throws Exception{
-		StoreImpl store = new StoreImpl(table, storePage, type, -1);
+System.out.println(new Throwable().getStackTrace()[0]);
+StoreImpl store = new StoreImpl(table, storePage, type, -1);
 		store.page = storePage.page;
 		store.sharedPageData = true;
 		store.readPageHeader();
 		store = store.loadUpdatedStore();
 		store.offset = PAGE_CONTROL_SIZE;
 		return store;
-	}
+}
 	
     
     private final void readPageHeader() throws SQLException{
-		if(readInt() != PAGE_MAGIC){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(readInt() != PAGE_MAGIC){
 			throw SmallSQLException.create(Language.TABLE_CORRUPT_PAGE, new Object[] { new Long(filePos) });
 		}
 		status = readInt();
@@ -172,7 +175,7 @@ public class StoreImpl extends Store {
 		sizePhysical = readInt();
 		nextPageOffset = readInt();
 		filePosUpdated = readLong();
-    }
+}
     
     
     /**
@@ -181,39 +184,44 @@ public class StoreImpl extends Store {
      * @throws Exception
      */
 	final private StoreImpl loadUpdatedStore() throws Exception{
-		if(status != UPDATE_POINTER) return this;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(status != UPDATE_POINTER) return this;
 		StoreImpl storeTemp = table.getStore( ((TableStorePage)storePage).con, filePosUpdated, type);
 		storeTemp.updatePointer = this;
 		return storeTemp;
-    }
+}
     
 
     private void resizePage(int minNewSize){
-    	int newSize = Math.max(minNewSize, page.length*2);
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = Math.max(minNewSize, page.length*2);
     	byte[] newPage = new byte[newSize];
     	System.arraycopy( page, 0, newPage, 0, page.length);
     	page = newPage;
-    }
+}
     
 
 	@Override
     boolean isValidPage(){
-		return status == NORMAL || (status == UPDATED_PAGE && updatePointer != null); 
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return status == NORMAL || (status == UPDATED_PAGE && updatePointer != null);
+}
 	
     @Override
     int getUsedSize(){
-        return sizeUsed;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return sizeUsed;
+}
     
     @Override
     long getNextPagePos(){
-    	if(updatePointer != null) return updatePointer.getNextPagePos();
+System.out.println(new Throwable().getStackTrace()[0]);
+if(updatePointer != null) return updatePointer.getNextPagePos();
     	if(nextPageOffset <= 0){
 			nextPageOffset = sizePhysical; 
     	}
 		return filePos + nextPageOffset;
-    }
+}
 
     
     /**
@@ -223,7 +231,8 @@ public class StoreImpl extends Store {
      * @throws SQLException
      */
     long writeFinsh(SSConnection con) throws SQLException{
-        switch(type){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(type){
             case SQLTokenizer.LONGVARBINARY:
             case SQLTokenizer.INSERT:
             case SQLTokenizer.CREATE:
@@ -255,7 +264,7 @@ public class StoreImpl extends Store {
         }else{
             return 0;
         }
-    }
+}
     
     
     /**
@@ -265,18 +274,20 @@ public class StoreImpl extends Store {
      *             if for the current row (page) cannot create a write lock or th connection was closed.
      */
     final void createWriteLock() throws SQLException{
-		TableStorePage storePageWrite = table.requestWriteLock( ((TableStorePage)storePage).con, (TableStorePage)storePage );
+System.out.println(new Throwable().getStackTrace()[0]);
+TableStorePage storePageWrite = table.requestWriteLock( ((TableStorePage)storePage).con, (TableStorePage)storePage );
 		if(storePageWrite == null)
 			throw SmallSQLException.create(Language.ROW_LOCKED);
 		storePage = storePageWrite;
-    }
+}
     
     /**
      * Is call from updateRow().
      * The offset of newData must be at the end of the data. It used as new page size. 
      */
 	void updateFinsh(SSConnection con, StoreImpl newData) throws SQLException{
-		type = SQLTokenizer.UPDATE;
+System.out.println(new Throwable().getStackTrace()[0]);
+type = SQLTokenizer.UPDATE;
 		//createWriteLock();
 		if(newData.offset <= sizePhysical || filePos == -1){
 			// the old page can be overwrite because it it large enough
@@ -310,7 +321,7 @@ public class StoreImpl extends Store {
 			}
 			writeFinsh(con);
 		}
-	}
+}
     
 /*==============================================================================
 
@@ -321,72 +332,84 @@ Write und Read Methoden
 	
 	
 	int getCurrentOffsetInPage(){
-		return offset;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return offset;
+}
 	
 	
 	void setCurrentOffsetInPage(int newOffset){
-		this.offset = newOffset;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = newOffset;
+}
 	
 
     void writeByte( int value ){
-    	int newSize = offset + 1;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + 1;
         if(newSize > page.length) resizePage(newSize);
 
         page[ offset++ ] = (byte)(value);
-    }
+}
 
     int readByte(){
-        return page[ offset++ ];
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return page[ offset++ ];
+}
 
     int readUnsignedByte(){
-        return page[ offset++ ] & 0xFF;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return page[ offset++ ] & 0xFF;
+}
 
     void writeBoolean( boolean value ){
-    	int newSize = offset + 1;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + 1;
         if(newSize > page.length) resizePage(newSize);
 
         page[ offset++ ] = (byte)(value ? 1 : 0);
-    }
+}
 
     boolean readBoolean(){
-        return page[ offset++ ] != 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return page[ offset++ ] != 0;
+}
 
     void writeShort( int value ){
-    	int newSize = offset + 2;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + 2;
         if(newSize > page.length) resizePage(newSize);
 
         page[ offset++ ] = (byte)(value >> 8);
         page[ offset++ ] = (byte)(value);
-    }
+}
 
     int readShort(){
-        return (page[ offset++ ] << 8) | (page[ offset++ ] & 0xFF);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return (page[ offset++ ] << 8) | (page[ offset++ ] & 0xFF);
+}
 
     void writeInt( int value ){
-    	int newSize = offset + 4;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + 4;
         if(newSize > page.length) resizePage(newSize);
 
         page[ offset++ ] = (byte)(value >> 24);
         page[ offset++ ] = (byte)(value >> 16);
         page[ offset++ ] = (byte)(value >> 8);
         page[ offset++ ] = (byte)(value);
-    }
+}
 
     int readInt(){
-        return  ((page[ offset++ ]) << 24) |
+System.out.println(new Throwable().getStackTrace()[0]);
+return  ((page[ offset++ ]) << 24) |
                 ((page[ offset++ ] & 0xFF) << 16) |
                 ((page[ offset++ ] & 0xFF) << 8) |
                 ((page[ offset++ ] & 0xFF));
-    }
+}
 
     void writeLong( long value ){
-    	int newSize = offset + 8;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + 8;
         if(newSize > page.length) resizePage(newSize);
 
         page[ offset++ ] = (byte)(value >> 56);
@@ -397,11 +420,11 @@ Write und Read Methoden
         page[ offset++ ] = (byte)(value >> 16);
         page[ offset++ ] = (byte)(value >> 8);
         page[ offset++ ] = (byte)(value);
-    }
+}
 
     long readLong(){
-        //return (((long)readInt()) << 32) | (readInt() & 0xFFFFFFFFL);
-        return  ((long)(page[ offset++ ]) << 56) |
+System.out.println(new Throwable().getStackTrace()[0]);
+return  ((long)(page[ offset++ ]) << 56) |
                 ((long)(page[ offset++ ] & 0xFF) << 48) |
                 ((long)(page[ offset++ ] & 0xFF) << 40) |
                 ((long)(page[ offset++ ] & 0xFF) << 32) |
@@ -409,81 +432,97 @@ Write und Read Methoden
                 ((page[ offset++ ] & 0xFF) << 16) |
                 ((page[ offset++ ] & 0xFF) << 8) |
                 ((page[ offset++ ] & 0xFF));
-    }
+}
 
     void writeDouble(double value){
-        writeLong( Double.doubleToLongBits(value) );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeLong( Double.doubleToLongBits(value) );
+}
 
     double readDouble(){
-        return Double.longBitsToDouble( readLong() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Double.longBitsToDouble( readLong() );
+}
 
     void writeFloat(float value){
-        writeInt( Float.floatToIntBits(value) );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeInt( Float.floatToIntBits(value) );
+}
 
     float readFloat(){
-        return Float.intBitsToFloat( readInt() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Float.intBitsToFloat( readInt() );
+}
 
     void writeNumeric( MutableNumeric num){
-        writeByte( num.getInternalValue().length );
+System.out.println(new Throwable().getStackTrace()[0]);
+writeByte( num.getInternalValue().length );
         writeByte( num.getScale() );
         writeByte( num.getSignum() );
         for(int i=0; i<num.getInternalValue().length; i++){
             writeInt( num.getInternalValue()[i] );
         }
-    }
+}
 
     MutableNumeric readNumeric(){
-        int[] value = new int[ readByte() ];
+System.out.println(new Throwable().getStackTrace()[0]);
+int[] value = new int[ readByte() ];
         int scale   = readByte();
         int signum  = readByte();
         for(int i=0; i<value.length; i++){
             value[i] = readInt();
         }
         return new MutableNumeric( signum, value, scale );
-    }
+}
 
     void writeTimestamp( long ts){
-        writeLong( ts );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeLong( ts );
+}
 
     long readTimestamp(){
-        return readLong();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return readLong();
+}
 
     void writeTime( long time){
-        writeInt( (int)((time / 1000) % 86400) );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeInt( (int)((time / 1000) % 86400) );
+}
 
     long readTime(){
-        return readInt() * 1000L;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return readInt() * 1000L;
+}
 
     void writeDate( long date){
-        writeInt( (int)(date / 86400000));
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeInt( (int)(date / 86400000));
+}
 
     long readDate(){
-        return readInt() * 86400000L;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return readInt() * 86400000L;
+}
 
     void writeSmallDateTime( long datetime){
-        writeInt( (int)(datetime / 60000));
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeInt( (int)(datetime / 60000));
+}
 
     long readSmallDateTime(){
-        return readInt() * 60000L;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return readInt() * 60000L;
+}
 
     void writeString( String strDaten ) throws SQLException{
-        writeString( strDaten, Short.MAX_VALUE, true );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+writeString( strDaten, Short.MAX_VALUE, true );
+}
 
     void writeString( String strDaten, int lengthColumn, boolean varchar ) throws SQLException{
-        char[] daten = strDaten.toCharArray();
+System.out.println(new Throwable().getStackTrace()[0]);
+char[] daten = strDaten.toCharArray();
         int length = daten.length;
 
         if(lengthColumn < length){
@@ -499,36 +538,41 @@ Write und Read Methoden
             page[ offset++ ] = ' ';
             page[ offset++ ] = 0;
         }
-    }
+}
 
     String readString(){
-        int length = readShort() & 0xFFFF;
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = readShort() & 0xFFFF;
         return new String( readChars(length) );
-    }
+}
 
     void writeBytes(byte[] daten){
-        int newSize = offset + daten.length;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + daten.length;
         if(newSize > page.length) resizePage(newSize );
         System.arraycopy( daten, 0, page, offset, daten.length);
         offset += daten.length;
-    }
+}
 
     void writeBytes(byte[] daten, int off, int length){
-        int newSize = offset + length;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + length;
         if(newSize > page.length) resizePage(newSize );
         System.arraycopy( daten, off, page, offset, length);
         offset += length;
-    }
+}
 
     byte[] readBytes(int length){
-        byte[] daten = new byte[length];
+System.out.println(new Throwable().getStackTrace()[0]);
+byte[] daten = new byte[length];
         System.arraycopy( page, offset, daten, 0, length);
         offset += length;
         return daten;
-    }
+}
 
     void writeBinary( byte[] daten, int lengthColumn, boolean varBinary ) throws SQLException{
-        int length = daten.length;
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = daten.length;
 
         if(lengthColumn < length){
         	Object params = new Object[] { new Integer(length), new Integer(lengthColumn) };
@@ -546,28 +590,32 @@ Write und Read Methoden
                 page[ offset++ ] = 0;
             }
         }
-    }
+}
 
     byte[] readBinary(){
-        int length = readShort() & 0xFFFF;
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = readShort() & 0xFFFF;
         return readBytes(length);
-    }
+}
 
     void writeLongBinary( byte[] daten ) throws Exception{
-        StoreImpl store = table.getLobStore( ((TableStorePage)storePage).con, daten.length + 4, SQLTokenizer.LONGVARBINARY);
+System.out.println(new Throwable().getStackTrace()[0]);
+StoreImpl store = table.getLobStore( ((TableStorePage)storePage).con, daten.length + 4, SQLTokenizer.LONGVARBINARY);
         store.writeInt( daten.length );
         store.writeBytes( daten );
         writeLong( store.writeFinsh(null) );
-    }
+}
 
     byte[] readLongBinary() throws Exception{
-        long lobFilePos = readLong();
+System.out.println(new Throwable().getStackTrace()[0]);
+long lobFilePos = readLong();
         StoreImpl store = table.getLobStore( ((TableStorePage)storePage).con, lobFilePos, SQLTokenizer.SELECT );
         return store.readBytes( store.readInt() );
-    }
+}
 
     void writeChars(char[] daten){
-        int length = daten.length;
+System.out.println(new Throwable().getStackTrace()[0]);
+int length = daten.length;
         int newSize = offset + 2*length;
         if(newSize > page.length) resizePage(newSize );
         for(int i=0; i<length; i++){
@@ -575,34 +623,38 @@ Write und Read Methoden
             page[ offset++ ] = (byte)(c);
             page[ offset++ ] = (byte)(c >> 8);
         }
-    }
+}
 
     char[] readChars(int length){
-        char[] daten = new char[length];
+System.out.println(new Throwable().getStackTrace()[0]);
+char[] daten = new char[length];
         for(int i=0; i<length; i++){
             daten[i] = (char)((page[ offset++ ] & 0xFF) | (page[ offset++ ] << 8));
         }
         return daten;
-    }
+}
 
     void writeLongString(String daten) throws Exception{
-        char[] chars = daten.toCharArray();
+System.out.println(new Throwable().getStackTrace()[0]);
+char[] chars = daten.toCharArray();
         StoreImpl store = table.getLobStore( ((TableStorePage)storePage).con, chars.length * 2L + 4, SQLTokenizer.LONGVARBINARY);
         store.writeInt( chars.length );
         store.writeChars( chars );
         writeLong( store.writeFinsh(null) );
-    }
+}
 
     String readLongString() throws Exception{
-        long lobFilePos = readLong();
+System.out.println(new Throwable().getStackTrace()[0]);
+long lobFilePos = readLong();
         StoreImpl store = table.getLobStore( ((TableStorePage)storePage).con, lobFilePos, SQLTokenizer.SELECT );
         if(store == null) throw SmallSQLException.create(Language.LOB_DELETED);
         return new String(store.readChars( store.readInt() ) );
-    }
+}
 	
 
     void writeColumn(Column column ) throws Exception{
-    	int newSize = offset + 25;
+System.out.println(new Throwable().getStackTrace()[0]);
+int newSize = offset + 25;
         if(newSize > page.length) resizePage(newSize);
 
         writeByte   ( column.getFlag() );
@@ -615,7 +667,7 @@ Write und Read Methoden
 		writeBoolean( def == null );
 		if(def != null)
 			writeString ( column.getDefaultDefinition() );
-    }
+}
 
 	
 	/**
@@ -626,7 +678,8 @@ Write und Read Methoden
 	 * @throws Exception
 	 */
     Column readColumn(int tableFormatVersion) throws Exception{
-        Column column = new Column();
+System.out.println(new Throwable().getStackTrace()[0]);
+Column column = new Column();
         column.setFlag( readByte() );
         column.setName( readString() );
         column.setDataType( readShort() );
@@ -643,13 +696,14 @@ Write und Read Methoden
 			column.setDefaultValue( new SQLParser().parseExpression(def), def);
 		}
         return column;
-    }
+}
  
     
     void copyValueFrom( StoreImpl store, int valueOffset, int length){
-		System.arraycopy( store.page, valueOffset, this.page, this.offset, length);
+System.out.println(new Throwable().getStackTrace()[0]);
+System.arraycopy( store.page, valueOffset, this.page, this.offset, length);
 		this.offset += length;
-    }
+}
 
     
     /**
@@ -661,7 +715,8 @@ Write und Read Methoden
      * @throws Exception if any error occur like conversions or io exceptions
      */
     void writeExpression( Expression expr, Column column) throws Exception{
-        boolean isNull = expr.isNull();
+System.out.println(new Throwable().getStackTrace()[0]);
+boolean isNull = expr.isNull();
         if(isNull && !column.isNullable()){
             throw SmallSQLException.create(Language.VALUE_NULL_INVALID, column.getName());
         }
@@ -811,12 +866,13 @@ Write und Read Methoden
                     break;
             default: throw new Error(String.valueOf(column.getDataType()));
         }
-    }
+}
 
     @Override
     boolean isNull(int valueOffset){
-        return page[ valueOffset ] != 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return page[ valueOffset ] != 0;
+}
 
     
     /**
@@ -824,7 +880,8 @@ Write und Read Methoden
      */
     @Override
     boolean getBoolean(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return false;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -883,7 +940,7 @@ Write und Read Methoden
 			default: 
 				throw SmallSQLException.create(Language.VALUE_CANT_CONVERT, new Object[] { SQLTokenizer.getKeyWord(dataType), "BOOLEAN" });
         }
-    }
+}
 
     
     /**
@@ -891,7 +948,8 @@ Write und Read Methoden
      */
     @Override
     int getInt(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -949,7 +1007,7 @@ Write und Read Methoden
 			default:
 				throw SmallSQLException.create(Language.VALUE_CANT_CONVERT, new Object[] { SQLTokenizer.getKeyWord(dataType), "INT" });
         }
-    }
+}
 
     
     /**
@@ -957,7 +1015,8 @@ Write und Read Methoden
      */
     @Override
     long getLong(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1014,7 +1073,7 @@ Write und Read Methoden
 			default:
 				throw SmallSQLException.create(Language.VALUE_CANT_CONVERT, new Object[] { SQLTokenizer.getKeyWord(dataType), "BIGINT" });
         }
-    }
+}
 
     
     /**
@@ -1022,7 +1081,8 @@ Write und Read Methoden
      */
     @Override
     float getFloat(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1079,7 +1139,7 @@ Write und Read Methoden
 			default:
 				throw SmallSQLException.create(Language.VALUE_CANT_CONVERT, new Object[] { SQLTokenizer.getKeyWord(dataType), "REAL" });
         }
-    }
+}
 
     
     /**
@@ -1087,7 +1147,8 @@ Write und Read Methoden
      */
     @Override
     double getDouble(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1144,12 +1205,13 @@ Write und Read Methoden
 			default:
 				throw SmallSQLException.create(Language.VALUE_CANT_CONVERT, new Object[] { SQLTokenizer.getKeyWord(dataType), "NUMERIC" });
         }
-    }
+}
 
     // is used for faster calculation
     @Override
     long getMoney( int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return 0;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1202,7 +1264,7 @@ Write und Read Methoden
 					throw SmallSQLException.create(Language.VALUE_CANT_CONVERT, new Object[] { SQLTokenizer.getKeyWord(dataType), "MONEY" });
             default: throw new Error();
         }
-    }
+}
 
     
     /**
@@ -1210,7 +1272,8 @@ Write und Read Methoden
      */
     @Override
     MutableNumeric getNumeric(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return null;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1264,7 +1327,7 @@ Write und Read Methoden
             // SAVER: check if this should be a kind of "type not recognized" exception.
             default: throw new Error();
         }
-    }
+}
 
 
     /**
@@ -1272,7 +1335,8 @@ Write und Read Methoden
      */
     @Override
     Object getObject(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return null;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1330,7 +1394,7 @@ Write und Read Methoden
                     return Utils.bytes2unique( page, this.offset);
             default: throw new Error();
         }
-    }
+}
 
     
     /**
@@ -1338,7 +1402,8 @@ Write und Read Methoden
      */
     @Override
     String getString( int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return null;
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -1397,7 +1462,7 @@ Write und Read Methoden
                     return Utils.bytes2unique( page, this.offset);
             default: throw new Error();
         }
-    }
+}
 
     
     /**
@@ -1405,7 +1470,8 @@ Write und Read Methoden
      */
     @Override
     byte[] getBytes(int valueOffset, int dataType) throws Exception{
-        this.offset = valueOffset;
+System.out.println(new Throwable().getStackTrace()[0]);
+this.offset = valueOffset;
         if(readBoolean()) return null;
         switch(dataType){
             case SQLTokenizer.BINARY:
@@ -1461,11 +1527,12 @@ Write und Read Methoden
                     return bytes;
             default: throw new Error();
         }
-    }
+}
 
     @Override
     void scanObjectOffsets( int[] offsets, int dataTypes[] ){
-        offset = PAGE_CONTROL_SIZE;
+System.out.println(new Throwable().getStackTrace()[0]);
+offset = PAGE_CONTROL_SIZE;
         for(int i=0; i<offsets.length; i++){
             offsets[i] = offset;
             boolean isNull = readBoolean(); // for isNull
@@ -1524,25 +1591,28 @@ Write und Read Methoden
                 default: throw new Error(String.valueOf( dataTypes[i] ) );
             }
         }
-    }
+}
 
 	@Override
     void deleteRow(SSConnection con) throws SQLException{
-		status = DELETED;
+System.out.println(new Throwable().getStackTrace()[0]);
+status = DELETED;
 		type   = SQLTokenizer.DELETE;
 		createWriteLock();
 		writeFinsh(con);
-	}
+}
 	
 	
 	StorePageLink getLink(){
-		return ((TableStorePageInsert)storePage).getLink();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return ((TableStorePageInsert)storePage).getLink();
+}
     
     /**
      * If this store is a ghost because it was rollback.
      */
     boolean isRollback(){
-        return storePage.raFile == null;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return storePage.raFile == null;
+}
 }

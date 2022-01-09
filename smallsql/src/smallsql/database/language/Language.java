@@ -206,20 +206,22 @@ public class Language {
 	 *             Error during instantiation, i.e. duplicate entry found.
 	 */
 	public static Language getLanguage(String localeStr) {
-		try {
+System.out.println(new Throwable().getStackTrace()[0]);
+try {
 			return getFromLocaleTree(localeStr);
 		}
 		catch (IllegalArgumentException e) {
 			return getDefaultLanguage();
 		}
-	}
+}
 	
 	/**
 	 * Gets the language for the default locale; if not found, returns the
 	 * ENGLISH language.
 	 */
-	public static Language getDefaultLanguage() {		
-		String dfltLocaleStr = Locale.getDefault().toString();
+	public static Language getDefaultLanguage() {
+System.out.println(new Throwable().getStackTrace()[0]);
+String dfltLocaleStr = Locale.getDefault().toString();
 
 		try {
 			return getFromLocaleTree(dfltLocaleStr);
@@ -227,7 +229,7 @@ public class Language {
 		catch (IllegalArgumentException e) {
 			return new Language(); // default to English
 		}
-	}
+}
 	
 	/**
 	 * Searches a language in the Locale tree, for example:<br>
@@ -241,7 +243,8 @@ public class Language {
 	 */
 	private static Language getFromLocaleTree(String localeStr) 
 	throws IllegalArgumentException {
-		String part = localeStr;
+System.out.println(new Throwable().getStackTrace()[0]);
+String part = localeStr;
 		while (true) {
 			String langClassName = Language.class.getName() + '_' + part;
 			
@@ -265,7 +268,7 @@ public class Language {
 		}
 		
 		throw new IllegalArgumentException("Locale not found in the tree: " + localeStr);
-	}
+}
 
 	/**
 	 * Base language constructor; fills the internal map with the English
@@ -290,7 +293,8 @@ public class Language {
 	 */
 	protected final void addMessages(String[][] entries) 
 	throws IllegalArgumentException {
-		Set inserted = new HashSet(); // for duplicates checking
+System.out.println(new Throwable().getStackTrace()[0]);
+Set inserted = new HashSet(); // for duplicates checking
 		
 		for (int i = 0; i < entries.length; i++) {
 			String key = entries[i][0];
@@ -303,7 +307,7 @@ public class Language {
 				messages.put(key, value);
 			}
 		}
-	}
+}
 	
 	/**
 	 * Add entries to sql states map.<br>
@@ -316,7 +320,8 @@ public class Language {
 	 *             if duplicate entry is found.
 	 */
 	private final void setSqlStates() {
-		Set inserted = new HashSet(); // for duplicates checking
+System.out.println(new Throwable().getStackTrace()[0]);
+Set inserted = new HashSet(); // for duplicates checking
 		
 		for (int i = 0; i < SQL_STATES.length; i++) {
 			String key = SQL_STATES[i][0];
@@ -329,23 +334,26 @@ public class Language {
 				sqlStates.put(key, value);
 			}
 		}
-	}
+}
 
 	public String getMessage(String key) {
-		String message = (String) messages.get(key);
+System.out.println(new Throwable().getStackTrace()[0]);
+String message = (String) messages.get(key);
 		assert(message != null): "Message code not found: " + key;
 		return message;
-	}
+}
 
 	public String getSqlState(String key) {
-		String sqlState = (String) sqlStates.get(key);
+System.out.println(new Throwable().getStackTrace()[0]);
+String sqlState = (String) sqlStates.get(key);
 		assert(sqlState != null): "SQL State code not found: " + key;
 		return sqlState;
-	}
+}
 
 	public String[][] getEntries() {
-		return MESSAGES;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return MESSAGES;
+}
 	
 	//////////////////////////////////////////////////////////////////////
 	// MESSAGES

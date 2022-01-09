@@ -45,7 +45,8 @@ public class CommandDrop extends Command {
     }
 
     void executeImpl(SSConnection con, SSStatement st) throws Exception {
-        switch(type){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(type){
             case SQLTokenizer.DATABASE:
                 if(name.startsWith("file:"))
                     name = name.substring(5);
@@ -72,5 +73,5 @@ public class CommandDrop extends Command {
             default:
                 throw new Error();
         }
-    }
+}
 }

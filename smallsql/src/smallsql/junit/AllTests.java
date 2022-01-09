@@ -44,22 +44,22 @@ public class AllTests extends TestCase{
     
     
     public static Connection getConnection() throws SQLException{
-        if(con == null || con.isClosed()){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(con == null || con.isClosed()){
             con = createConnection();
         }
         return con;
-    }
+}
     
     /**
      * Creates a connection in the English locale.<br>
      */
 	public static Connection createConnection() throws SQLException{
-		//DriverManager.setLogStream( System.out );
-		new smallsql.database.SSDriver();
+System.out.println(new Throwable().getStackTrace()[0]);
+new smallsql.database.SSDriver();
 		new sun.jdbc.odbc.JdbcOdbcDriver();
 		return DriverManager.getConnection(JDBC_URL + "?create=true;locale=en");
-		//return DriverManager.getConnection("jdbc:odbc:mssql","sa","");
-	}
+}
 
 	/**
 	 * Creates a connection, with the possibility of appending an additional
@@ -75,7 +75,8 @@ public class AllTests extends TestCase{
     public static Connection createConnection(String urlAddition, 
     		Properties info) 
     throws SQLException {
-		new smallsql.database.SSDriver();
+System.out.println(new Throwable().getStackTrace()[0]);
+new smallsql.database.SSDriver();
 		new sun.jdbc.odbc.JdbcOdbcDriver();
 		
 		if (urlAddition == null) urlAddition = "";
@@ -84,19 +85,21 @@ public class AllTests extends TestCase{
 		String urlComplete = JDBC_URL + urlAddition;
 		
 		return DriverManager.getConnection(urlComplete, info);
-    }
+}
     
     public static void printRS( ResultSet rs ) throws SQLException{
-        while(rs.next()){
+System.out.println(new Throwable().getStackTrace()[0]);
+while(rs.next()){
             for(int i=1; i<=rs.getMetaData().getColumnCount(); i++){
                 System.out.print(rs.getObject(i)+"\t");
             }
             System.out.println();
         }
-    }
+}
 
     public static Test suite() throws Exception{
-        TestSuite theSuite = new TestSuite("SmallSQL all Tests");
+System.out.println(new Throwable().getStackTrace()[0]);
+TestSuite theSuite = new TestSuite("SmallSQL all Tests");
         theSuite.addTestSuite( TestAlterTable.class );
         theSuite.addTestSuite( TestAlterTable2.class );
         theSuite.addTest    ( TestDataTypes.suite() );
@@ -120,15 +123,16 @@ public class AllTests extends TestCase{
         theSuite.addTestSuite(TestTokenizer.class);
         theSuite.addTestSuite(TestTransactions.class);
         return theSuite;
-    }
+}
 
     public static void main(String[] argv) {
-    	try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
     		//junit.swingui.TestRunner.main(new String[]{AllTests.class.getName()});
     		junit.textui.TestRunner.main(new String[]{AllTests.class.getName()});
     	}catch(Throwable e){
     		e.printStackTrace();
     	}
-    }
+}
 
 }

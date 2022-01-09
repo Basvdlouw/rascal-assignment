@@ -359,11 +359,12 @@ public class TestFunctions extends BasicTestCase{
 
 
     private static TestValue a(String function, Object result){
-        TestValue value = new TestValue();
+System.out.println(new Throwable().getStackTrace()[0]);
+TestValue value = new TestValue();
         value.function  = function;
         value.result    = result;
         return value;
-    }
+}
 
     TestFunctions(TestValue testValue){
         super(testValue.function);
@@ -372,7 +373,8 @@ public class TestFunctions extends BasicTestCase{
     
 
     public void tearDown(){
-        try{
+System.out.println(new Throwable().getStackTrace()[0]);
+try{
             Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
             st.execute("drop table " + table);
@@ -380,10 +382,11 @@ public class TestFunctions extends BasicTestCase{
         }catch(Throwable e){
             //e.printStackTrace();
         }
-    }
+}
 
     public void setUp(){
-        tearDown();
+System.out.println(new Throwable().getStackTrace()[0]);
+tearDown();
         try{
             Connection con = AllTests.getConnection();
             Statement st = con.createStatement();
@@ -393,23 +396,25 @@ public class TestFunctions extends BasicTestCase{
         }catch(Throwable e){
             e.printStackTrace();
         }
-    }
+}
 
     public void runTest() throws Exception{
-    	String query = "Select " + testValue.function + ",5 from " + table;
+System.out.println(new Throwable().getStackTrace()[0]);
+String query = "Select " + testValue.function + ",5 from " + table;
 		assertEqualsRsValue( testValue.result, query);
         if(!testValue.function.startsWith("Top")){
             assertEqualsRsValue( testValue.result, "Select " + testValue.function + " from " + table + " Group By " + testValue.function);
         }
-    }
+}
 
     public static Test suite() throws Exception{
-        TestSuite theSuite = new TestSuite("Functions");
+System.out.println(new Throwable().getStackTrace()[0]);
+TestSuite theSuite = new TestSuite("Functions");
         for(int i=0; i<TESTS.length; i++){
             theSuite.addTest(new TestFunctions( TESTS[i] ) );
         }
         return theSuite;
-    }
+}
 
     private static class TestValue{
         String function;

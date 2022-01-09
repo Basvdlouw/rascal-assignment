@@ -35,10 +35,14 @@ package smallsql.database;
 
 final class ExpressionFunctionRadians extends ExpressionFunctionReturnFloat {
 
-    final int getFunction(){ return SQLTokenizer.RADIANS; }
+    final int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.RADIANS;
+}
 
     final double getDouble() throws Exception{
-		if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         return Math.toRadians( param1.getDouble() );
-    }
+}
 }

@@ -100,12 +100,14 @@ public class ExpressionArithmetic extends Expression {
      * @return
      */
     int getOperation(){
-        return operation;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return operation;
+}
       
     
     private Expression convertExpressionIfNeeded( Expression expr, Expression other ){
-        if(expr == null || other == null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(expr == null || other == null){
             return expr;
         }
         switch(expr.getDataType()){
@@ -134,11 +136,12 @@ public class ExpressionArithmetic extends Expression {
             break;
         }
         return expr;
-    }
+}
     
 
 	final void setParamAt( Expression param, int idx){
-		switch(idx){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(idx){
 			case 0:
 				left = param;
 				break;
@@ -157,23 +160,25 @@ public class ExpressionArithmetic extends Expression {
 			inList[idx-1] = param;
 		}
 		super.setParamAt( param, idx );
-	}
+}
 
 
 	/**
 	 * Is used in GroupResult.
 	 */
 	public boolean equals(Object expr){
-		if(!super.equals(expr)) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(!super.equals(expr)) return false;
 		if(!(expr instanceof ExpressionArithmetic)) return false;
 		if( ((ExpressionArithmetic)expr).operation != operation) return false;
 		return true;
-	}
+}
 
 
 	
     int getInt() throws java.lang.Exception {
-        if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         int dataType = getDataType();
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -199,11 +204,12 @@ public class ExpressionArithmetic extends Expression {
                 return (int)getDoubleImpl();
         }
         throw createUnspportedConversion( SQLTokenizer.INT);
-    }
+}
     
     
     private int getIntImpl() throws java.lang.Exception {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case ADD:       return left.getInt() + right.getInt();
             case SUB:       return left.getInt() - right.getInt();
             case MUL:       return left.getInt() * right.getInt();
@@ -213,11 +219,12 @@ public class ExpressionArithmetic extends Expression {
             case BIT_NOT:   return               ~ left.getInt();
         }
         throw createUnspportedConversion( SQLTokenizer.INT);
-    }
+}
     
     
 	long getLong() throws java.lang.Exception {
-        if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         int dataType = getDataType();
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -240,11 +247,12 @@ public class ExpressionArithmetic extends Expression {
                 return (long)getDoubleImpl();
         }
 		throw createUnspportedConversion( SQLTokenizer.LONG);
-    }
+}
 	
 	
 	private long getLongImpl() throws java.lang.Exception {
-        if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         switch(operation){
             case ADD: return left.getLong() + right.getLong();
             case SUB: return left.getLong() - right.getLong();
@@ -255,11 +263,12 @@ public class ExpressionArithmetic extends Expression {
             case BIT_NOT:   return          ~ right.getInt();
         }
 		throw createUnspportedConversion( SQLTokenizer.LONG);
-    }
+}
 	
 	
     double getDouble() throws java.lang.Exception {
-        if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         int dataType = getDataType();
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -282,18 +291,20 @@ public class ExpressionArithmetic extends Expression {
                 return getDoubleImpl();
         }
 		throw createUnspportedConversion( SQLTokenizer.DOUBLE);
-    }
+}
 	
 	
     private double getDoubleImpl() throws java.lang.Exception{
-		if(operation == NEGATIVE)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(operation == NEGATIVE)
 			return getDoubleImpl(0, left.getDouble());
 		return getDoubleImpl(left.getDouble(), right.getDouble());
-	}
+}
 	
 	
     private double getDoubleImpl( double lVal, double rVal) throws java.lang.Exception{
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case ADD: return lVal + rVal;
             case SUB: return lVal - rVal;
             case MUL: return lVal * rVal;
@@ -302,11 +313,12 @@ public class ExpressionArithmetic extends Expression {
             case MOD:		return lVal % rVal;
         }
         throw createUnspportedConversion( SQLTokenizer.DOUBLE);
-    }
+}
 	
 
     float getFloat() throws java.lang.Exception {
-        if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         int dataType = getDataType();
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -329,11 +341,12 @@ public class ExpressionArithmetic extends Expression {
                 return (float)getDoubleImpl();
         }
 		throw createUnspportedConversion( SQLTokenizer.DOUBLE);
-    }
+}
     
     
     private float getFloatImpl() throws java.lang.Exception {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case ADD: return left.getFloat() + right.getFloat();
             case SUB: return left.getFloat() - right.getFloat();
             case MUL: return left.getFloat() * right.getFloat();
@@ -342,11 +355,12 @@ public class ExpressionArithmetic extends Expression {
             case MOD:		return left.getFloat() % right.getFloat();
         }
         throw createUnspportedConversion( SQLTokenizer.REAL );
-    }
+}
     
     
     long getMoney() throws java.lang.Exception {
-        if(isNull()) return 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return 0;
         int dataType = getDataType();		
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -370,11 +384,12 @@ public class ExpressionArithmetic extends Expression {
 				return getMoneyImpl();
         }
 		throw createUnspportedConversion( SQLTokenizer.DOUBLE);
-    }
+}
     
 
     private long getMoneyImpl() throws java.lang.Exception {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case ADD: return left.getMoney() + right.getMoney();
             case SUB: return left.getMoney() - right.getMoney();
             case MUL: return left.getMoney() * right.getMoney() / 10000;
@@ -382,11 +397,12 @@ public class ExpressionArithmetic extends Expression {
             case NEGATIVE: return 			 - left.getMoney();
         }
         throw createUnspportedConversion( SQLTokenizer.MONEY );
-    }
+}
     
 
     MutableNumeric getNumeric() throws java.lang.Exception {
-        if(isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return null;
         int dataType = getDataType();		
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -411,11 +427,12 @@ public class ExpressionArithmetic extends Expression {
 				return new MutableNumeric(getMoneyImpl(),4);
         }
 		throw createUnspportedConversion( SQLTokenizer.DOUBLE);
-    }
+}
     
     
     private MutableNumeric getNumericImpl() throws java.lang.Exception {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case ADD: 
             	{
 					MutableNumeric num = left.getNumeric();
@@ -468,11 +485,12 @@ public class ExpressionArithmetic extends Expression {
 				}
             default:    throw createUnspportedConversion( SQLTokenizer.NUMERIC );
         }
-    }
+}
     
     
     Object getObject() throws java.lang.Exception {
-        if(isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return null;
         int dataType = getDataType();
         switch(dataType){
             case SQLTokenizer.BIT:
@@ -524,11 +542,12 @@ public class ExpressionArithmetic extends Expression {
                     return getBytes();
             default: throw createUnspportedDataType();
         }
-    }
+}
     
     
     boolean getBoolean() throws java.lang.Exception {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
         	case OR:    return left.getBoolean() || right.getBoolean();
             case AND:   return left.getBoolean() && right.getBoolean();
             case NOT:   return                      !left.getBoolean();
@@ -715,25 +734,28 @@ public class ExpressionArithmetic extends Expression {
                     break;}
         }
         throw createUnspportedDataType();
-    }
+}
     
     
     String getString() throws java.lang.Exception {
-        if(isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isNull()) return null;
         return getObject().toString();
-    }
+}
     
     
     final private String getString( String lVal, String rVal ) throws java.lang.Exception {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case ADD: return lVal + rVal;
         }
         throw createUnspportedConversion( SQLTokenizer.VARCHAR );
-    }
+}
 
     
     int getDataType() {
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
             case NEGATIVE:
             case BIT_NOT:
             	return left.getDataType();
@@ -755,11 +777,12 @@ public class ExpressionArithmetic extends Expression {
             default:
             	return getDataType(left, right);
         }
-    }
+}
 	
 	
 	int getScale(){
-		int dataType = getDataType();
+System.out.println(new Throwable().getStackTrace()[0]);
+int dataType = getDataType();
 		switch(dataType){
 			case SQLTokenizer.DECIMAL:
 			case SQLTokenizer.NUMERIC:
@@ -778,11 +801,12 @@ public class ExpressionArithmetic extends Expression {
 				}
 		}
 		return getScale(dataType);
-	}
+}
 
     
     boolean isNull() throws Exception{
-        switch(operation){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(operation){
 	        case OR:
 	        case AND:
 	        case NOT:
@@ -796,16 +820,18 @@ public class ExpressionArithmetic extends Expression {
                            return                  left.isNull();
             default:       return left.isNull() || right.isNull();
         }
-    }
+}
 
 
     byte[] getBytes() throws java.lang.Exception {
-        throw createUnspportedConversion( SQLTokenizer.BINARY );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+throw createUnspportedConversion( SQLTokenizer.BINARY );
+}
     
     
     boolean isInList() throws Exception{
-    	if(left.isNull()) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(left.isNull()) return false;
     	try{
 	    	for(int i=0; i<inList.length; i++){
 	    		right = inList[i];
@@ -815,31 +841,34 @@ public class ExpressionArithmetic extends Expression {
     		right = null;
     	}
     	return false;
-    }
+}
 
     
     SQLException createUnspportedDataType(){
-    	Object[] params = {
+System.out.println(new Throwable().getStackTrace()[0]);
+Object[] params = {
     			SQLTokenizer.getKeyWord(getDataType(left, right)),
     			getKeywordFromOperation(operation)
     	};
         return SmallSQLException.create(Language.UNSUPPORTED_DATATYPE_OPER, params);
-    }
+}
 
     
     SQLException createUnspportedConversion( int dataType ){
-        int type = left == null ? right.getDataType() : getDataType(left, right);
+System.out.println(new Throwable().getStackTrace()[0]);
+int type = left == null ? right.getDataType() : getDataType(left, right);
         Object[] params = new Object[] {
         		SQLTokenizer.getKeyWord(dataType),
         		SQLTokenizer.getKeyWord(type),
         		getKeywordFromOperation(operation)
         };
         return SmallSQLException.create(Language.UNSUPPORTED_CONVERSION_OPER, params);
-    }
+}
     
     
     void optimize() throws SQLException{
-        super.optimize();
+System.out.println(new Throwable().getStackTrace()[0]);
+super.optimize();
         Expression[] params = getParams();
         if(params.length == 1){
             return;
@@ -849,7 +878,7 @@ public class ExpressionArithmetic extends Expression {
         for(int p=1; p<params.length; p++){
             setParamAt( convertExpressionIfNeeded( params[p], left ), p );
         }
-    }
+}
     
     /**
      * This method only for creating an error message. Thats there is no optimizing.
@@ -857,7 +886,8 @@ public class ExpressionArithmetic extends Expression {
      * @return
      */
     private static String getKeywordFromOperation(int operation){
-    	int token = 0;
+System.out.println(new Throwable().getStackTrace()[0]);
+int token = 0;
     	for(int i=1; i<1000; i++){
     		if(getOperationFromToken(i) == operation){
 				token = i;
@@ -869,11 +899,12 @@ public class ExpressionArithmetic extends Expression {
     	String keyword = SQLTokenizer.getKeyWord(token);
     	if(keyword == null) keyword = "" + (char)token;
     	return keyword;
-    }
+}
 
     
     static int getOperationFromToken( int value ){
-        switch(value){
+System.out.println(new Throwable().getStackTrace()[0]);
+switch(value){
             case SQLTokenizer.PLUS:         return ADD;
             case SQLTokenizer.MINUS:        return SUB;
             case SQLTokenizer.ASTERISK:     return MUL;
@@ -898,17 +929,18 @@ public class ExpressionArithmetic extends Expression {
             case SQLTokenizer.TILDE:        return BIT_NOT;
             default:                        return 0;
         }
-    }
+}
     
     
 	/**
 	 * Returns the higher level data type from 2 expressions. 
 	 */
     static int getDataType(Expression left, Expression right){
-		int typeLeft  = left.getDataType();
+System.out.println(new Throwable().getStackTrace()[0]);
+int typeLeft  = left.getDataType();
 		int typeRight = right.getDataType();
 		return getDataType( typeLeft, typeRight);
-    }
+}
     
 
 	/**
@@ -921,7 +953,8 @@ public class ExpressionArithmetic extends Expression {
 	 * @param paramDataType
 	 */
 	static int getBestNumberDataType(int paramDataType){
-		int dataTypeIdx = Utils.indexOf( paramDataType, DatatypeRange);
+System.out.println(new Throwable().getStackTrace()[0]);
+int dataTypeIdx = Utils.indexOf( paramDataType, DatatypeRange);
 		if(dataTypeIdx >= NVARCHAR_IDX)
 			return SQLTokenizer.DOUBLE;
 		if(dataTypeIdx >= INT_IDX)
@@ -933,18 +966,19 @@ public class ExpressionArithmetic extends Expression {
 		if(dataTypeIdx >= DECIMAL_IDX)
 			return SQLTokenizer.DECIMAL;
 		return SQLTokenizer.DOUBLE;
-	}
+}
 	
     /**
      * Returns the higher level data type from 2 data types. 
      */
 	static int getDataType(int typeLeft, int typeRight){
-		if(typeLeft == typeRight) return typeLeft;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(typeLeft == typeRight) return typeLeft;
 
 		int dataTypeIdx = Math.min( Utils.indexOf( typeLeft, DatatypeRange), Utils.indexOf( typeRight, DatatypeRange) );
 		if(dataTypeIdx < 0) throw new Error("getDataType(): "+typeLeft+", "+typeRight);
 		return DatatypeRange[ dataTypeIdx ];
-    }
+}
 	
 
     // value decade is the operation order

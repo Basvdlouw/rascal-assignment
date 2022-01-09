@@ -49,7 +49,8 @@ public class CommandCreateDatabase extends Command{
 	
     @Override
     void executeImpl(SSConnection con, SSStatement st) throws Exception{
-        if( con.isReadOnly() ){
+System.out.println(new Throwable().getStackTrace()[0]);
+if( con.isReadOnly() ){
             throw SmallSQLException.create(Language.DB_READONLY);
         }
         File dir = new File( name );
@@ -57,5 +58,5 @@ public class CommandCreateDatabase extends Command{
         if(!new File(dir, Utils.MASTER_FILENAME).createNewFile()){
         	throw SmallSQLException.create(Language.DB_EXISTENT, name);
         }
-    }
+}
 }

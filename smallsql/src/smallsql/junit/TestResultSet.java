@@ -46,7 +46,8 @@ public class TestResultSet extends BasicTestCase {
 
     
     protected void setUp() throws Exception{
-    	if(init) return;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(init) return;
 		Connection con = AllTests.getConnection();
 		Statement st = con.createStatement();
 		dropTable( con, "ResultSet");
@@ -60,11 +61,12 @@ public class TestResultSet extends BasicTestCase {
         rs.moveToInsertRow();
         rs.insertRow();
 		init = true;
-    }
+}
 
 
     public void testScrollStates() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = st.executeQuery("Select * From ResultSet Where 1=0");
         
@@ -105,11 +107,12 @@ public class TestResultSet extends BasicTestCase {
         assertFalse("isBeforeFirst", rs.isBeforeFirst() );
         assertTrue("isAfterLast", rs.isAfterLast() );
         assertEquals("getRow", 0, rs.getRow() );
-    }
+}
     
 
     public void testScrollStatesGroupBy() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = st.executeQuery("Select i,max(c) From ResultSet Group By i HAVING i=1");
         
@@ -148,11 +151,12 @@ public class TestResultSet extends BasicTestCase {
         assertFalse("isBeforeFirst", rs.isBeforeFirst() );
         assertTrue("isAfterLast", rs.isAfterLast() );
         assertEquals("getRow", 0, rs.getRow() );
-    }
+}
     
 
     public void testUpdate() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs;
         
@@ -179,14 +183,15 @@ public class TestResultSet extends BasicTestCase {
         assertEquals( (byte)66, rs.getByte("c") );
         rs.updateRow();
         assertEquals( (short)66, rs.getShort("c") );
-    }
+}
     
     
     /**
      * test if scrolling reset the update values
      */
     public void testUpdateAndScroll() throws Exception{
-        final Object value = "UpdateAndScroll";
+System.out.println(new Throwable().getStackTrace()[0]);
+final Object value = "UpdateAndScroll";
         Object value1;
         Object value2;
         Connection con = AllTests.getConnection();
@@ -244,11 +249,12 @@ public class TestResultSet extends BasicTestCase {
         rs.moveToCurrentRow();
         assertEquals("getObject", value1, rs.getObject("i"));
         assertEquals("getObject", value2, rs.getObject("c"));
-    }
+}
     
     
     public void testDelete() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = st.executeQuery("Select * From ResultSet Where i>1");
         
@@ -256,11 +262,12 @@ public class TestResultSet extends BasicTestCase {
         assertFalse( rs.rowDeleted() );
         rs.deleteRow();
         assertTrue( rs.rowDeleted() );
-    }
+}
     
     
     public void testOther() throws Exception{
-        Connection con = AllTests.getConnection();
+System.out.println(new Throwable().getStackTrace()[0]);
+Connection con = AllTests.getConnection();
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("Select * From ResultSet");
         
@@ -278,5 +285,5 @@ public class TestResultSet extends BasicTestCase {
         
         rs.setFetchSize(123);
         assertEquals( rs.getFetchSize(), 123);
-    }
+}
 }

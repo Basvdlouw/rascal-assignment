@@ -58,100 +58,114 @@ final class Join extends RowSource{
     
     
 	final boolean isScrollable(){
-		return false; //TODO performance, if left and right are scrollable then this should also scrollable
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 
     
     void beforeFirst() throws Exception{
-        scroll.beforeFirst();
+System.out.println(new Throwable().getStackTrace()[0]);
+scroll.beforeFirst();
 		isAfterLast  = false;
 		row = 0;
-    }
+}
 
     boolean first() throws Exception{
-        beforeFirst();
+System.out.println(new Throwable().getStackTrace()[0]);
+beforeFirst();
         return next();
-    }
+}
     
 
     boolean next() throws Exception{
-        if(isAfterLast) return false;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(isAfterLast) return false;
         row++;
         boolean result = scroll.next();
         if(!result){
             noRow();
         }
         return result;
-    }
+}
     
     
 	void afterLast(){
-		isAfterLast = true;
+System.out.println(new Throwable().getStackTrace()[0]);
+isAfterLast = true;
 		noRow();
-	}
+}
 	
     
 	int getRow(){
-		return row;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return row;
+}
 	
     
 	final long getRowPosition(){
-		if(rowPositions == null) rowPositions = new LongLongList();
+System.out.println(new Throwable().getStackTrace()[0]);
+if(rowPositions == null) rowPositions = new LongLongList();
 		rowPositions.add( left.getRowPosition(), right.getRowPosition());
 		return rowPositions.size()-1;
-	}
+}
 	
 	final void setRowPosition(long rowPosition) throws Exception{
-		left .setRowPosition( rowPositions.get1((int)rowPosition));
+System.out.println(new Throwable().getStackTrace()[0]);
+left .setRowPosition( rowPositions.get1((int)rowPosition));
 		right.setRowPosition( rowPositions.get2((int)rowPosition));
-	}
+}
 	
 
 	final boolean rowInserted(){
-		return left.rowInserted() || right.rowInserted();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return left.rowInserted() || right.rowInserted();
+}
 	
 	
 	final boolean rowDeleted(){
-		return left.rowDeleted() || right.rowDeleted();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return left.rowDeleted() || right.rowDeleted();
+}
 	
 	
     /**
      * By OUTER or FULL JOIN must one rowsource set to null.
      */
     void nullRow(){
-    	left.nullRow();
+System.out.println(new Throwable().getStackTrace()[0]);
+left.nullRow();
     	right.nullRow();
     	row = 0;
-    }
+}
     
 
 	void noRow(){
-		isAfterLast = true;
+System.out.println(new Throwable().getStackTrace()[0]);
+isAfterLast = true;
 		left.noRow();
 		right.noRow();
 		row = 0;
-	}
+}
 
     
     void execute() throws Exception{
-    	left.execute();
+System.out.println(new Throwable().getStackTrace()[0]);
+left.execute();
     	right.execute();
         //create the best join  algorithm
         if(!createJoinScrollIndex()){
             //Use the default join algorithm with a loop as fallback
             scroll = new JoinScroll(type, left, right, condition);
         }
-    }
+}
     
     
     /**
      * @inheritDoc
      */
     boolean isExpressionsFromThisRowSource(Expressions columns){
-        if(left.isExpressionsFromThisRowSource(columns) || right.isExpressionsFromThisRowSource(columns)){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(left.isExpressionsFromThisRowSource(columns) || right.isExpressionsFromThisRowSource(columns)){
             return true;
         }
         if(columns.size() == 1){
@@ -171,7 +185,7 @@ final class Join extends RowSource{
             return false;
         }
         return true;
-    }
+}
     
 
     /**
@@ -180,7 +194,8 @@ final class Join extends RowSource{
      * @return null if it is not possible to create a ScrollJoin based on a Index
      */
     private boolean createJoinScrollIndex() throws Exception{
-        if(type == CROSS_JOIN){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(type == CROSS_JOIN){
             return false;
         }
         if(type != INNER_JOIN){
@@ -198,11 +213,12 @@ final class Join extends RowSource{
             }
         }
         return false;
-    }
+}
     
     
     private int createJoinScrollIndex(ExpressionArithmetic cond, Expressions leftEx, Expressions rightEx, int operation) throws Exception{
-        Expression[] params = cond.getParams();
+System.out.println(new Throwable().getStackTrace()[0]);
+Expression[] params = cond.getParams();
         int op = cond.getOperation();
         if(op == ExpressionArithmetic.AND){
             Expression param0 = params[0];
@@ -243,7 +259,7 @@ final class Join extends RowSource{
             return operation;
         }
         return 0;
-    }
+}
     
     
     static final int CROSS_JOIN = 1;

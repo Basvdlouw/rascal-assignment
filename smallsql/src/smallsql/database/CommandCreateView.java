@@ -50,10 +50,12 @@ public class CommandCreateView extends Command{
      * @see SQLParser#createTable
      */
 	void addColumn( Column column ){
-		columns.add( column );
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+columns.add( column );
+}
 	
     void executeImpl(SSConnection con, SSStatement st) throws Exception{
-        con.getDatabase(false).createView(con, name, sql);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+con.getDatabase(false).createView(con, name, sql);
+}
 }

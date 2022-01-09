@@ -35,42 +35,53 @@ package smallsql.database;
 
 class ExpressionFunctionAbs extends ExpressionFunctionReturnP1 {
 
-    int getFunction(){ return SQLTokenizer.ABS; }
+    int getFunction(){
+System.out.println(new Throwable().getStackTrace()[0]);
+return SQLTokenizer.ABS;
+}
 
 
 	boolean getBoolean() throws Exception{
-        return getDouble() != 0;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return getDouble() != 0;
+}
 
     int getInt() throws Exception{
-        return Math.abs( param1.getInt() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Math.abs( param1.getInt() );
+}
 
     long getLong() throws Exception{
-        return Math.abs( param1.getLong() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Math.abs( param1.getLong() );
+}
 
     float getFloat() throws Exception{
-        return Math.abs( param1.getFloat() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Math.abs( param1.getFloat() );
+}
 
     double getDouble() throws Exception{
-        return Math.abs( param1.getDouble() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Math.abs( param1.getDouble() );
+}
 
     long getMoney() throws Exception{
-        return Math.abs( param1.getMoney() );
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return Math.abs( param1.getMoney() );
+}
 
     MutableNumeric getNumeric() throws Exception{
-		if(param1.isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(param1.isNull()) return null;
         MutableNumeric num = param1.getNumeric();
         if(num.getSignum() < 0) num.setSignum(1);
         return num;
-    }
+}
 
     Object getObject() throws Exception{
-		if(param1.isNull()) return null;
+System.out.println(new Throwable().getStackTrace()[0]);
+if(param1.isNull()) return null;
         Object para1 = param1.getObject();
         switch(param1.getDataType()){
         case SQLTokenizer.FLOAT:
@@ -99,13 +110,14 @@ class ExpressionFunctionAbs extends ExpressionFunctionReturnP1 {
             return mValue;
         default: throw createUnspportedDataType(param1.getDataType());
         }
-    }
+}
 
     String getString() throws Exception{
-        Object obj = getObject();
+System.out.println(new Throwable().getStackTrace()[0]);
+Object obj = getObject();
         if(obj == null) return null;
         return obj.toString();
-    }
+}
     
 
 }

@@ -71,8 +71,9 @@ abstract class Store {
 	 * @return true if the current row valid. false if deleted or updated data.
 	 */
 	boolean isValidPage(){
-		return false;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return false;
+}
 	
 	abstract void scanObjectOffsets( int[] offsets, int dataTypes[] );
 	

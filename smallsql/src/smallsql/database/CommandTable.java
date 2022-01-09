@@ -61,22 +61,26 @@ final class CommandTable extends Command{
      * @see SQLParser#createTable
      */
     void addColumn(Column column) throws SQLException{
-        addColumn(columns, column);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+addColumn(columns, column);
+}
 	
 	
 	void addIndex( IndexDescription indexDescription ) throws SQLException{
-		indexes.add(indexDescription);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+indexes.add(indexDescription);
+}
 	
 	
     void addForeingnKey(ForeignKey key){
-        foreignKeys.add(key);
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+foreignKeys.add(key);
+}
     
     
     void executeImpl(SSConnection con, SSStatement st) throws Exception{
-        Database database = catalog == null ? 
+System.out.println(new Throwable().getStackTrace()[0]);
+Database database = catalog == null ? 
                 con.getDatabase(false) : 
                 Database.getDatabase( catalog, con, false );
         switch(tableCommandType){
@@ -127,13 +131,14 @@ final class CommandTable extends Command{
         default:
             throw new Error();
         }
-    }
+}
 
 
     private void addColumn(Columns cols, Column column) throws SQLException{
-        if(cols.get(column.getName()) != null){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(cols.get(column.getName()) != null){
             throw SmallSQLException.create(Language.COL_DUPLICATE, column.getName());
         }
         cols.add(column);
-    }
+}
 }

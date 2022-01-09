@@ -58,7 +58,8 @@ class CommandSelect extends Command{
     
     
     boolean compile(SSConnection con) throws Exception{
-        boolean needCompile = false;
+System.out.println(new Throwable().getStackTrace()[0]);
+boolean needCompile = false;
         if(tables != null){
             for(int i=0; i<tables.size(); i++){
 				DataSource fromEntry = tables.get(i);
@@ -155,7 +156,7 @@ class CommandSelect extends Command{
 		}
 		
 		return true;
-    }
+}
 
     
     /**
@@ -163,8 +164,9 @@ class CommandSelect extends Command{
      * the ResultSet is not updatable. 
      */
     final boolean isGroupResult(){
-    	return groupBy != null || having != null || isAggregateFunction;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return groupBy != null || having != null || isAggregateFunction;
+}
     
     
 	/**
@@ -173,21 +175,23 @@ class CommandSelect extends Command{
 	 * If there are cascade Joins then follow the tree with a recursion. 
 	 */
     private void compileJoin( Join singleJoin ) throws Exception{
-        if(singleJoin.condition != null) compileLinkExpressionParams( singleJoin.condition );
+System.out.println(new Throwable().getStackTrace()[0]);
+if(singleJoin.condition != null) compileLinkExpressionParams( singleJoin.condition );
         if(singleJoin.left instanceof Join){
             compileJoin( (Join)singleJoin.left );
         }
         if(singleJoin.right instanceof Join){
             compileJoin( (Join)singleJoin.right );
         }
-    }
+}
     
     
     private void compileLinkExpression( Expression expr) throws Exception{
-		if(expr.getType() == Expression.NAME)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(expr.getType() == Expression.NAME)
 			 compileLinkExpressionName( (ExpressionName)expr);
 		else compileLinkExpressionParams( expr );
-    }
+}
     
     
     /**
@@ -195,7 +199,8 @@ class CommandSelect extends Command{
      * This means a column name in the SQL statement is link to it table source.
      */
     private void compileLinkExpressionName(ExpressionName expr) throws Exception{
-        String tableAlias = expr.getTableAlias();
+System.out.println(new Throwable().getStackTrace()[0]);
+String tableAlias = expr.getTableAlias();
         if(tableAlias != null){
             int t = 0;
             for(; t < tables.size(); t++){
@@ -235,12 +240,12 @@ class CommandSelect extends Command{
             }
         }
         compileLinkExpressionParams(expr);
-    }
+}
     
 
     private void compileLinkExpressionParams(Expression expr) throws Exception{
-        // check sub Expression (parameters)
-        Expression[] expParams = expr.getParams();
+System.out.println(new Throwable().getStackTrace()[0]);
+Expression[] expParams = expr.getParams();
 		isAggregateFunction = isAggregateFunction || expr.getType() >= Expression.GROUP_BEGIN;
         if(expParams != null){
             for(int k=0; k<expParams.length; k++){
@@ -253,31 +258,33 @@ class CommandSelect extends Command{
             }
         }
         expr.optimize();
-    }
+}
     
 
     private final int compileAdd_All_Table_Columns( DataSource fromEntry, TableView table, int position){
-        for(int k=0; k<table.columns.size(); k++){
+System.out.println(new Throwable().getStackTrace()[0]);
+for(int k=0; k<table.columns.size(); k++){
             ExpressionName expr = new ExpressionName( table.columns.get(k).getName() );
             expr.setFrom( fromEntry, k, table );
             columnExpressions.add( position++, expr );
         }
         return position;
-    }
+}
     
 
     /**
      * The main method to execute this Command and create a ResultSet.
      */
     void executeImpl(SSConnection con, SSStatement st) throws Exception{
-        compile(con);
+System.out.println(new Throwable().getStackTrace()[0]);
+compile(con);
         if((st.rsType == ResultSet.TYPE_SCROLL_INSENSITIVE || st.rsType == ResultSet.TYPE_SCROLL_SENSITIVE) &&
         	!from.isScrollable()){
         	from = new Scrollable(from);
         }
         from.execute();
         rs =  new SSResultSet( st, this );
-    }
+}
     
     
     /**
@@ -285,40 +292,45 @@ class CommandSelect extends Command{
      *
      */
     void beforeFirst() throws Exception{
-		from.beforeFirst();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+from.beforeFirst();
+}
     
     
 	/**
 	 * Is used from ResultSet.isBeforeFirst().
 	 */
 	boolean isBeforeFirst() throws SQLException{
-		return from.isBeforeFirst();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.isBeforeFirst();
+}
     
 
 	/**
 	 * Is used from ResultSet.isFirst().
 	 */
 	boolean isFirst() throws SQLException{
-		return from.isFirst();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.isFirst();
+}
     
 
 	/**
      * Is used from ResultSet.first().
      */
     boolean first() throws Exception{
-		return from.first();
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.first();
+}
 
 
 	/**
 	 * Is used from ResultSet.previous().
 	 */
 	boolean previous() throws Exception{
-		return from.previous();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.previous();
+}
 
 
 	/**
@@ -327,19 +339,21 @@ class CommandSelect extends Command{
 	 * @throws Exception
 	 */
     boolean next() throws Exception{
-        if(maxRows >= 0 && from.getRow() >= maxRows){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(maxRows >= 0 && from.getRow() >= maxRows){
         	from.afterLast();
         	return false;
         }
 		return from.next();
-    }
+}
 
 
 	/**
 	 * Is used from ResultSet.last().
 	 */
 	final boolean last() throws Exception{
-		if(maxRows >= 0){
+System.out.println(new Throwable().getStackTrace()[0]);
+if(maxRows >= 0){
             if(maxRows == 0){
                 from.beforeFirst();
                 return false;
@@ -347,61 +361,68 @@ class CommandSelect extends Command{
 			return from.absolute(maxRows);
 		}
 		return from.last();
-	}
+}
 
 
 	/**
 	 * Is used from ResultSet.afterLast().
 	 */
 	final void afterLast() throws Exception{
-		from.afterLast();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+from.afterLast();
+}
 
 
 	/**
 	 * Is used from ResultSet.isLast().
 	 */
 	boolean isLast() throws Exception{
-		return from.isLast();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.isLast();
+}
     
 
 	/**
 	 * Is used from ResultSet.isAfterLast().
 	 */
 	boolean isAfterLast() throws Exception{
-		return from.isAfterLast();
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.isAfterLast();
+}
     
 
 	/**
 	 * Is used from ResultSet.absolute().
 	 */
 	final boolean absolute(int row) throws Exception{
-		return from.absolute(row);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.absolute(row);
+}
 
 
 	/**
 	 * Is used from ResultSet.relative().
 	 */
 	final boolean relative(int rows) throws Exception{
-		return from.relative(rows);
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+return from.relative(rows);
+}
 
 
 	/**
 	 * Is used from ResultSet.afterLast().
 	 */
 	final int getRow() throws Exception{
-		int row = from.getRow();
+System.out.println(new Throwable().getStackTrace()[0]);
+int row = from.getRow();
 		if(maxRows >= 0 && row > maxRows) return 0;
 		return row;
-	}
+}
 
 
 	final void updateRow(SSConnection con, Expression[] newRowSources) throws SQLException{
-		int savepoint = con.getSavepoint();
+System.out.println(new Throwable().getStackTrace()[0]);
+int savepoint = con.getSavepoint();
 		try{
 			//loop through all tables of this ResultSet 
 			for(int t=0; t<tables.size(); t++){
@@ -439,10 +460,11 @@ class CommandSelect extends Command{
 		}finally{
 			if(con.getAutoCommit()) con.commit();
 		}
-	}
+}
 	
 	final void insertRow(SSConnection con, Expression[] newRowSources) throws SQLException{
-		if(tables.size() > 1)
+System.out.println(new Throwable().getStackTrace()[0]);
+if(tables.size() > 1)
 			throw SmallSQLException.create(Language.JOIN_INSERT);
 		if(tables.size() == 0)
 			throw SmallSQLException.create(Language.INSERT_WO_FROM);
@@ -481,10 +503,11 @@ class CommandSelect extends Command{
 		}finally{
 			if(con.getAutoCommit()) con.commit();
 		}
-	}
+}
 	
 	final void deleteRow(SSConnection con) throws SQLException{
-		int savepoint = con.getSavepoint();
+System.out.println(new Throwable().getStackTrace()[0]);
+int savepoint = con.getSavepoint();
 		try{
 			if(tables.size() > 1)
 				throw SmallSQLException.create(Language.JOIN_DELETE);
@@ -497,29 +520,31 @@ class CommandSelect extends Command{
 		}finally{
 			if(con.getAutoCommit()) con.commit();
 		}
-	}
+}
 	
 	
 	/**
 	 * The returning index start at 0.
 	 */
 	public int findColumn(String columnName) throws SQLException {
-		Expressions columns = columnExpressions;
+System.out.println(new Throwable().getStackTrace()[0]);
+Expressions columns = columnExpressions;
 		// FIXME performance
 		for(int i=0; i<columns.size(); i++){
 			if(columnName.equalsIgnoreCase(columns.get(i).getAlias()))
 				return i;
 		}
 		throw SmallSQLException.create(Language.COL_MISSING, columnName);
-	}
+}
 	
 	
 	/**
 	 * Set if the keyword DISTINCT occur in the SELECT expression. 
 	 */
 	final void setDistinct(boolean distinct){
-		this.isDistinct = distinct;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+this.isDistinct = distinct;
+}
 	
 	
 	/**
@@ -527,44 +552,52 @@ class CommandSelect extends Command{
 	 * The Simples case is only a Table (TableResult)
 	 */
     final void setSource(RowSource join){
-        this.from = join;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.from = join;
+}
 
 	/**
 	 * List of all Tables and Views. 
 	 * This is needed to replace the table aliases in the columnExpressions with the real sources.
 	 */
     final void setTables( DataSources from ){
-        this.tables = from;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.tables = from;
+}
 
 	/**
 	 * Is used from CommandSelect, CommandDelete and CommandUpdate
 	 * @param where
 	 */
 	final void setWhere( Expression where ){
-		this.where = where;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+this.where = where;
+}
 
 	final void setGroup(Expressions group){
-        this.groupBy = group;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.groupBy = group;
+}
 
 	final void setHaving(Expression having){
-        this.having = having;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.having = having;
+}
 
 	final void setOrder(Expressions order){
-        this.orderBy = order;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+this.orderBy = order;
+}
     
 
 	final void setMaxRows(int max){
-		maxRows = max;
-	}
+System.out.println(new Throwable().getStackTrace()[0]);
+maxRows = max;
+}
     
     
     final int getMaxRows(){
-        return maxRows;
-    }
+System.out.println(new Throwable().getStackTrace()[0]);
+return maxRows;
+}
 }
