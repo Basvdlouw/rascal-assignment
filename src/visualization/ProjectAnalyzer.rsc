@@ -4,6 +4,7 @@ import visualization::ProjectSelector;
 import visualization::Draw;
 import visualization::UnitSize;
 import visualization::UnitComplexity;
+import visualization::Duplication;
 
 import vis::Figure;
 
@@ -37,7 +38,8 @@ private Figure analyzeWindow(loc project) {
 public list[list[Figure]] createMetricRows(loc project) {
 	return [
 			createMetricRow(project, unitSizeItem),
-			createMetricRow(project, cyclomaticComplexityItem)
+			createMetricRow(project, cyclomaticComplexityItem),
+			createMetricRow(project, duplicationItem)
 		];
 }
 
