@@ -17,7 +17,9 @@ import lang::java::m3::AST;
 import lang::java::jdt::m3::Core;
 import IO;
 
+private int riskLevel = 0;
 private str WINDOW_NAME = "Duplication";
+list[bool] hovered = [false, false, false, false];
 
 private list[list[loc]] getDuplicationLocations(loc project) {
 	list[Declaration] ast = getASTs(createM3ModelFromProject(project));
@@ -34,12 +36,12 @@ private list[list[loc]] getDuplicationLocations(loc project) {
 	return locationDuplicates;
 }
 
-public void visualizeDuplication(loc project) {
+public void visualizeDuplication(loc project, int riskLevel) {
 	list[list[loc]] duplicates = getDuplicationLocations(project);
 	render("<project.authority> - <WINDOW_NAME>", treemap(
 			[ 
 				createDuplicationInteractiveBox(dups)
-				| dups <- duplicates
+				| dups <- duplicates, size(dups) >= riskLevel
 			])		
 	);
 }
@@ -50,13 +52,18 @@ public Figure createDuplicationInteractiveBox(list[loc] duplicates) {
 	int index = 0;
 	for(duplicate <- duplicates) {
 		interactiveBoxes += box(
-								text(toString(index)), 
-								fillColor(color), 
-								onMouseDown(mouseDownCallback(duplicate))
+								fillColor(color),
+								onMouseDown(mouseDownCallback(duplicate)),
+								mouseOver(createHoverFigure(duplicate)) // Doesn't detect mouse exit properly because rascal vis library is trash
 							);
 		index+=1;
 	}
-	return box(hcat(interactiveBoxes), fillColor(color), area(size(duplicates)));
+	int amountOfDuplicates = size(duplicates);
+	return box(grid([interactiveBoxes]), fillColor(color), area(round(amountOfDuplicates*2)));
+}
+
+public Figure createHoverFigure(loc duplicate) {
+	return box(text(duplicate.file));
 }
 
 public bool(int, map[KeyModifier,bool]) mouseDownCallback(loc duplicate) = bool(int btn, map[KeyModifier,bool] _) {
@@ -64,21 +71,40 @@ public bool(int, map[KeyModifier,bool]) mouseDownCallback(loc duplicate) = bool(
 		edit(duplicate);
 	}
 	return true;
-}; 
+};
 
-public bool(int, map[KeyModifier,bool]) duplicationCallback(loc project) = bool(int btn, map[KeyModifier,bool] _) {
+public bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
+	if(riskLevel == 0) {
+		println("Select a filter before running calculation");
+		return false;
+	}
 	if(btn == 1) {
 		println("Calculating Duplication....");
-		visualizeDuplication(project);
+		visualizeDuplication(project, riskLevel);
+		redraw();
+	}
+	return true;
+};
+
+public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
+	if(btn == 1) {
+		riskLevel = risk;
+		println("Only duplicates with <riskLevel> or more clones will be displayed when visualization is started");
 		redraw();
 	}
 	return true;
 }; 
 
+private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor) {
+	return box(	
+	 		text(riskLevel, fontSize(12), fontColor(hovered[index] ? hoveredColor : defaultColor)),
+			top()
+		);
+}
+
 // Callbacks don't register properly because rascal vis library is trash. 
 // Cannot generate callbacks within loop so have to manually set them..
 public Figure duplicationItem(loc project) {
-	bool hovered = false;
 	Color hoveredColor = color("red");
 	Color defaultColor = color("white");
 	return computeFigure(
@@ -86,14 +112,44 @@ public Figure duplicationItem(loc project) {
 					return 
 					hcat([ 
 					box(	
-	 					text("Duplication", fontSize(12), fontColor(hovered ? hoveredColor : defaultColor)),
+	 					text("Duplication", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
 						top(),
-						onMouseDown(duplicationCallback(project)),
+						onMouseDown(duplicationCallback(project, riskLevel)),
 						onMouseEnter(void() {
-							hovered = true;
+							hovered[0] = true;
 						}),
 						onMouseExit(void() { 							
-							hovered = false;
+							hovered[0] = false;
+						})
+					),
+					box(
+						createRiskLevelItem("2", 1, hoveredColor, defaultColor), 
+						onMouseDown(riskLevelCallback(2)), 
+						onMouseEnter(void() { 
+							hovered[1] = true;
+						}),
+						onMouseExit(void() { 							
+							hovered[1] = false;
+						})
+					),
+					box(
+						createRiskLevelItem("5", 2, hoveredColor, defaultColor), 
+						onMouseDown(riskLevelCallback(5)), 
+						onMouseEnter(void() { 
+							hovered[2] = true;
+						}),
+						onMouseExit(void() {						
+							hovered[2] = false;
+						})
+					),
+					box(
+						createRiskLevelItem("10", 3, hoveredColor, defaultColor), 
+						onMouseDown(riskLevelCallback(10)), 
+						onMouseEnter(void() { 
+							hovered[3] = true;
+						}),
+						onMouseExit(void() {						
+							hovered[3] = false;
 						})
 					)
 				]);

@@ -11,6 +11,7 @@ public Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] un
 	return box(text(toString(unit.unitValue)),
 				area(unit.unitValue), 
 				fillColor(arbColor()),
+				mouseOver(createHoverFigure(unit.unit.src)),
 				onMouseDown(bool (int mouseButton, map[KeyModifier, bool] _) {
 					if(mouseButton == 1) // 1 is left mouse button
 						edit(unit.unit.src);
@@ -18,6 +19,10 @@ public Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] un
 				}
 			)
 		);
+}
+
+public Figure createHoverFigure(loc location) {
+	return box(text(location.file));
 }
 
 public Figure panel(str title, Figure content, int margin) {
