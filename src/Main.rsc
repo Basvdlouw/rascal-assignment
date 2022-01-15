@@ -14,7 +14,7 @@ private list[loc] projects() {
 public void main() {
  	//printReportToConsole(SMALLSQL);
  	//printReportToConsole(HSQLDB);
- 	printReportToFile(SMALLSQL);
+ 	//printReportToFile(SMALLSQL);
  	//printReportToFile(HSQLDB);
 	//visualize(projects());
  }
