@@ -19,9 +19,9 @@ private real duplicationPercentage;
 private Rank duplicationRank;
 
 //TODO: move percentage calculation outside of reporting module
-public str computeDuplicationPercentageReport(list[Declaration] ast, M3 m3) {
+public str computeDuplicationPercentageReport(loc project, M3 m3) {
 	invalidateCache();
-	duplicationPercentage = calculatePercentage(pruneClones(calculateClones(ast)).total, toReal(getVolume(m3)));
+	duplicationPercentage = calculatePercentage(pruneClones(calculateClones(project)).total, toReal(getVolume(m3)));
 	return "duplication: <utils::MathUtils::round(duplicationPercentage)>%";
 }
     

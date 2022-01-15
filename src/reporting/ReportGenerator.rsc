@@ -27,13 +27,13 @@ private str generateReport(loc project, M3 m3, list[Declaration] ast) {
     project.authority 									+ NEW_LINE + 
     SEPARATOR 											+ NEW_LINE +
     computeVolumeReport(m3)								+ NEW_LINE +
-    computeUnitSizeReport(ast) 							+ NEW_LINE +
+    computeUnitSizeReport(project)						+ NEW_LINE +
     SEPARATOR											+ NEW_LINE + 
     computeUnitSizePercentagesReport(ast) 				+ NEW_LINE +
     SEPARATOR 											+ NEW_LINE +
     computeCyclomaticComplexityPercentagesReport(ast) 	+ NEW_LINE +
     SEPARATOR											+ NEW_LINE +
-    computeDuplicationPercentageReport(ast, m3)			+ NEW_LINE +
+    computeDuplicationPercentageReport(project, m3)		+ NEW_LINE +
     SEPARATOR											+ NEW_LINE +
     computeUnitTestingReport(ast)						+ NEW_LINE +
     SEPARATOR											+ NEW_LINE +

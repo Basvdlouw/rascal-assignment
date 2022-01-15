@@ -4,6 +4,7 @@ import visualization::UnitSize;
 import visualization::UnitComplexity;
 import visualization::ProjectSelector;
 import visualization::ProjectAnalyzer;
+import visualization::Cache;
 
 import vis::Figure;
 import vis::Render;
@@ -17,6 +18,7 @@ private Color MENU_BG_COLOR = color("grey", .5); // light grey
 private str FONT_NAME = "Monospaced";
 
 public void visualize(list[loc] projects) {
+	populateCache(projects);
 	render(WINDOW_NAME, 
 		createMenu(WINDOW_NAME, 
 			 createMainContent(
@@ -54,3 +56,5 @@ public Figure createMainContent(Figure left, Figure right) {
 		gap(gapSize), startGap(true), endGap(true)), fillColor(MENU_BG_COLOR)
 	);
 }
+
+

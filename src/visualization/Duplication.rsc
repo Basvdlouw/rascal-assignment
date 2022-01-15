@@ -3,18 +3,17 @@ module visualization::Duplication
 import utils::ProjectUtils;
 import util::Math;
 import util::Editors;
-import Calculate;
 
 import vis::Render;
 import vis::Figure;
 import vis::KeySym;
 
 import visualization::Draw;
+import visualization::Cache;
 
 import List;
 
 import lang::java::m3::AST;
-import lang::java::jdt::m3::Core;
 import IO;
 
 private int riskLevel = 0;
@@ -22,8 +21,7 @@ private str WINDOW_NAME = "Duplication";
 list[bool] hovered = [false, false, false, false];
 
 private list[list[loc]] getDuplicationLocations(loc project) {
-	list[Declaration] ast = getASTs(createM3ModelFromProject(project));
-	map[node, lrel[node, loc]] clones = calculateClones(ast);
+	map[node, lrel[node, loc]] clones = getDuplicates(project);
 	list[list[loc]] locationDuplicates = [];
 	for(duplicates <- clones) {
 		list[loc] dups = [];
@@ -75,11 +73,10 @@ public bool(int, map[KeyModifier,bool]) mouseDownCallback(loc duplicate) = bool(
 
 public bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
 	if(riskLevel == 0) {
-		println("Select a filter before running calculation");
+		println("Select a filter before running visualization");
 		return false;
 	}
 	if(btn == 1) {
-		println("Calculating Duplication....");
 		visualizeDuplication(project, riskLevel);
 		redraw();
 	}
@@ -112,7 +109,7 @@ public Figure duplicationItem(loc project) {
 					return 
 					hcat([ 
 					box(	
-	 					text("Duplication", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
+	 					text("Visualize Duplication", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
 						top(),
 						onMouseDown(duplicationCallback(project, riskLevel)),
 						onMouseEnter(void() {

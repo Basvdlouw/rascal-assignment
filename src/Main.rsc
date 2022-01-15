@@ -16,5 +16,5 @@ public void main() {
  	//printReportToConsole(HSQLDB);
  	//printReportToFile(SMALLSQL);
  	//printReportToFile(HSQLDB);
-	visualize(projects());
+	//visualize(projects());
  }

@@ -1,7 +1,5 @@
 module visualization::UnitSize
 
-
-import Calculate;
 import Map;
 
 import analysis::m3::AST; 
@@ -16,6 +14,7 @@ import vis::Figure;
 import vis::KeySym;
 
 import visualization::Draw;
+import visualization::Cache;
 
 import IO;
 
@@ -25,7 +24,7 @@ private str WINDOW_NAME = "Unit Sizes";
 list[bool] hovered = [false, false, false, false];
 
 private void visualizeUnitSizes(loc project, int riskLevel) {
-	map[Declaration, int] unitSizes = calculateProjectUnitSizePerUnit(project);
+	map[Declaration, int] unitSizes = getUnitSizes(project);
 	render("<project.authority> - <WINDOW_NAME>", treemap(
 			[ 
 				createUnitInteractiveBox(<unit, size>)
@@ -36,11 +35,10 @@ private void visualizeUnitSizes(loc project, int riskLevel) {
 
 public bool(int, map[KeyModifier,bool]) unitSizesCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
 	if(riskLevel == 0) {
-		println("Select a filter before running calculation");
+		println("Select a filter before running visualization");
 		return false;
 	}
 	if(btn == 1) {
-		println("Calculating unit sizes....");
 		visualizeUnitSizes(project, riskLevel);
 		redraw();
 	}
@@ -71,7 +69,7 @@ public Figure unitSizeItem(loc project) {
 					return 
 					hcat([ 
 					box(	
-	 					text("Unit size", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
+	 					text("Visualize Unit sizes", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
 						top(),
 						onMouseDown(unitSizesCallback(project, riskLevel)), 
 						onMouseEnter(void() {

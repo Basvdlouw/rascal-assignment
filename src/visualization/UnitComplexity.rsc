@@ -1,6 +1,5 @@
 module visualization::UnitComplexity
 
-import Calculate;
 import IO;
 
 import configuration::data_types::CountedList;
@@ -13,13 +12,14 @@ import vis::Figure;
 import vis::KeySym;
 
 import visualization::Draw;
+import visualization::Cache;
 
 private int riskLevel = 0;
 private str WINDOW_NAME = "Cyclomatic complexity";
 list[bool] hovered = [false, false, false, false];
 
 public void visualizeCyclomaticComplexity(loc project, int riskLevel) {
-	CountedList unitCoc = calculateProjectCyclomaticComplexityPerUnit(project);
+	CountedList unitCoc = getCyclomaticComplexity(project);
 	render("<project.authority> - <WINDOW_NAME>", treemap(
 			[ 
 				createUnitInteractiveBox(<unit, coc>)
@@ -30,11 +30,10 @@ public void visualizeCyclomaticComplexity(loc project, int riskLevel) {
 
 public bool(int, map[KeyModifier,bool]) cyclomaticComplexityCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
 	if(riskLevel == 0) {
-		println("Select a filter before running calculation");
+		println("Select a filter before running visualization");
 		return false;
 	}
 	if(btn == 1) {
-		println("Calculating cyclomatic complexity....");
 		visualizeCyclomaticComplexity(project, riskLevel);
 		redraw();
 	}
@@ -67,7 +66,7 @@ public Figure cyclomaticComplexityItem(loc project) {
 					return 
 					hcat([ 
 					box(	
-	 					text("Cyclomatic Complexity", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
+	 					text("Visualize Cyclomatic Complexity", fontSize(12), fontColor(hovered[0] ? hoveredColor : defaultColor)),
 						top(),
 						onMouseDown(cyclomaticComplexityCallback(project, riskLevel)),
 						onMouseEnter(void() {
