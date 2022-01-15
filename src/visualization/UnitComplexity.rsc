@@ -5,6 +5,7 @@ import IO;
 import configuration::data_types::CountedList;
 import configuration::constants::sig::SigCyclomaticComplexityConstants;
 
+import utils::ProjectUtils;
 import util::Editors;
 import util::Math;
 
@@ -59,7 +60,7 @@ public void setHoverFigure(loc location) {
 	hoverFigure = vcat([
 					box(text("File: <location.file>"), fillColor(bgColor)),
 					box(text("Path: <location.path>"), fillColor(bgColor)),
-					box(text("Length: <location.end.line - location.begin.line +1>"), fillColor(bgColor))
+					box(text("Lines of code: <getLocLinesOfCode(location)>"), fillColor(bgColor))
 					], fillColor(bgColor));
 	redraw();
 }
