@@ -11,9 +11,9 @@ import configuration::data_types::CountedList;
 private CountedList unitSizes;
 private Rank unitSizeRank;
 
-public str computeUnitSizeReport(list[Declaration] ast) {
+public str computeUnitSizeReport(loc project) {
 	invalidateCache();
-    return 	"number of units: <calculateProjectNumberOfUnits(ast)>";
+    return 	"number of units: <calculateProjectNumberOfUnits(project)>";
 }
 
 public str computeUnitSizePercentagesReport(list[Declaration] ast) {

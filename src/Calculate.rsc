@@ -15,20 +15,29 @@ import metrics::Duplication;
 import metrics::UnitComplexity;
 import metrics::UnitSize;
 
+map[loc, list[Declaration]] cachedAsts = ();
+map[loc, M3] cachedM3s = ();
+
+public list[Declaration] getCachedAst(loc project) {
+	if(project notin cachedAsts) {
+		cachedAsts = (project:getASTs(getCachedM3(project)));
+	}
+	return cachedAsts[project];
+}
+
+public M3 getCachedM3(loc project) {
+	if(project notin cachedM3s) {
+		cachedM3s = (project:createM3ModelFromProject(project));
+	}
+	return cachedM3s[project];
+}
+
 private map[loc, list[str]] getJavaFilesFromProject(loc project) {
-	return getJavaFiles(createM3ModelFromProject(project));
+	return getJavaFiles(getCachedM3(project));
 }
 
 private map[loc, list[str]] getJavaFilesFromProject(M3 project) {
 	return getJavaFiles(project);
-}
-
-private list[Declaration] getASTsFromProject(loc project) {
-    return getASTs(createM3ModelFromProject(project));
-}
-
-public list[Declaration] getASTsFromProject(M3 project) {
-    return getASTs(project);
 }
 
 @doc{
@@ -73,7 +82,7 @@ public int calculateProjectVolume(M3 project) {
     - CountedList with CountedList.total sum of all CountedList.datalist entry values
 }
 public CountedList calculateProjectCyclomaticComplexityPerUnit(loc project) {
-    return calculateCyclomaticComplexityPerUnit(getASTsFromProject(project));
+    return calculateCyclomaticComplexityPerUnit(getCachedAst(project));
 }
 
 @doc{
@@ -104,7 +113,7 @@ public CountedList calculateProjectCyclomaticComplexityPerUnit(list[Declaration]
     - int number of units
 }
 public int calculateProjectNumberOfUnits(loc project) {
-    return calculateNumberOfUnits(getASTsFromProject(project));
+    return calculateNumberOfUnits(getCachedAst(project));
 }
 
 @doc{
@@ -134,7 +143,7 @@ public int calculateProjectNumberOfUnits(list[Declaration] AST) {
 	- map[Declaration, int] maps every unit to a unit size
 }
 public map[Declaration, int] calculateProjectUnitSizePerUnit(loc project) {
-	return calculateUnitSizePerUnit(getASTsFromProject(project));
+	return calculateUnitSizePerUnit(getCachedAst(project));
 }
 
 @doc{
@@ -148,12 +157,12 @@ public map[Declaration, int] calculateProjectUnitSizePerUnit(loc project) {
 	Returns:
 	- map[Declaration, int] maps every unit to a unit size
 }
-public map[Declaration, int] calculateProjectUnitSizePerUnit(M3 project) {
-	return calculateUnitSizePerUnit(getASTsFromProject(project));
+public map[Declaration, int] calculateProjectUnitSizePerUnit(loc project) {
+	return calculateUnitSizePerUnit(getCachedAst(project));
 }
 
-public map[node, lrel[node, loc]] calculateClones(list[Declaration] ast) {
-	return getClones(ast);
+public map[node, lrel[node, loc]] calculateClones(loc project) {
+	return getClones(getCachedAst(project));
 }
 
 public CountedMap pruneClones(map[node, lrel[node, loc]] clones) {
