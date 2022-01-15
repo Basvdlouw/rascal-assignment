@@ -18,6 +18,7 @@ import IO;
 
 private int riskLevel = 0;
 private str WINDOW_NAME = "Duplication";
+private Figure hoverFigure = box(text("No Figure Selected"));
 list[bool] hovered = [false, false, false, false];
 
 private list[list[loc]] getDuplicationLocations(loc project) {
@@ -36,15 +37,31 @@ private list[list[loc]] getDuplicationLocations(loc project) {
 
 public void visualizeDuplication(loc project, int riskLevel) {
 	list[list[loc]] duplicates = getDuplicationLocations(project);
-	render("<project.authority> - <WINDOW_NAME>", treemap(
-			[ 
-				createDuplicationInteractiveBox(dups)
-				| dups <- duplicates, size(dups) >= riskLevel
-			])		
+	render("<project.authority> - <WINDOW_NAME>", 
+			 	vcat([
+				treemap(
+						[ 
+						createDuplicationInteractiveBox(dups) | dups <- duplicates, size(dups) >= riskLevel
+						], vshrink(0.8)
+					),
+					computeFigure(shouldRedraw, Figure() {
+						return hoverFigure;
+					})
+				]
+			)
 	);
 }
 
-public Figure createDuplicationInteractiveBox(list[loc] duplicates) {
+private void setHoverFigure(loc duplicate) {
+	Color bgColor = rgb(90, 100, 209);
+	hoverFigure = vcat([
+					box(text("File: <duplicate.file>"), fillColor(bgColor)),
+					box(text("Path: <duplicate.path>"), fillColor(bgColor))
+					], fillColor(bgColor));
+	redraw();
+}
+
+private Figure createDuplicationInteractiveBox(list[loc] duplicates) {
 	Color color = arbColor();
 	list[Figure] interactiveBoxes = [];
 	int index = 0;
@@ -52,7 +69,8 @@ public Figure createDuplicationInteractiveBox(list[loc] duplicates) {
 		interactiveBoxes += box(
 								fillColor(color),
 								onMouseDown(mouseDownCallback(duplicate)),
-								mouseOver(createHoverFigure(duplicate)) // Doesn't detect mouse exit properly because rascal vis library is trash
+								onMouseEnter(void() {setHoverFigure(duplicate);})
+								 // Doesn't detect mouse exit properly because rascal vis library is trash
 							);
 		index+=1;
 	}
@@ -60,18 +78,14 @@ public Figure createDuplicationInteractiveBox(list[loc] duplicates) {
 	return box(grid([interactiveBoxes]), fillColor(color), area(round(amountOfDuplicates*2)));
 }
 
-public Figure createHoverFigure(loc duplicate) {
-	return box(text(duplicate.file));
-}
-
-public bool(int, map[KeyModifier,bool]) mouseDownCallback(loc duplicate) = bool(int btn, map[KeyModifier,bool] _) {
+private bool(int, map[KeyModifier,bool]) mouseDownCallback(loc duplicate) = bool(int btn, map[KeyModifier,bool] _) {
 	if(btn == 1) {
 		edit(duplicate);
 	}
 	return true;
 };
 
-public bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
+private bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
 	if(riskLevel == 0) {
 		println("Select a filter before running visualization");
 		return false;
@@ -83,7 +97,7 @@ public bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int ris
 	return true;
 };
 
-public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
+private bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
 	if(btn == 1) {
 		riskLevel = risk;
 		println("Only duplicates with <riskLevel> or more clones will be displayed when visualization is started");
