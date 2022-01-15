@@ -96,3 +96,12 @@ public list[str] getUnitLines(loc unitLocation) {
 public int getUnitSize(loc unitLocation) {
 	return (0 | it + 1 | x <- readFileLines(unitLocation), !isBlank(x), !isComment(x));
 }
+
+public int getLocLinesOfCode(loc l) {
+    int linesOfCode = 0;
+    list[str] locLines = readFileLines(l);
+    for (line <- locLines, !isBlank(line), !isComment(line)) {
+            linesOfCode += 1;
+    }
+    return linesOfCode;
+}

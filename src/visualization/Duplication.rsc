@@ -57,7 +57,7 @@ private void setHoverFigure(loc duplicate) {
 	hoverFigure = vcat([
 					box(text("File: <duplicate.file>"), fillColor(bgColor)),
 					box(text("Path: <duplicate.path>"), fillColor(bgColor)),
-					box(text("Length: <duplicate.end.line - duplicate.begin.line +1>"), fillColor(bgColor))
+					box(text("Lines of code: <getLocLinesOfCode(duplicate)>"), fillColor(bgColor))
 					], fillColor(bgColor));
 	redraw();
 }

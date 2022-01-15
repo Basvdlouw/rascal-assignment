@@ -1,10 +1,9 @@
 module utils::Visualization
 
+import utils::StringUtils;
 import vis::Figure;
-import vis::KeySym;
-import util::Math;
 import util::Editors;
-import analysis::m3::AST;
+import IO;
 
 public Figure panel(str title, Figure content, int margin) {
 	return box(
@@ -23,3 +22,4 @@ public Figure label(str caption) {
 		vresizable(false), height(40), fillColor(rgb(84,110,122))
 	);
 }
+
