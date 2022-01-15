@@ -58,7 +58,8 @@ public void setHoverFigure(loc location) {
 	Color bgColor = rgb(90, 100, 209);
 	hoverFigure = vcat([
 					box(text("File: <location.file>"), fillColor(bgColor)),
-					box(text("Path: <location.path>"), fillColor(bgColor))
+					box(text("Path: <location.path>"), fillColor(bgColor)),
+					box(text("Length: <location.end.line - location.begin.line +1>"), fillColor(bgColor))
 					], fillColor(bgColor));
 	redraw();
 }
