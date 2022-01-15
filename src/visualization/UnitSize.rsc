@@ -6,8 +6,9 @@ import analysis::m3::AST;
 
 import configuration::constants::sig::SigUnitSizeConstants;
 
+import util::Editors;
+import util::Math;
 import utils::ProjectUtils;
-import utils::Visualization;
 
 import vis::Render;
 import vis::Figure;
@@ -21,16 +22,46 @@ import IO;
 
 private int riskLevel = 0;
 private str WINDOW_NAME = "Unit Sizes";
+private Figure hoverFigure = box(text("No Figure Selected"));
 list[bool] hovered = [false, false, false, false];
 
 private void visualizeUnitSizes(loc project, int riskLevel) {
 	map[Declaration, int] unitSizes = getUnitSizes(project);
-	render("<project.authority> - <WINDOW_NAME>", treemap(
-			[ 
-				createUnitInteractiveBox(<unit, size>)
-				| <unit,size> <- toRel(unitSizes), size >= riskLevel
+	render("<project.authority> - <WINDOW_NAME>", 
+			vcat([
+				treemap(
+				[ 
+					createUnitInteractiveBox(<unit, size>)
+					| <unit,size> <- toRel(unitSizes), size >= riskLevel
+				], vshrink(0.8)),
+				computeFigure(shouldRedraw, Figure() {
+					return hoverFigure;
+				})
 			])		
 	);
+}
+
+private Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] unit) {
+	return box(text(toString(unit.unitValue)),
+				area(unit.unitValue), 
+				fillColor(arbColor()),
+				onMouseEnter(void(){setHoverFigure(unit.unit.src);}),
+				onMouseDown(bool (int mouseButton, map[KeyModifier, bool] _) {
+					if(mouseButton == 1) // 1 is left mouse button
+						edit(unit.unit.src);
+					return true;
+				}
+			)
+		);
+}
+
+public void setHoverFigure(loc location) {
+	Color bgColor = rgb(90, 100, 209);
+	hoverFigure = vcat([
+					box(text("File: <location.file>"), fillColor(bgColor)),
+					box(text("Path: <location.path>"), fillColor(bgColor))
+					], fillColor(bgColor));
+	redraw();
 }
 
 public bool(int, map[KeyModifier,bool]) unitSizesCallback(loc project, int riskLevel) = bool(int btn, map[KeyModifier,bool] _) {
