@@ -2,6 +2,7 @@ module metrics::Duplication
 
 import configuration::data_types::CountedList;
 import utils::ProjectUtils;
+import utils::StringUtils;
 
 import analysis::m3::AST;
  
@@ -14,6 +15,7 @@ import List;
 import Node;
 import util::Math;
 import Location;
+import IO;
 
 @doc {
 	Get clones in an AST using a primitive implementation of Clone Detection Using Abstract Syntax Trees
@@ -154,7 +156,28 @@ public CountedMap pruneSubclones(map[node, lrel[node, loc]] clones) {
 }
 private bool isValidLoc(loc l) {
 	// l == |unknown:///| ||
-	return (l != |unknown:///| && l.end.line - l.begin.line > 5);
+	return (l != |unknown:///| // Cannot be an unknown loc
+	&& l.end.line - l.begin.line > 5 // Must be at least 6 lines (l.begin is not counted, so >5)
+	&& getLocLinesOfCode(l) > 5); // Must be at least 6 lines of 'real' code, not blank or comment lines
+}
+
+@doc {
+	Calculate how many lines in a loc are code as opposed to blank or comments
+
+	Parameters:
+	-Loc l
+	
+	Returns;
+	-int amount of lines of code (not blank, not comment)
+}
+private int getLocLinesOfCode(loc l) {
+	int linesOfCode = 0;
+	list[str] locLines = readFileLines(l);	
+	for (line <- locLines, !isBlank(line), !isComment(line)) {
+			linesOfCode += 1;
+	}
+	
+	return linesOfCode;
 }
 
 @doc { 
