@@ -1,0 +1,202 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.7.11)  16 JAN 2022 15:53
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**c:/School/OU/rascal-assignment/report/verslag.tex
+(c:/School/OU/rascal-assignment/report/verslag.tex
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-06-18> (c:/texlive/2021/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
+(c:/texlive/2021/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2021/02/12 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count182
+\c@section=\count183
+\c@subsection=\count184
+\c@subsubsection=\count185
+\c@paragraph=\count186
+\c@subparagraph=\count187
+\c@figure=\count188
+\c@table=\count189
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (c:/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2020/12/05 v1.2c Enhanced LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+) (c:/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2021/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (c:/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+ (c:/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+) (c:/texlive/2021/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2020/02/08 v1.2c extra appendix facilities
+\c@@pps=\count190
+\c@@ppsavesec=\count191
+\c@@ppsaveapp=\count192
+) (c:/texlive/2021/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/04/20 v2.5e Tabular extension package (FMi)
+\col@sep=\dimen141
+\ar@mcellbox=\box50
+\extrarowheight=\dimen142
+\NC@list=\toks17
+\extratabsurround=\skip49
+\backup@length=\skip50
+\ar@cellbox=\box51
+) (c:/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count193
+\lst@gtempboxa=\box52
+\lst@token=\toks18
+\lst@length=\count194
+\lst@currlwidth=\dimen143
+\lst@column=\count195
+\lst@pos=\count196
+\lst@lostspace=\dimen144
+\lst@width=\dimen145
+\lst@newlines=\count197
+\lst@lineno=\count198
+\lst@maxwidth=\dimen146
+ (c:/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count199
+\lst@skipnumbers=\count266
+\lst@framebox=\box53
+) (c:/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ (c:/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count267
+\l__pdf_internal_box=\box54
+) (./verslag.aux)
+\openout1 = `verslag.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+ (c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count268
+\scratchdimen=\dimen147
+\scratchbox=\box55
+\nofMPsegments=\count269
+\nofMParguments=\count270
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count271
+\MPscratchDim=\dimen148
+\MPnumerator=\count272
+\makeMPintoPDFobject=\count273
+\everyMPtoPDFconversion=\toks20
+) (c:/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (c:/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+\c@lstlisting=\count274
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 17.
+ [1
+
+{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./verslag.toc)
+\tf@toc=\write3
+\openout3 = `verslag.toc'.
+
+ [2
+
+] [3
+
+] [4] [5] [6] [7] (./verslag.bbl) [8]
+<./img//vis_menu.png, id=36, 1260.20813pt x 597.73312pt>
+File: ./img//vis_menu.png Graphic file (type png)
+<use ./img//vis_menu.png>
+Package pdftex.def Info: ./img//vis_menu.png  used on input line 401.
+(pdftex.def)             Requested size: 401.50575pt x 200.75487pt.
+
+Overfull \hbox (56.50575pt too wide) in paragraph at lines 401--402
+ [][] 
+ []
+
+<./img//hsqldb_unitsizes.png, id=38, 1273.00594pt x 627.84563pt>
+File: ./img//hsqldb_unitsizes.png Graphic file (type png)
+<use ./img//hsqldb_unitsizes.png>
+Package pdftex.def Info: ./img//hsqldb_unitsizes.png  used on input line 414.
+(pdftex.def)             Requested size: 401.4846pt x 200.74225pt.
+
+Overfull \hbox (56.4846pt too wide) in paragraph at lines 414--415
+ [][] 
+ []
+
+<./img//hsqldb_coc.png, id=39, 1268.48906pt x 628.59843pt>
+File: ./img//hsqldb_coc.png Graphic file (type png)
+<use ./img//hsqldb_coc.png>
+Package pdftex.def Info: ./img//hsqldb_coc.png  used on input line 421.
+(pdftex.def)             Requested size: 401.49237pt x 200.74316pt.
+
+Overfull \hbox (56.49237pt too wide) in paragraph at lines 421--422
+ [][] 
+ []
+
+[9
+
+ <./img//vis_menu.png>] [10 <./img//hsqldb_unitsizes.png> <./img//hsqldb_coc.png>]
+<./img//smallsql_duplication.png, id=49, 1269.99469pt x 630.85687pt>
+File: ./img//smallsql_duplication.png Graphic file (type png)
+<use ./img//smallsql_duplication.png>
+Package pdftex.def Info: ./img//smallsql_duplication.png  used on input line 434.
+(pdftex.def)             Requested size: 401.50385pt x 200.75206pt.
+
+Overfull \hbox (56.50385pt too wide) in paragraph at lines 434--435
+ [][] 
+ []
+
+[11
+
+ <./img//smallsql_duplication.png>] (./verslag.aux) ) 
+Here is how much of TeX's memory you used:
+ 3066 strings out of 478517
+ 43495 string characters out of 5853901
+ 352479 words of memory out of 5000000
+ 21034 multiletter control sequences out of 15000+600000
+ 408794 words of font info for 45 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 57i,11n,66p,584b,990s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on verslag.pdf (11 pages, 356028 bytes).
+PDF statistics:
+ 90 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -161,7 +161,22 @@ We make an additional assumption in that we count every method call that follows
 Lastly, we do not do a final check that every covered method is public. This is because we assume that unit tests are not within the same file or package, so they should not be able to access anything other than public methods.
 
 \subsection{Visualizing the data}
+
+Table~\ref{results} shows the computed metrics, which provide us a solid overall picture of the maintainability state of the evaluated projects.
+When visualizing this data we wanted to give an insight on how to fix these maintainability issues. 
+For this reason we chose a fine-grained view, so that issues can be traced back to their source.
+
 \subsubsection{Using fine-grained views}
+We began by designing a menu to let users traverse the available projects.
+Then, for unit sizes, cyclomatic complexity, and duplication, we introduced three fine-grained views.
+Risk factors can be used to filter these views to an even more detailed view.
+We can, for example, limit the cyclomatic complexity visualization to units with a cyclomatic complexity greater or equal to 50.
+Software Improvement Group (SIG)~\cite{SIG} considers this code to be untestable and a very high risk.
+
+Because the goal is to eventually fix these issues, we made these views interactive.
+Clicking on a unit in any fine-grained view will cause the visualization to open a new tab with the source code location.
+This makes locating the root of major maintainability problems a simple task.
+Appendix~\ref{appendix:visualization} contains further information on the fine-grained views.
 
 \section{Results}
 
@@ -365,5 +380,60 @@ After we had a good foundation, we started using pull requests for further featu
 There were constant informal code reviews.
 
 No specific work division was done, as neither of us had any experience with Rascal. It is our belief that on a project of smaller scope with a small team, working on a bit of everything leads to a better result.
+
+% References 
+\bibliographystyle{IEEEtran}
+% your references should be in the file ref.bib
+\bibliography{IEEEabrv,ref}
+
+\clearpage
+\appendix
+\appendixpage{}
+
+\section{Visualization}
+\label{appendix:visualization}
+\subsection{Menu}
+Menu containing a project selector and analysis tool.
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:vis-menu}
+	\caption{Menu}
+	\includegraphics[width=400px, height=200px]{vis_menu.png}
+\end{figure}
+
+\subsection{Fine-grained views}
+For every fine-grained view, the same concept applies. 
+The user can hover over a unit and then the file, path and lines of code (loc) will be displayed on screen. 
+Additionally, the user can click on the unit and a new window will be opened where the source code is located.
+In below fine-grained view of high risk units (loc 40+) from the HSQLDB project we can easily see that the biggest unit has a size of 872. 
+
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:unit-sizes}
+	\caption{Fined grained view high-risk HSQLDB: Unit sizes}
+	\includegraphics[width=400px, height=200px]{hsqldb_unitsizes.png}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:cyclomatic-complexity}
+	\caption{Fined grained view high-risk HSQLDB: Cyclomatic complexity}
+	\includegraphics[width=400px, height=200px]{hsqldb_coc.png}
+\end{figure}
+
+\clearpage 
+
+Visualizing duplicates is done by combining clones into a single entity. 
+We can easily see the amount of clones by counting the amount of boxes per entity.
+Of course, we can also navigate to each occurrence of every clone by clicking on the instance.
+
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:duplication}
+	\caption{Fined grained view all duplicates SMALLSQL: Duplication}
+	\includegraphics[width=400px, height=200px]{smallsql_duplication.png}
+\end{figure}
+
+Note that above screenshots are created using a specific configuration, we can generate different fine-grained views by applying different filters in the menu.
 
 \end{document}
