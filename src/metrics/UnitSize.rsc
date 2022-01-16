@@ -47,7 +47,7 @@ public map[Declaration, int] calculateUnitSizePerUnit(list[Declaration] ast) {
 	Calculate number of units (number of methods in Java)
 
 	Parameters:
-	- list[Declaration] list of ASTs i.e. all Java files in a project.
+	- list[Declaration] AST i.e. all Java files in a project.
 
 	Returns: 
 	- int amount of units
@@ -62,7 +62,15 @@ public int calculateNumberOfUnits(list[Declaration] ast) {
 	return numberOfUnits;
 }
 
+@doc{
+	Calculate the size of all units (number of methods in Java) within an AST
 
+	Parameters:
+	- list[Declaration] AST i.e. all Java files in a project.
+
+	Returns: 
+	- CountedList total amount of units and the size of each unit
+}
 public CountedList calculateUnitSizes(list[Declaration] ast) {
 	CountedList result = <0, []>;	
 	lrel[Declaration, int] units = [];
