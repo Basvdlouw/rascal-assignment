@@ -84,14 +84,14 @@ public list[loc] calculateAssertCount(list[Declaration] ast) {
 	list[loc] assertLocations = [];
 	
 	visit (ast) {
-		case mc1: \methodCall(_, x, _): {
-			if (expressionIsValidAssert(mc1, x)) { 
-				assertLocations += mc1.src;
+		case mc: \methodCall(_, x, _): {
+			if (expressionIsValidAssert(mc, x)) { 
+				assertLocations += mc.src;
 			}
 		}
-		case mc2: \methodCall(_, _, x, _): {
-			if (expressionIsValidAssert(mc2, x)) { 
-				assertLocations += mc2.src;
+		case mc: \methodCall(_, _, x, _): {
+			if (expressionIsValidAssert(mc, x)) { 
+				assertLocations += mc.src;
 			}
 		}
 	}
@@ -103,6 +103,8 @@ private bool expressionIsValidAssert(node n, str name) {
 	// We could check keywordParameters here to see if decl is inside junit.org or something similar
 	// But it appears external library calls (?) do not have a valid decl set
 	// So we can't currently do this
+	// There are also way more assert types that do not equal \assert in rascal, so only checking for those would miss a significant amount of asserts!
+	// Pattern match the name instead, which is also not foolproof but we will assume nobody names their method assert___ if it is not an assert
 	return (/^assert/i := name);
 }
 
