@@ -8,7 +8,6 @@ import lang::java::jdt::m3::Core;
 import utils::ProjectUtils;
 
 import configuration::data_types::CountedList;
-import configuration::data_types::CountedMap;
 
 import metrics::Volume;
 import metrics::Duplication;
