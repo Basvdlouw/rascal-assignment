@@ -25,6 +25,7 @@ private int riskLevel = 0;
 private str WINDOW_NAME = "Unit Sizes";
 private Figure hoverFigure = box(text("No Figure Selected"));
 list[bool] hovered = [false, false, false, false];
+list[bool] selected = [false, false, false, false];
 
 private void visualizeUnitSizes(loc project, int riskLevel) {
 	map[Declaration, int] unitSizes = getUnitSizes(project);
@@ -78,8 +79,12 @@ public bool(int, map[KeyModifier,bool]) unitSizesCallback(loc project, int riskL
 	return true;
 }; 
 
-public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
+public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk, int index) = bool(int btn, map[KeyModifier,bool] _) {
 	if(btn == 1) {
+		list[bool] tmp = [];
+		for(_ <- selected) tmp += false;
+		selected = tmp;
+		selected[index] = true;
 		riskLevel = risk;
 		println("Only units with a unit size higher than <riskLevel> will be displayed when visualization is started");
 		redraw();
@@ -87,16 +92,17 @@ public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int b
 	return true;
 }; 
 
-private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor) {
+private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor, Color selectedColor) {
 	return box(	
-	 		text(riskLevel, fontSize(12), fontColor(hovered[index] ? hoveredColor : defaultColor)),
+	 		text(riskLevel, fontSize(12), fontColor(selected[index] ? selectedColor : (hovered[index] ? hoveredColor : defaultColor))),
 			top()
 		);
 }
 
 public Figure unitSizeItem(loc project) {
 	Color hoveredColor = color("red");
-	Color defaultColor = color("white");
+	Color defaultColor = color("white");	
+	Color selectedColor = rgb(30, 140, 22); //green
 	return computeFigure(
 				Figure() {
 					return 
@@ -113,8 +119,8 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_LOW_RISK)), 
+						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_LOW_RISK, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
 						}),
@@ -123,8 +129,8 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_MODERATE_RISK)), 
+						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_MODERATE_RISK, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
 						}),
@@ -133,8 +139,8 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_HIGH_RISK)), 
+						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_HIGH_RISK, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;
 						}),

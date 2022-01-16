@@ -20,6 +20,7 @@ private int riskLevel = 0;
 private str WINDOW_NAME = "Duplication";
 private Figure hoverFigure = box(text("No Figure Selected"));
 list[bool] hovered = [false, false, false, false];
+list[bool] selected = [false, false, false, false];
 
 private list[list[loc]] getDuplicationLocations(loc project) {
 	map[node, lrel[node, loc]] clones = getDuplicates(project);
@@ -98,8 +99,12 @@ private bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int ri
 	return true;
 };
 
-private bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
+private bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk, int index) = bool(int btn, map[KeyModifier,bool] _) {
 	if(btn == 1) {
+		list[bool] tmp = [];
+		for(_ <- selected) tmp += false;
+		selected = tmp;
+		selected[index] = true;
 		riskLevel = risk;
 		println("Only duplicates with <riskLevel> or more clones will be displayed when visualization is started");
 		redraw();
@@ -107,18 +112,19 @@ private bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int 
 	return true;
 }; 
 
-private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor) {
+private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor, Color selectedColor) {
 	return box(	
-	 		text(riskLevel, fontSize(12), fontColor(hovered[index] ? hoveredColor : defaultColor)),
+	 		text(riskLevel, fontSize(12), fontColor(selected[index] ? selectedColor : (hovered[index] ? hoveredColor : defaultColor))),
 			top()
 		);
 }
 
 // Callbacks don't register properly because rascal vis library is trash. 
-// Cannot generate callbacks within loop so have to manually set them..
+// Cannot generate callbacks within loop so have to manually add them..
 public Figure duplicationItem(loc project) {
 	Color hoveredColor = color("red");
 	Color defaultColor = color("white");
+	Color selectedColor = rgb(30, 140, 22); //green
 	return computeFigure(
 				Figure() {
 					return 
@@ -135,8 +141,8 @@ public Figure duplicationItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("2", 1, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(2)), 
+						createRiskLevelItem("2", 1, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(2, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
 						}),
@@ -145,8 +151,8 @@ public Figure duplicationItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("5", 2, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(5)), 
+						createRiskLevelItem("5", 2, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(5, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
 						}),
@@ -155,8 +161,8 @@ public Figure duplicationItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("10", 3, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(10)), 
+						createRiskLevelItem("10", 3, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(10, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;
 						}),
