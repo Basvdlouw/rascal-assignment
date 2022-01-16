@@ -89,6 +89,8 @@ Each unit within the project has a size. We calculate the size as the amount of 
 \subsubsection{Unit Complexity}
 Each unit within the project has a cyclomatic complexity. The complexity of unit is equal to the  sum of the complexity of each statement within the unit plus 1.
 
+We do not count the complexity of invoked methods towards the complexity of a method. This would not make sense, as the metric is supposed to be used to estimate which methods could be broken up into smaller methods.
+
 Each statement within table \ref{complexityvalues} increases the unit complexity by a value of 1.
 
 \begin{table}[h!tbp]
@@ -122,6 +124,8 @@ Each statement within table \ref{complexityvalues} increases the unit complexity
 \subsubsection{Duplication}
 By ignoring method and argument types, code may be marked as duplicate where it does in fact make sense to have similar implementations.
 
+
+
 \subsubsection{Test Coverage} \label{assumetests}
 In order to calculate test coverage, some likely inaccurate assumptions were made.
 Primarily, we do not check for any 'real' unit testing that may be present - such as JUnit - because we can neither rely on assuming one test library is used nor can we account for any unknown or proprietary test libraries. In addition, any Rascal locations that point to an outside library do not appear to be tracked.
@@ -154,11 +158,11 @@ You may have noticed that we are only counting public methods. This is because w
 
 We make an additional assumption in that we count every method call that follows the pattern \verb|'/^assert/i'| as an assert. In doing this, we implicitly assume the following:
 \begin{itemize}
-\item That any test method's name starts with 'assert'
+\item That every asserting method's name starts with 'assert' (e.g. assert, assertEquals, assertNull, etc)
 \item That any other method's name does not start with 'assert'.
 \end{itemize}
 
-Lastly, we do not do a final check that every covered method is public. This is because we assume that unit tests are not within the same file or package, so they should not be able to access anything other than public methods.
+Lastly, we do not perform a final check to ensure every covered method is public. This is because we assume that unit tests are not within the same file or package, so they should not be able to access anything other than public methods.
 
 \subsection{Visualizing the data}
 \subsubsection{Using fine-grained views}
@@ -333,9 +337,13 @@ The calculated metrics for SmallSQL and HSQLDB can be found in table \ref{result
 \subsubsection{Lines of Code}
 
 \subsubsection{Unit Size}
-We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. We think this may be something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code.
+We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
+
+We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
 
 \subsubsection{Unit Complexity}
+
+
 \subsubsection{Duplication}
 \subsubsection{Test Coverage}
 
@@ -362,8 +370,33 @@ In the evenings, we would each work on different parts of the code - often sendi
 
 After we had a good foundation, we started using pull requests for further features and bug fixes. We did not do this right away as we do not believe it fruitful to complicate the pipeline so early into development. We found that this works well for us.
 
-There were constant informal code reviews.
+There were constant code reviews, mostly informal due to the small team size.
 
 No specific work division was done, as neither of us had any experience with Rascal. It is our belief that on a project of smaller scope with a small team, working on a bit of everything leads to a better result.
+
+\subsection{Fun stats about this project}
+
+\begin{table}[!htb]
+\caption{Project stats}
+\begin{tabular}{l|r}	
+		\hline
+		Files										&			49 \\
+		\hline
+		Commits										&			130 \\
+		\hline
+		Feature Branches							&			7 \\
+		\hline
+		Bugfix Branches								&			1 \\
+		\hline	
+		Pull Requests								&			13 \\
+		\hline	
+		Dives into Rascal source					&			78 \\
+		\hline		
+		Rascal Documentation Visits					&			1 217 \\ %412 brent-pc 35 brent-lt 770 bas
+		\hline		
+		Google Searches with 'rascal'				&			78 \\	%57 brent-pc 21 brent-lt
+		\hline		
+\end{tabular}
+\end{table}
 
 \end{document}
