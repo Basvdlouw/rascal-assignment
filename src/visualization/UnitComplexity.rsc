@@ -21,6 +21,7 @@ import lang::java::m3::AST;
 private int riskLevel = 0;
 private str WINDOW_NAME = "Cyclomatic complexity";
 private Figure hoverFigure = box(text("No Figure Selected"));
+list[bool] selected = [false, false, false, false];
 list[bool] hovered = [false, false, false, false];
 
 public void visualizeCyclomaticComplexity(loc project, int riskLevel) {
@@ -78,8 +79,12 @@ public bool(int, map[KeyModifier,bool]) cyclomaticComplexityCallback(loc project
 	return true;
 }; 
 
-public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int btn, map[KeyModifier,bool] _) {
+public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk, int index) = bool(int btn, map[KeyModifier,bool] _) {
 	if(btn == 1) {
+		list[bool] tmp = [];
+		for(_ <- selected) tmp += false;
+		selected = tmp;
+		selected[index] = true;
 		riskLevel = risk;
 		println("Only units with a cyclomatic complexity higher than <riskLevel> will be displayed when visualization is started");
 		redraw();
@@ -87,18 +92,19 @@ public bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk) = bool(int b
 	return true;
 }; 
 
-private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor) {
-	return box(	
-	 		text(riskLevel, fontSize(12), fontColor(hovered[index] ? hoveredColor : defaultColor)),
+private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor, Color defaultColor, Color selectedColor) {
+		 return box(	
+	 		text(riskLevel, fontSize(12), fontColor(selected[index] ? selectedColor : (hovered[index] ? hoveredColor : defaultColor))),
 			top()
 		);
 }
 
 // Callbacks don't register properly because rascal vis library is trash. 
-// Cannot generate callbacks within loop so have to manually set them..
+// Cannot generate callbacks within loop so have to manually add them..
 public Figure cyclomaticComplexityItem(loc project) {
 	Color hoveredColor = color("red");
 	Color defaultColor = color("white");
+	Color selectedColor = rgb(30, 140, 22); //green
 	return computeFigure(
 				Figure() {
 					return 
@@ -115,8 +121,8 @@ public Figure cyclomaticComplexityItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK)), 
+						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
 						}),
@@ -125,8 +131,8 @@ public Figure cyclomaticComplexityItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK)), 
+						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
 						}),
@@ -135,8 +141,8 @@ public Figure cyclomaticComplexityItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor), 
-						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK)), 
+						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor, selectedColor), 
+						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;
 						}),
