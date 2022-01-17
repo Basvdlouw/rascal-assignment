@@ -460,7 +460,37 @@ We recognize that not counting comments, while more accurate for the metric, may
 We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
 
 \subsubsection{Unit Complexity}
+We wrote unit tests to ensure our unit complexity metric is accurate. The expected results for the unit tests below are 2 and 4 respectively, which is what our metric reports. This indicates that we implemented it correctly
 
+\begin{lstlisting}
+public static String test1() {
+	int x = 0;
+	if(x == 0) {
+		x++;
+	}
+	return "test";
+}
+
+public static String test2() {
+	int x = 0;
+	int y = 1;
+	if(x == 0) {
+		x++;
+	}
+	while(x == 1) {
+		if(y == 10)
+		{
+			x++;
+		}
+		else {
+			y++;
+		}
+	}
+	return "test";
+}
+\end{lstlisting}
+
+We also performed some manual checks on SmallSQL files by cross-referencing the reported complexity by our metric with a manual calculation of the expected result. Whenever we did this, the expected result would match our output.
 
 \subsubsection{Duplication}
 By ignoring method and argument types, code may be marked as duplicate where it could make sense to have similar implementations.
