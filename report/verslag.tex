@@ -131,9 +131,20 @@ We insist the node tree has to be at least 25 nodes long (declarations, statemen
 
 Code with an unknown location is discarded, as it is impossible for us to verify that we are not checking the same code twice if our algorithm finds it identical to other code.
 
-By ignoring method and argument types, code may be marked as duplicate where it does in fact make sense to have similar implementations. We are aware of these possible false-positives and accept this risk.
+There are some additional rules we have established within our metric:
+\begin{itemize}
+\item By ignoring method and argument types, code may be marked as duplicate where it does in fact make sense to have similar implementations. We are aware of these possible false-positives and accept this risk.
+\item Only exact matches (after discarding types) are considered. It is possible to check for near-misses and mark them as well, but we have decided not to do that for this project.
+\item Duplicate code is counted on a unique occurrence basis, meaning if there are 3 chunks of duplicate code we count 3 of them as duplicate.
+\item Code marked as duplicate that is part of a larger chunk of code marked as duplicate is discarded. This prevents us from counting so-called 'sub-clones' towards the total amount of duplicate code, as this would effectively count some code twice.
+\end{itemize}
 
 The pseudo-code for our duplication metric is presented below.
+
+\begin{itemize}
+\item A runtime pass is done to check if duplicate code is not part of a larger chunk of duplicate code to avoid counting the same code twice
+\item A second pass is done after all duplicate code has been checked in so that a 'subclone' added before its larger clone (which would not be picked up during our previous pass) is also not counted
+\end{itemize}
 
 \subsubsection{Test Coverage} \label{assumetests}
 In order to calculate test coverage, some likely inaccurate assumptions were made.
