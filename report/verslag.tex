@@ -61,7 +61,7 @@ For the purpose of this project, we decided that a line should check all the bel
 \item Not a comment: Starts with //, /*, * or ends with */
 \end{itemize}
 
-A small caveat here is that in Java, lines of legitimate code may actually start with * as seen below:
+One caveat here is that in Java, lines of legitimate code may actually start with * as seen below:
 \begin{lstlisting}
       int x=10;
       int y=25;
@@ -119,8 +119,21 @@ We do not count the complexity of invoked methods towards the complexity of a me
 	\end{tabular}
 \end{table}
 
-\subsubsection{Duplication}
-By ignoring method and argument types, code may be marked as duplicate where it does in fact make sense to have similar implementations.
+\subsubsection{Duplication} \label{dupereqs}
+For code to be considered duplicate, it has to check the following requirements:
+\begin{itemize}
+\item The node tree should have at least 25 nodes (see below)
+\item The location of the code cannot be unknown (see below)
+\item It has to be at least 6 lines long (see \ref{defining loc})
+\end{itemize}
+
+We insist the node tree has to be at least 25 nodes long (declarations, statements or expressions all count towards this number). This helps us weed out any code that we deem too small to be an issue, such as simple calculations or getters/setters. While most of these wouldn't check the 6-line-minimum, it's still possible to spread very simple code over many lines (see caveat at \ref{defining loc})
+
+Code with an unknown location is discarded, as it is impossible for us to verify that we are not checking the same code twice if our algorithm finds it identical to other code.
+
+By ignoring method and argument types, code may be marked as duplicate where it does in fact make sense to have similar implementations. We are aware of these possible false-positives and accept this risk.
+
+The pseudo-code for our duplication metric is presented below.
 
 \subsubsection{Test Coverage} \label{assumetests}
 In order to calculate test coverage, some likely inaccurate assumptions were made.
@@ -161,7 +174,6 @@ We make an additional assumption in that we count every method call that follows
 Lastly, we do not perform a final check to ensure every covered method is public. This is because we assume that unit tests are not within the same file or package, so they should not be able to access anything other than public methods.
 
 \subsection{Visualizing the data}
-
 Table~\ref{results} shows the computed metrics, which provide us a solid overall picture of the maintainability state of the evaluated projects.
 When visualizing this data we wanted to give an insight on how to fix these maintainability issues. 
 For this reason we chose a fine-grained view, so that issues can be traced back to their source.
@@ -348,12 +360,10 @@ The calculated metrics for SmallSQL and HSQLDB can be found in table \ref{result
 \subsubsection{Lines of Code}
 
 \subsubsection{Unit Size}
-We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
-
-We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
 
 \subsubsection{Unit Complexity}
 \subsubsection{Duplication}
+
 \subsubsection{Test Coverage}
 
 
@@ -361,8 +371,95 @@ We think this is something that should either be included in the unit size calcu
 
 \subsection{Validity}
 
+\subsubsection{Lines of Code} \label{validloc}
+We added unit testing for our project volume calculation metric, which also affects \ref{validunitsize}.These verify that our metric is accurate by our own defined rules in \ref{defining loc}. 
+Our unit test below checks for our defined requirements and returns '18', which is the expected amount.
+
+\begin{lstlisting}
+package unit_tests.resources;
+
+public class VolumeExampleTest {
+	
+	public static String test1() {
+		return "test1";
+	}
+	
+	/**
+	 * This comment should not be counted
+	 * 
+	 * @return A string
+	 */
+	public static String test2() {
+		return "test2";
+	}
+	
+	/*
+	 * Ignore
+	 */
+	public static int test3() {
+		int a = 1;
+		int b = 1;
+		return a;
+	}
+	
+	// Not a valid JavaDoc and should not be counted towards volume
+	public static int test4() {
+		int a = 1;
+		return a;
+	}
+}
+\end{lstlisting}
+
+An additional, extremely rudimentary way of checking if our result is realistic is by taking the total file size of all source files and dividing it by the average size of a line of code. If we put the average line of code at 50 bytes (or 50 characters), we come to a result of 26 662 for SmallSQL, which matches our metrics.
+
+To get to our average, we took the file 'SSResultSet.java' within SmallSQL, calculated the amount of characters and divided it by the amount of lines. This was a total of 36 759 characters over 1 280 lines (including blanks and comments). This resulted in an average characters/line of 28.7. Rounding up to 30 brings us to 44 437 lines. If we discard comments (5 105) and blank lines (658) we are at 30 996 characters over 903 lines, or roughly 34 characters/line. This brings us to 38 000 lines of code. This margin of almost 50\% above our estimated amount seems excessive, but given that some files are almost 40\% comments (such as LongTreeList.java) it is reasonable to assume that this is plausible.
+
+\subsubsection{Unit Size} \label{validunitsize}
+The same unit test applied for lines of code is relevant here. See \ref{validloc}.
+
+We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
+
+We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
+
+\subsubsection{Duplication}
+By ignoring method and argument types, code may be marked as duplicate where it could make sense to have similar implementations.
+
+Let's take a look at an example from SmallSQL:
+
+\begin{lstlisting}
+public Date getDate(int i) throws SQLException {
+    try{
+		Expression expr = getValue(i);
+        wasNull = expr.isNull();
+		if(wasNull) return null;
+		return DateTime.getDate( expr.getLong() );
+    }catch(Exception e){
+        throw SmallSQLException.createFromException( e );
+    }
+}
+public Time getTime(int i) throws SQLException {
+    try{
+		Expression expr = getValue(i);
+        wasNull = expr.isNull();
+		if(wasNull) return null;
+		return DateTime.getTime( expr.getLong() );
+    }catch(Exception e){
+        throw SmallSQLException.createFromException( e );
+    }
+}
+\end{lstlisting}
+
+Because our duplication-check ignores method return types, it will mark these methods as duplicate, as they check the requirements in \ref{dupereqs}. 
+There are likely cleaner ways to handle code such as this (because admittedly, it is almost identical), but we realize that it is not always pragmatic to do so. 
+
+For the example method above, though, the getValue() and null-check segment could have been split into a different method - so in this case, we are fine marking it as duplicate.
+
+More false-positives happen especially when dealing with localization. SmallSQL, for example, contains a localization template and 3 language files, all as java files. We ignore the contents of strings, so all language files are marked as duplicate. This makes sense, as they will all use the same keys for localization purposes. This means these are false-positives and will skew results towards a higher duplication estimate.
+
+Having said that, we propose that having localization files as java files is bad practice and should have been handled using files specifically made to handle data (such as json or csv).
+
 \subsubsection{Unit Test Coverage}
-Something we wanted to do but couldn't was to verify that the assert decl was inside of a test library. We could do this by checking if, for example, 'junit.org' was inside the decl path. However, it appears Rascal does not correctly handle a decl to an outside library. Instead, they are 'unknown', meaning this additional check we wanted to do was not possible at this time. This means any violations of our assumption in \ref{assumetests} are not double-checked and will skew results towards a higher coverage.
+Something we wanted to do but couldn't was to verify that the assert decl was inside of a test library. We could do this by checking if, for example, 'junit.org' was inside the decl path. However, it appears Rascal does not correctly handle a decl to an outside library. Instead, they are 'unknown', meaning this additional check we wanted to do was not possible at this time. This means any 'assert'-named method that is not an actual assert/test will violate our assumption in \ref{assumetests} but will not be caught. This means it will count as a test method and could skew results towards a higher coverage.
 
 Another limitation to using our method of estimating test coverage is that 'partial tests' are not properly handled. What we mean with this is that test methods that by themselves do not contain an assert are not evaluated, even if they are called by another test method that does contain asserts. Likewise, a test method with an assert that does not itself invoke the methods it tests are not properly handled.
 In other words, we do not support nested testing. This may skew results towards a lower coverage.
