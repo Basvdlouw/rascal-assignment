@@ -459,7 +459,9 @@ An additional, extremely rudimentary way of checking if our result is realistic 
 To get to our average, we took the file 'SSResultSet.java' within SmallSQL, calculated the amount of characters and divided it by the amount of lines. This was a total of 36 759 characters over 1 280 lines (including blanks and comments). This resulted in an average characters/line of 28.7. Rounding up to 30 brings us to 44 437 lines. If we discard comments (5 105) and blank lines (658) we are at 30 996 characters over 903 lines, or roughly 34 characters/line. This brings us to 38 000 lines of code. This margin of almost 50\% above our estimated amount seems excessive, but given that some files are almost 40\% comments (such as LongTreeList.java) it is reasonable to assume that this is plausible.
 
 \subsubsection{Unit Size} \label{validunitsize}
-The unit test applied for lines of code (see \ref{validloc}) is also relevant here. In addition, manual counting can and was done for a few random units, as most are reasonable in size. While this helps perform quick checks on the validity of our algorithm, this is not a maintainable testing method at all, which is why we added our unit tests.
+We wrote unit tests that are simple enough to verify manually. Our metric has reported the expected results, confirming the accuracy of our implementation given our rules and assumptions set in \ref{defining loc}.
+
+The unit test applied for lines of code (see \ref{validloc}) is also relevant here. In addition, manual counting can and was done for a few random units in SmallSQL and HSQLDB. These matched what our metric calculated.
 
 \subsubsection{Unit Complexity}
 We wrote unit tests to ensure our unit complexity metric is accurate. The expected results for the unit tests below are 2 and 4 respectively, which is what our metric reports. This indicates that we implemented it correctly
@@ -527,9 +529,9 @@ There are likely cleaner ways to handle code such as this (because admittedly, i
 
 For the example method above, though, the getValue() and null-check segment could have been split into a different method - so in this case, we are fine marking it as duplicate.
 
-More false-positives happen especially when dealing with localization. SmallSQL, for example, contains a localization template and 3 language files, all as java files. We ignore the contents of strings, so all language files are marked as duplicate. This makes sense, as they will all use the same keys for localization purposes. This means these are false-positives and will skew results towards a higher duplication estimate.
+More false-positives happen especially when dealing with localization. SmallSQL, for example, contains a localization template and 3 language files, all as java files. We ignore the contents of strings, so all language files are marked as duplicate. This makes sense, as they will all use the same keys for localization purposes. This means these are false-positives and will skew results towards a higher duplication estimate. Having said that, we propose that having localization files as java files is bad practice and should have been handled using files specifically made to handle data (such as json or csv).
 
-Having said that, we propose that having localization files as java files is bad practice and should have been handled using files specifically made to handle data (such as json or csv).
+To conclude, we believe that it is possible to have acceptable duplication. Sometimes it is more pragmatic to solve an issue by copying some code than it is to design complex architecture, especially when considering the cost and scope of a project.
 
 \subsubsection{Unit Test Coverage}
 Something we wanted to do but couldn't was to verify that the assert decl was inside of a test library. We could do this by checking if, for example, 'junit.org' was inside the decl path. However, it appears Rascal does not correctly handle a decl to an outside library. Instead, they are 'unknown', meaning this additional check we wanted to do was not possible at this time. This means any 'assert'-named method that is not an actual assert/test will violate our assumption in \ref{assumetests} but will not be caught. This means it will count as a test method and could skew results towards a higher coverage.
