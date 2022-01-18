@@ -16,6 +16,7 @@ import List;
 import lang::java::m3::AST;
 import IO;
 
+private bool riskLevelToggle =  false;
 private int riskLevel = 0;
 private str WINDOW_NAME = "Duplication";
 private Figure hoverFigure = box(text("No Figure Selected"));
@@ -38,8 +39,9 @@ private list[list[loc]] getDuplicationLocations(loc project) {
 
 public void visualizeDuplication(loc project, int riskLevel) {
 	list[list[loc]] duplicates = getDuplicationLocations(project);
-	render("<project.authority> - <WINDOW_NAME>", 
-			 	vcat([
+	render("<project.authority> - <WINDOW_NAME>",
+			computeFigure(shouldRedrawRiskToggle, Figure() { 
+			 	return vcat([
 				treemap(
 						[ 
 						createDuplicationInteractiveBox(dups) | dups <- duplicates, size(dups) >= riskLevel
@@ -49,16 +51,16 @@ public void visualizeDuplication(loc project, int riskLevel) {
 						return hoverFigure;
 					})
 				]
-			)
+			);
+		})
 	);
 }
 
-private void setHoverFigure(loc duplicate) {
+private void setHoverFigure(loc location) {
 	Color bgColor = rgb(90, 100, 209);
 	hoverFigure = vcat([
-					box(text("File: <duplicate.file>"), fillColor(bgColor)),
-					box(text("Path: <duplicate.path>"), fillColor(bgColor)),
-					box(text("Lines of code: <getLocLinesOfCode(duplicate)>"), fillColor(bgColor))
+					hcat([box(text("File: <location.file>"), fillColor(bgColor)), box(text("Path: <location.path>"), fillColor(bgColor))]),
+					hcat([box(text("Lines of code: <getLocLinesOfCode(location)>"), fillColor(bgColor)), box(button(riskLevelToggle ? "Visualize individual units" : "Visualize risk levels", void(){riskLevelToggle = !riskLevelToggle; redrawRiskToggle();}, fillColor(bgColor)))])
 					], fillColor(bgColor));
 	redraw();
 }
@@ -67,16 +69,15 @@ private Figure createDuplicationInteractiveBox(list[loc] duplicates) {
 	Color color = arbColor();
 	list[Figure] interactiveBoxes = [];
 	int index = 0;
+	int amountOfDuplicates = size(duplicates);
 	for(duplicate <- duplicates) {
 		interactiveBoxes += box(
-								fillColor(color),
+								fillColor(riskLevelToggle ? getRiskColor(amountOfDuplicates) : color),
 								onMouseDown(mouseDownCallback(duplicate)),
 								onMouseEnter(void() {setHoverFigure(duplicate);})
-								 // Doesn't detect mouse exit properly because rascal vis library is trash
 							);
 		index+=1;
 	}
-	int amountOfDuplicates = size(duplicates);
 	return box(grid([interactiveBoxes]), fillColor(color), area(round(amountOfDuplicates*2)));
 }
 
@@ -99,6 +100,15 @@ private bool(int, map[KeyModifier,bool]) duplicationCallback(loc project, int ri
 	return true;
 };
 
+private Color getRiskColor(int amountOfClones) {
+	if(amountOfClones >= 10)
+		return color("red");
+	else if(amountOfClones >= 5) {
+		return color("orange");	
+	}
+	return color("green");
+}
+
 private bool(int, map[KeyModifier,bool]) riskLevelCallback(int risk, int index) = bool(int btn, map[KeyModifier,bool] _) {
 	if(btn == 1) {
 		list[bool] tmp = [];
@@ -119,7 +129,7 @@ private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor,
 		);
 }
 
-// Callbacks don't register properly because rascal vis library is trash. 
+// Callbacks don't register properly because rascal vis library is terrible. 
 // Cannot generate callbacks within loop so have to manually add them..
 public Figure duplicationItem(loc project) {
 	Color hoveredColor = color("red");
