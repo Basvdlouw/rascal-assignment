@@ -537,24 +537,40 @@ Something we wanted to do but couldn't was to verify that the assert decl was in
 Another limitation to using our method of estimating test coverage is that 'partial tests' are not properly handled. What we mean with this is that test methods that by themselves do not contain an assert are not evaluated, even if they are called by another test method that does contain asserts. Likewise, a test method with an assert that does not itself invoke the methods it tests are not properly handled.
 In other words, we do not support nested testing. This may skew results towards a lower coverage.
 
-We can conclude that while we believe our method of calculating test coverage is at worst an educated guess and at best an acceptable estimation.
+To conclude, we believe our test coverage metric to be an acceptable estimation.
 
 \subsection{Evaluating the visualisation}
-Because we had to develop the visualization in a limited amount of time, we weren't able to make it as sophisticated as we would have liked.
-We were given many examples of advanced and attractive visualizations such as D3.js\footnote{https://d3js.org/}.
-However, as implied by the name, this is a JavaScript library.
-We were forced to make our visualization in Rascal, which severely limited us. 
 
-Rascal's visualization library is inferior to visualization libraries supplied by any modern programming language.
-It's fairly rudimentary, with several strange oddities and bugs. 
-We rapidly learned, for example, that registering callbacks within a loop does not work properly, leading us to duplicate functionality and hence generate code smells. 
-Which of course, is quite ironic for a tool that is supposed to detect code smells.
+\subsubsection{Unit Size}
+For an image of size visualisation, please refer to figure \ref{fig:unit-sizes}.
 
-If we could have utilized a technology such as HTML/CSS/JavaScript/Java/Python/etc., the process of creating a visualization would have been much quicker and faster, with a better end result. 
-There is an old proverb which says that “good tools are half the work”, yet in this case, a defective tool resulted in double the work.
+We visualize unit sizes in a grid where each block represents a unit. The size of the block is directly dependent on the unit size. This allows for an easy to read visualisation where it is easy to pinpoint high risk classes right away.
+Hovering over a block will provide information in the bottom of the screen, such as location of the code and how many lines of code are in the unit. Clicking on a block will open the code it represents.
 
-% However, time wasn't the only thing not on our side; we were forced to use rascal for the visualization, this doesn
+\subsubsection{Unit Complexity}
+For an image of Cyclomatic Complexity visualisation, please refer to figure \ref{fig:cyclomatic-complexity}.
 
+We visualize unit complexities in a grid where each block represents a unit. The size of the block is directly dependent on the unit complexity. We use the same visualisation as for unit sizes as we strongly believe it is the most readable for quick access to what's important: What classes should be investigated.
+
+Hovering over a block will provide information in the bottom of the screen, such as location of the code and how many lines of code are in the unit. Clicking on a block will open the code it represents.
+
+\subsubsection{Duplication}
+For an image of duplication visualisation, please refer to figure \ref{fig:duplication}.
+
+When looking at our duplication visualisation, it is immediately clear which chunks of code are considered duplicates of each other. This method of grouping them provides an immediate, visual clue of just problematic a set of clones may be. Having many clones could indicate that the code should be brought into its own class, or that information should be made available for re-use somehow.
+
+However, what is not clearly identifiable in this view is just how many lines of code are duplicate. It is entirely possible to have a screen full of potentially problematic duplicates, only for all of them to be 6 duplicate lines. This could still be problematic, but there is no visual distinction between these types of clones and, for example, entirely copied classes of 200 lines of code.
+However, it is possible to click the offending chunks to quickly be taken right to the code in question.
+
+\subsubsection{Navigating the visualisation}
+When first starting up our visualization tool, a menu will appear. On the left-hand side, you can select a project. A coarse-grained view of the metrics of the selected project is presented on the right-hand side.  To go to the fine-grained view of a metric, you can click on the metric.
+
+\subsubsection{Comments on developing the visualisation}
+We really liked the many examples we got of advanced and attractive visualizations such as D3.js\footnote{https://d3js.org/}. Unfortunately, we weren't able to make it as sophisticated as we would have liked due to our inexperience with Rascal and its inherent limitations as well as a time constraints. Taking inspiration from some of the things we learned about software quality, we decided to focus on a single, clear view to convey what we believe is important as fast as possible. We would have liked to create the visualisation in a language more suited for UI design.
+
+Some of the difficulties we faced trying to visualize in rascal is that registering callbacks within a loop does not seem to work correctly. This has led us to have to implement some pragmatic fixes.
+
+We feel that if we had been able to leverage a more specialized language for UI, the process of creating a visualization would have been much quicker and faster, with a better end result. That said, we believe we convey the information we believe is most interesting.
 
 \subsection{Cooperation}
 \subsubsection{Working as a team}
