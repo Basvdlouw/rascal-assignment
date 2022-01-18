@@ -399,6 +399,7 @@ The calculated metrics for SmallSQL and HSQLDB can be found in table \ref{result
 
 \subsection{Interpreting the results}
 \subsubsection{Lines of Code}
+Lines of code within a project do not say much about the quality of that project, merely its scope. It could provide some idea of how complex it may be, but even then it is entirely possible for large software to have no high risk units in either size or complexity.
 
 \subsubsection{Unit Size}
 We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
@@ -579,14 +580,6 @@ We feel that if we had been able to leverage a more specialized language for UI,
 Having worked together before, we know each other's strengths and weaknesses. Even though we both work full-time, we constantly communicated about ideas, questions, and specific code implementations. 
 In the evenings, we would each work on different parts of the code, often sending over what we were currently working on for quick feedback. This allowed us to implement features quickly while having constant informal code reviews.
 
-\subsubsection{Version control}
-To ease collaboration, we used git for this project.
-
-After we had a good foundation, we started using pull requests for further features and bug fixes. We did not do this right away as we do not believe it fruitful to complicate the pipeline so early into development. We found that this works well for us.
-
-There were constant code reviews, mostly informal due to the small team size.
-
-\subsubsection{Work division}
 No specific work division was done, as neither of us had any experience with Rascal. It is our belief that on a project of smaller scope with a small team, working on a bit of everything leads to a better result.
 
 \begin{table}[h!tbp]
@@ -599,6 +592,13 @@ No specific work division was done, as neither of us had any experience with Ras
 		\hline
 	\end{tabular}
 \end{table}
+
+\subsubsection{Version control}
+To ease collaboration, we used git for this project.
+
+After we had a good foundation, we started using pull requests for further features and bug fixes. We did not do this right away as we do not believe it fruitful to complicate the pipeline so early into development. We found that this works well for us.
+
+There were constant code reviews, mostly informal due to the small team size.
 
 % References 
 \bibliographystyle{IEEEtran}
