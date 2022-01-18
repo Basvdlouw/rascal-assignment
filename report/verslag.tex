@@ -152,17 +152,19 @@ There are some additional rules we have established within our metric:
 \item By ignoring method and argument types, code may be marked as duplicate where it does in fact make sense to have similar implementations. We are aware of these possible false-positives and accept this risk.
 \item Only exact matches (after discarding types) are considered. It is possible to check for near-misses and mark them as well, but we have decided not to do that for this project.
 \item Duplicate code is counted on a unique occurrence basis, meaning if there are 3 chunks of duplicate code we count 3 of them as duplicate.
-\item Code marked as duplicate that is part of a larger chunk of code marked as duplicate is discarded. This prevents us from counting so-called 'sub-clones' towards the total amount of duplicate code, as this would effectively count some code twice.
+\item Code marked as duplicate that is part of a larger chunk of code marked as duplicate is discarded. This prevents us from counting so-called 'sub-clones' towards the total amount of duplicate code, as this would effectively count some code twice. More on that below.
 \end{itemize}
 
 The pseudo-code for our duplication metric is presented below.
 
 \begin{enumerate}
 \item For every node in the AST
-\subitem If the location is valid (not unknown and at least 6 lines of code)
-\subitem Normalize the node (remove all return types, method types, literal values) for comparison
-\subitem Check if this exact node (loc) was not already tracked to prevent literal identical duplicates
-\subitem If it is not an identical match, it is a clone - add it to the list with the node as key
+\begin{enumerate}
+\item If the location is valid (not unknown and at least 6 lines of code)
+\item Normalize the node (remove all return types, method types, literal values) for comparison
+\item Check if this exact node (loc) was not already tracked to prevent literal identical duplicates
+\item If it is not an identical match, it is a clone - add it to the list with the node as key
+\end{enumerate}
 \item Do a pass over the list of detections and remove any nodes where there are not at least 2 values in the list (which would indicate there are no duplicates)
 \end{enumerate}
 
@@ -399,6 +401,9 @@ The calculated metrics for SmallSQL and HSQLDB can be found in table \ref{result
 \subsubsection{Lines of Code}
 
 \subsubsection{Unit Size}
+We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
+
+We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
 
 \subsubsection{Unit Complexity}
 \subsubsection{Duplication}
@@ -454,11 +459,7 @@ An additional, extremely rudimentary way of checking if our result is realistic 
 To get to our average, we took the file 'SSResultSet.java' within SmallSQL, calculated the amount of characters and divided it by the amount of lines. This was a total of 36 759 characters over 1 280 lines (including blanks and comments). This resulted in an average characters/line of 28.7. Rounding up to 30 brings us to 44 437 lines. If we discard comments (5 105) and blank lines (658) we are at 30 996 characters over 903 lines, or roughly 34 characters/line. This brings us to 38 000 lines of code. This margin of almost 50\% above our estimated amount seems excessive, but given that some files are almost 40\% comments (such as LongTreeList.java) it is reasonable to assume that this is plausible.
 
 \subsubsection{Unit Size} \label{validunitsize}
-The unit test applied for lines of code (see \ref{validloc}) is also relevant here.
-
-We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
-
-We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
+The unit test applied for lines of code (see \ref{validloc}) is also relevant here. In addition, manual counting can and was done for a few random units, as most are reasonable in size. While this helps perform quick checks on the validity of our algorithm, this is not a maintainable testing method at all, which is why we added our unit tests.
 
 \subsubsection{Unit Complexity}
 We wrote unit tests to ensure our unit complexity metric is accurate. The expected results for the unit tests below are 2 and 4 respectively, which is what our metric reports. This indicates that we implemented it correctly
