@@ -18,6 +18,7 @@ import visualization::Cache;
 
 import lang::java::m3::AST;
 
+private bool riskLevelToggle =  false;
 private int riskLevel = 0;
 private str WINDOW_NAME = "Cyclomatic complexity";
 private Figure hoverFigure = box(text("No Figure Selected"));
@@ -27,25 +28,36 @@ list[bool] hovered = [false, false, false, false];
 public void visualizeCyclomaticComplexity(loc project, int riskLevel) {
 	CountedList unitCoc = getCyclomaticComplexity(project);
 	render("<project.authority> - <WINDOW_NAME>", 
-		vcat(
+		computeFigure(shouldRedrawRiskToggle, Figure() {
+		return vcat(
 			[
 				treemap(
 					[ 
-						createUnitInteractiveBox(<unit, coc>)
+						createUnitInteractiveBox(<unit, coc>, riskLevelToggle)
 						| <unit,coc> <- unitCoc.datalist, coc >= riskLevel
 					], vshrink(0.8)),
-					computeFigure(shouldRedraw, Figure() {
-						return hoverFigure;
+					computeFigure(shouldRedraw, Figure(){
+						 return hoverFigure;
 					})
 			]
-		)
+			);
+		})
 	);
 }
 
-private Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] unit) {
+private Color getRiskColor(int cyclomaticComplexity) {
+	if(cyclomaticComplexity >= SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK)
+		return color("red");
+	else if(cyclomaticComplexity >= SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK) {
+		return color("orange");	
+	}
+	return color("green");
+}
+
+private Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] unit, bool riskLevelToggle) {
 	return box(text(toString(unit.unitValue)),
-				area(unit.unitValue), 
-				fillColor(arbColor()),
+				area(unit.unitValue),
+				fillColor(riskLevelToggle ? getRiskColor(unit.unitValue) : arbColor()),
 				onMouseEnter(void(){setHoverFigure(unit.unit.src);}),
 				onMouseDown(bool (int mouseButton, map[KeyModifier, bool] _) {
 					if(mouseButton == 1) // 1 is left mouse button
@@ -59,9 +71,8 @@ private Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] u
 public void setHoverFigure(loc location) {
 	Color bgColor = rgb(90, 100, 209);
 	hoverFigure = vcat([
-					box(text("File: <location.file>"), fillColor(bgColor)),
-					box(text("Path: <location.path>"), fillColor(bgColor)),
-					box(text("Lines of code: <getLocLinesOfCode(location)>"), fillColor(bgColor))
+					hcat([box(text("File: <location.file>"), fillColor(bgColor)), box(text("Path: <location.path>"), fillColor(bgColor))]),
+					hcat([box(text("Lines of code: <getLocLinesOfCode(location)>"), fillColor(bgColor)), box(button(riskLevelToggle ? "Visualize individual units" : "Visualize risk levels", void(){riskLevelToggle = !riskLevelToggle; redrawRiskToggle();}, fillColor(bgColor)))])
 					], fillColor(bgColor));
 	redraw();
 }
@@ -99,7 +110,7 @@ private Figure createRiskLevelItem(str riskLevel, int index, Color hoveredColor,
 		);
 }
 
-// Callbacks don't register properly because rascal vis library is trash. 
+// Callbacks don't register properly because rascal vis library is terrible. 
 // Cannot generate callbacks within loop so have to manually add them..
 public Figure cyclomaticComplexityItem(loc project) {
 	Color hoveredColor = color("red");
