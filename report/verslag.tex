@@ -23,17 +23,6 @@
 	\end{tabular}
 \end{table}
 
-\begin{table}[h!tbp]
-	\caption{Work division}
-	\begin{tabular}{l|l}
-		\hline
-		Bas van de Louw      & Design, code, report \\
-		\hline
-		Brent Van Handenhove & Design, code, report \\
-		\hline
-	\end{tabular}
-\end{table}
-
 \hrulefill{}
 
 \vfill
@@ -169,8 +158,20 @@ There are some additional rules we have established within our metric:
 The pseudo-code for our duplication metric is presented below.
 
 \begin{enumerate}
-\item A runtime pass is done to check if duplicate code is not part of a larger chunk of duplicate code to avoid counting the same code twice
-\item A second pass is done after all duplicate code has been checked in so that a 'subclone' added before its larger clone (which would not be picked up during our previous pass) is also not counted
+\item For every node in the AST
+\subitem If the location is valid (not unknown and at least 6 lines of code)
+\subitem Normalize the node (remove all return types, method types, literal values) for comparison
+\subitem Check if this exact node (loc) was not already tracked to prevent literal identical duplicates
+\subitem If it is not an identical match, it is a clone - add it to the list with the node as key
+\item Do a pass over the list of detections and remove any nodes where there are not at least 2 values in the list (which would indicate there are no duplicates)
+\end{enumerate}
+
+By default, we also prune what we call 'subclones'. These are bits of code marked as duplicate that are also part of a larger bit of code that is also marked as duplicate. If we didn't perform this, we would be counting these twice. This can happen because the AST is evaluated per-node instead of per-method. While this allows us to pick up duplicate code inside of methods as well as duplicate method declarations, it does mean we treat code inside a method as a separate thing to check.
+Here is how pruning works:
+
+\begin{enumerate}
+\item Do a runtime pass is done to check if duplicate code is not part of a larger chunk of duplicate code to avoid counting the same code twice
+\item Do a second pass is done after all duplicate code has been checked in so that a 'subclone' added before its larger clone (which would not be picked up during our previous pass) is also not counted
 \end{enumerate}
 
 \subsubsection{Test Coverage} \label{assumetests}
@@ -553,6 +554,17 @@ There were constant code reviews, mostly informal due to the small team size.
 
 \subsubsection{Work division}
 No specific work division was done, as neither of us had any experience with Rascal. It is our belief that on a project of smaller scope with a small team, working on a bit of everything leads to a better result.
+
+\begin{table}[h!tbp]
+	\caption{Work division}
+	\begin{tabular}{l|l}
+		\hline
+		Bas van de Louw      & Design, code, report \\
+		\hline
+		Brent Van Handenhove & Design, code, report \\
+		\hline
+	\end{tabular}
+\end{table}
 
 % References 
 \bibliographystyle{IEEEtran}
