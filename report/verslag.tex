@@ -540,6 +540,21 @@ In other words, we do not support nested testing. This may skew results towards 
 We can conclude that while we believe our method of calculating test coverage is at worst an educated guess and at best an acceptable estimation.
 
 \subsection{Evaluating the visualisation}
+Because we had to develop the visualization in a limited amount of time, we weren't able to make it as sophisticated as we would have liked.
+We were given many examples of advanced and attractive visualizations such as D3.js\footnote{https://d3js.org/}.
+However, as implied by the name, this is a JavaScript library.
+We were forced to make our visualization in Rascal, which severely limited us. 
+
+Rascal's visualization library is inferior to visualization libraries supplied by any modern programming language.
+It's fairly rudimentary, with several strange oddities and bugs. 
+We rapidly learned, for example, that registering callbacks within a loop does not work properly, leading us to duplicate functionality and hence generate code smells. 
+Which of course, is quite ironic for a tool that is supposed to detect code smells.
+
+If we could have utilized a technology such as HTML/CSS/JavaScript/Java/Python/etc., the process of creating a visualization would have been much quicker and faster, with a better end result. 
+There is an old proverb which says that “good tools are half the work”, yet in this case, a defective tool resulted in double the work.
+
+% However, time wasn't the only thing not on our side; we were forced to use rascal for the visualization, this doesn
+
 
 \subsection{Cooperation}
 \subsubsection{Working as a team}

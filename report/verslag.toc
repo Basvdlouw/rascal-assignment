@@ -2,27 +2,35 @@
 \contentsline {subsection}{\numberline {1.1}Assumptions made}{3}{}%
 \contentsline {subsubsection}{\numberline {1.1.1}Only considering Java files}{3}{}%
 \contentsline {subsubsection}{\numberline {1.1.2}What is a 'Line of Code'}{3}{}%
-\contentsline {subsubsection}{\numberline {1.1.3}Lines of Code}{3}{}%
-\contentsline {subsubsection}{\numberline {1.1.4}Unit count}{4}{}%
+\contentsline {subsubsection}{\numberline {1.1.3}Lines of Code}{4}{}%
+\contentsline {subsubsection}{\numberline {1.1.4}Unit Count}{4}{}%
 \contentsline {subsubsection}{\numberline {1.1.5}Unit Size}{4}{}%
-\contentsline {subsubsection}{\numberline {1.1.6}Unit Complexity}{4}{}%
-\contentsline {subsubsection}{\numberline {1.1.7}Duplication}{4}{}%
-\contentsline {subsubsection}{\numberline {1.1.8}Test Coverage}{4}{}%
-\contentsline {subsection}{\numberline {1.2}Visualizing the data}{5}{}%
-\contentsline {subsubsection}{\numberline {1.2.1}Using fine-grained views}{6}{}%
-\contentsline {section}{\numberline {2}Results}{6}{}%
-\contentsline {subsection}{\numberline {2.1}Metrics}{6}{}%
-\contentsline {subsection}{\numberline {2.2}Interpreting the results}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.1}Lines of Code}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.2}Unit Size}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.3}Unit Complexity}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.4}Duplication}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.5}Test Coverage}{6}{}%
-\contentsline {section}{\numberline {3}Evaluation and Reflection}{6}{}%
-\contentsline {subsection}{\numberline {3.1}Validity}{6}{}%
-\contentsline {subsubsection}{\numberline {3.1.1}Unit Test Coverage}{6}{}%
-\contentsline {subsection}{\numberline {3.2}Evaluating the visualisation}{8}{}%
-\contentsline {subsection}{\numberline {3.3}Cooperation}{8}{}%
-\contentsline {section}{\numberline {A}Visualization}{9}{}%
-\contentsline {subsection}{\numberline {A.1}Menu}{9}{}%
-\contentsline {subsection}{\numberline {A.2}Fine-grained views}{9}{}%
+\contentsline {subsubsection}{\numberline {1.1.6}Unit Complexity}{5}{}%
+\contentsline {subsubsection}{\numberline {1.1.7}Duplication}{5}{}%
+\contentsline {subsubsection}{\numberline {1.1.8}Test Coverage}{6}{}%
+\contentsline {subsection}{\numberline {1.2}Visualizing the data}{8}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}Using fine-grained views}{8}{}%
+\contentsline {section}{\numberline {2}Results}{8}{}%
+\contentsline {subsection}{\numberline {2.1}Metrics}{8}{}%
+\contentsline {subsection}{\numberline {2.2}Interpreting the results}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Lines of Code}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}Unit Size}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.3}Unit Complexity}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.4}Duplication}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.5}Test Coverage}{9}{}%
+\contentsline {section}{\numberline {3}Evaluation and Reflection}{9}{}%
+\contentsline {subsection}{\numberline {3.1}Validity}{9}{}%
+\contentsline {subsubsection}{\numberline {3.1.1}Lines of Code}{9}{}%
+\contentsline {subsubsection}{\numberline {3.1.2}Unit Size}{11}{}%
+\contentsline {subsubsection}{\numberline {3.1.3}Unit Complexity}{11}{}%
+\contentsline {subsubsection}{\numberline {3.1.4}Duplication}{12}{}%
+\contentsline {subsubsection}{\numberline {3.1.5}Unit Test Coverage}{12}{}%
+\contentsline {subsection}{\numberline {3.2}Evaluating the visualisation}{13}{}%
+\contentsline {subsection}{\numberline {3.3}Cooperation}{13}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}Working as a team}{13}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}Version control}{14}{}%
+\contentsline {subsubsection}{\numberline {3.3.3}Work division}{14}{}%
+\contentsline {section}{\numberline {A}Visualization}{15}{}%
+\contentsline {subsection}{\numberline {A.1}Menu}{15}{}%
+\contentsline {subsection}{\numberline {A.2}Fine-grained views}{15}{}%
+\contentsline {section}{\numberline {B}Project Development Stats}{17}{}%
