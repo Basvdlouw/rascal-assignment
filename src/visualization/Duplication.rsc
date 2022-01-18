@@ -141,7 +141,7 @@ public Figure duplicationItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("2", 1, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Low risk: 2 or more duplicates", 1, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(2, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
@@ -151,7 +151,7 @@ public Figure duplicationItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("5", 2, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Medium risk: 5 or more duplicates", 2, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(5, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
@@ -161,7 +161,7 @@ public Figure duplicationItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("10", 3, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("High risk: 10 or more duplicates", 3, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(10, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;

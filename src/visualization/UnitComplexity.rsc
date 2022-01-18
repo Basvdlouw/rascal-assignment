@@ -121,7 +121,7 @@ public Figure cyclomaticComplexityItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Low risk: Complexity of <SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK> or higher", 1, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_LOW_RISK, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
@@ -131,7 +131,7 @@ public Figure cyclomaticComplexityItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Moderate risk: Complexity of <SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK> or higher", 2, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_MODERATE_RISK, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
@@ -141,7 +141,7 @@ public Figure cyclomaticComplexityItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("High risk: Complexity of <SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK> or higher", 3, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_CYCLOMATIC_COMPLEXITY_HIGH_RISK, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;

@@ -119,7 +119,7 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Low risk: <SIG_UNIT_SIZE_LOW_RISK> or more lines of code", 1, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_LOW_RISK, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
@@ -129,7 +129,7 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Moderate risk: <SIG_UNIT_SIZE_MODERATE_RISK> or more lines of code", 2, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_MODERATE_RISK, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
@@ -139,7 +139,7 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("High risk: <SIG_UNIT_SIZE_HIGH_RISK> or more lines of code", 3, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_HIGH_RISK, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;
