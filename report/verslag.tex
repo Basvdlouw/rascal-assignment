@@ -401,16 +401,16 @@ The calculated metrics for SmallSQL and HSQLDB can be found in table \ref{result
 \subsubsection{Lines of Code}
 Lines of code within a project do not say much about the quality of that project, merely its scope. It could provide some idea of how complex it may be, but even then it is entirely possible for large software to have no high risk units in either size or complexity.
 
-\subsubsection{Unit Size}
-We recognize that not counting comments, while more accurate for the metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
+\subsubsection{Interpretation of metrics}
+Both projects have poor unit size scores. We checked some of the offending classes and concluded that there are indeed many oversized methods that could easily be split up.
+
+In addition, both projects have poor complexity scores.
+
+We recognize that not counting comments, while more accurate for the unit size metric, may lead to situations where methods are overly documented. Whilst poorly documented code is harder to understand, overly documented code may also be harder to understand.
 
 We think this is something that should either be included in the unit size calculation somehow, or that a separate metric should be created to indicate overly documented code. Any amount of comments over a certain threshold could be seen as 'too much'. We have not applied this idea in our metrics for this project.
 
-\subsubsection{Unit Complexity}
-\subsubsection{Duplication}
-
-\subsubsection{Test Coverage}
-
+We recognize that for the purpose of SmallSQL, it may not make sense to split the project up into more classes and introduce more architecture. This would increase the filesize of the library, while it is entirely intended to be as small as possible.
 
 \section{Evaluation and Reflection}
 
@@ -543,6 +543,9 @@ In other words, we do not support nested testing. This may skew results towards 
 To conclude, we believe our test coverage metric to be an acceptable estimation.
 
 \subsection{Evaluating the visualisation}
+
+\subsubsection{The use of colors and data}
+In our visualisations, we have used colors to our advantage. Risk is represented by color, with green being low risk, orange medium risk and red high risk. This allows us to gather critical information about a unit at a glance. We also include the value of the metric inside the unit boxes on the grid. For example: When visualising unit size, each box will contain text with the size value inside of it. This combined with the color presents easy-to-access and valuable information when reading our metrics.
 
 \subsubsection{Unit Size}
 For an image of size visualisation, please refer to figure \ref{fig:unit-sizes}.
