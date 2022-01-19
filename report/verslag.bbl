@@ -21,6 +21,10 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{McCabe}
+T.~McCabe, ``A complexity measure,'' \emph{IEEE Transactions on Software
+  Engineering}, vol. SE-2, no.~4, pp. 308--320, 1976.
+
 \bibitem{SIG}
 I.~Heitlager, T.~Kuipers, and J.~Visser, ``A practical model for measuring
   maintainability,'' 10 2007, pp. 30 -- 39.

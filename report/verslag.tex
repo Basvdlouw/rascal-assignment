@@ -103,7 +103,9 @@ The pseudo-code for determining unit size is as follows:
 Each unit within the project has a size. We calculate the size as the amount of lines of code within the unit that check the requirements set in \ref{defining loc}. Note that the caveats apply here as well and that we also count single-line curly brackets.
 
 \subsubsection{Unit Complexity}
-Each unit within the project has a cyclomatic complexity. The complexity of unit is equal to the  sum of the complexity of each statement within the unit plus 1. Each statement within table \ref{complexityvalues} increases the unit complexity by a value of 1.
+Each unit within the project has a cyclomatic complexity~\cite{McCabe}. 
+The complexity of unit is equal to the sum of the complexity of each statement within the unit plus 1. 
+Each statement within table \ref{complexityvalues} increases the unit complexity by a value of 1.
 
 We do not count the complexity of invoked methods towards the complexity of a method. This would not make sense, as the metric is supposed to be used to estimate which methods could be broken up into smaller methods.
 
