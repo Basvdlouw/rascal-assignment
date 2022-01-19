@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.7.11)  18 JAN 2022 18:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.7.11)  19 JAN 2022 18:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -137,96 +137,125 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ] [3
 
-] [4] [5] [6] [7] [8]
-Overfull \vbox (88.314pt too high) has occurred while \output is active []
-
- [9]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 425.
+] [4] [5] [6] [7] [8] [9]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 426.
  (c:/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 425.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 426.
 
-Overfull \hbox (81.00433pt too wide) in paragraph at lines 449--450
+Overfull \hbox (81.00433pt too wide) in paragraph at lines 450--451
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[10]
-Overfull \hbox (2.55498pt too wide) in paragraph at lines 495--496
+[10] [11]
+Overfull \hbox (2.55498pt too wide) in paragraph at lines 498--499
 []\OT1/cmr/m/n/10 We also per-formed some man-ual checks on Small-SQL files by cross-referencing
  []
 
-[11]
-Overfull \hbox (3.00354pt too wide) in paragraph at lines 508--509
+
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 511--512
 [][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (3.00354pt too wide) in paragraph at lines 518--519
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 521--522
 [][][][][][][][][][][][][][][][] 
  []
 
-[12] [13] (./verslag.bbl) [14]
-<./img//vis_menu.png, id=58, 1260.20813pt x 597.73312pt>
+[12] [13] [14] [15] (./verslag.bbl) [16]
+<./img//vis_menu.png, id=64, 1033.61156pt x 354.57469pt>
 File: ./img//vis_menu.png Graphic file (type png)
 <use ./img//vis_menu.png>
-Package pdftex.def Info: ./img//vis_menu.png  used on input line 602.
-(pdftex.def)             Requested size: 401.50575pt x 200.75487pt.
+Package pdftex.def Info: ./img//vis_menu.png  used on input line 623.
+(pdftex.def)             Requested size: 401.49818pt x 150.5651pt.
 
-Overfull \hbox (56.50575pt too wide) in paragraph at lines 602--603
+Overfull \hbox (56.49818pt too wide) in paragraph at lines 623--624
  [][] 
  []
 
-<./img//hsqldb_unitsizes.png, id=60, 1273.00594pt x 627.84563pt>
+<./img//hsqldb_unitsizes.png, id=66, 1902.10625pt x 627.34375pt>
 File: ./img//hsqldb_unitsizes.png Graphic file (type png)
 <use ./img//hsqldb_unitsizes.png>
-Package pdftex.def Info: ./img//hsqldb_unitsizes.png  used on input line 615.
-(pdftex.def)             Requested size: 401.4846pt x 200.74225pt.
+Package pdftex.def Info: ./img//hsqldb_unitsizes.png  used on input line 636.
+(pdftex.def)             Requested size: 401.48576pt x 150.56557pt.
 
-Overfull \hbox (56.4846pt too wide) in paragraph at lines 615--616
+Overfull \hbox (56.48576pt too wide) in paragraph at lines 636--637
  [][] 
  []
 
-<./img//hsqldb_coc.png, id=61, 1268.48906pt x 628.59843pt>
+<./img//hsqldb_coc.png, id=67, 1893.0725pt x 627.34375pt>
 File: ./img//hsqldb_coc.png Graphic file (type png)
 <use ./img//hsqldb_coc.png>
-Package pdftex.def Info: ./img//hsqldb_coc.png  used on input line 622.
-(pdftex.def)             Requested size: 401.49237pt x 200.74316pt.
+Package pdftex.def Info: ./img//hsqldb_coc.png  used on input line 643.
+(pdftex.def)             Requested size: 401.48544pt x 150.56557pt.
 
-Overfull \hbox (56.49237pt too wide) in paragraph at lines 622--623
- [][] 
- []
-
-[15
-
- <./img//vis_menu.png>] [16 <./img//hsqldb_unitsizes.png> <./img//hsqldb_coc.png>]
-<./img//smallsql_duplication.png, id=71, 1269.99469pt x 630.85687pt>
-File: ./img//smallsql_duplication.png Graphic file (type png)
-<use ./img//smallsql_duplication.png>
-Package pdftex.def Info: ./img//smallsql_duplication.png  used on input line 635.
-(pdftex.def)             Requested size: 401.50385pt x 200.75206pt.
-
-Overfull \hbox (56.50385pt too wide) in paragraph at lines 635--636
+Overfull \hbox (56.48544pt too wide) in paragraph at lines 643--644
  [][] 
  []
 
 [17
 
- <./img//smallsql_duplication.png>] (./verslag.aux) ) 
+ <./img//vis_menu.png>] [18 <./img//hsqldb_unitsizes.png> <./img//hsqldb_coc.png>]
+<./img//hsqldb_unitsizes_cat.png, id=77, 1903.11pt x 626.34pt>
+File: ./img//hsqldb_unitsizes_cat.png Graphic file (type png)
+<use ./img//hsqldb_unitsizes_cat.png>
+Package pdftex.def Info: ./img//hsqldb_unitsizes_cat.png  used on input line 657.
+(pdftex.def)             Requested size: 401.49435pt x 125.46648pt.
+
+Overfull \hbox (56.49435pt too wide) in paragraph at lines 657--658
+ [][] 
+ []
+
+<./img//hsqldb_coc_cat.png, id=78, 1902.10625pt x 620.3175pt>
+File: ./img//hsqldb_coc_cat.png Graphic file (type png)
+<use ./img//hsqldb_coc_cat.png>
+Package pdftex.def Info: ./img//hsqldb_coc_cat.png  used on input line 664.
+(pdftex.def)             Requested size: 401.48576pt x 125.46216pt.
+
+Overfull \hbox (56.48576pt too wide) in paragraph at lines 664--665
+ [][] 
+ []
+
+<./img//hsqldb_duplication.png, id=79, 1910.13625pt x 624.3325pt>
+File: ./img//hsqldb_duplication.png Graphic file (type png)
+<use ./img//hsqldb_duplication.png>
+Package pdftex.def Info: ./img//hsqldb_duplication.png  used on input line 675.
+(pdftex.def)             Requested size: 401.4902pt x 150.55734pt.
+
+Overfull \hbox (56.4902pt too wide) in paragraph at lines 675--676
+ [][] 
+ []
+
+<./img//smallsql_duplication_cat.png, id=80, 1905.1175pt x 617.30624pt>
+File: ./img//smallsql_duplication_cat.png Graphic file (type png)
+<use ./img//smallsql_duplication_cat.png>
+Package pdftex.def Info: ./img//smallsql_duplication_cat.png  used on input line 682.
+(pdftex.def)             Requested size: 401.48183pt x 150.55844pt.
+
+Overfull \hbox (56.48183pt too wide) in paragraph at lines 682--683
+ [][] 
+ []
+
+[19
+
+ <./img//hsqldb_unitsizes_cat.png> <./img//hsqldb_coc_cat.png>] [20 <./img//hsqldb_duplication.png> <./img//smallsql_duplication_cat.png>] [21
+
+] (./verslag.aux) ) 
 Here is how much of TeX's memory you used:
- 3089 strings out of 478517
- 43867 string characters out of 5853901
- 365518 words of memory out of 5000000
- 21054 multiletter control sequences out of 15000+600000
+ 3116 strings out of 478517
+ 44738 string characters out of 5853901
+ 370552 words of memory out of 5000000
+ 21078 multiletter control sequences out of 15000+600000
  408794 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,66p,776b,1233s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,11n,66p,776b,1519s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on verslag.pdf (17 pages, 396492 bytes).
+Output written on verslag.pdf (21 pages, 638009 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
+ 143 PDF objects out of 1000 (max. 8388607)
+ 83 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

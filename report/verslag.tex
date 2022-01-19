@@ -620,7 +620,7 @@ Menu containing a project selector and analysis tool.
 	\centering
 	\label{fig:vis-menu}
 	\caption{Menu}
-	\includegraphics[width=400px, height=200px]{vis_menu.png}
+	\includegraphics[width=400px, height=150px]{vis_menu.png}
 \end{figure}
 
 \subsection{Fine-grained views}
@@ -633,17 +633,36 @@ In below fine-grained view of high risk units (loc 40+) from the HSQLDB project 
 	\centering
 	\label{fig:unit-sizes}
 	\caption{Fined grained view high-risk HSQLDB: Unit sizes}
-	\includegraphics[width=400px, height=200px]{hsqldb_unitsizes.png}
+	\includegraphics[width=400px, height=150px]{hsqldb_unitsizes.png}
 \end{figure}
 
 \begin{figure}[!htbp]
 	\centering
 	\label{fig:cyclomatic-complexity}
 	\caption{Fined grained view high-risk HSQLDB: Cyclomatic complexity}
-	\includegraphics[width=400px, height=200px]{hsqldb_coc.png}
+	\includegraphics[width=400px, height=150px]{hsqldb_coc.png}
 \end{figure}
 
 \clearpage 
+We also give a button to visualize risk levels per category, as shown in the samples above.
+This allows us to look at the same data in a new light.
+For example, we can determine whether the project has a few high-risk units or whether it is a more general issue.
+In below HSQLDB example, we can easily see that there are (too) many units in the high risk category, and therefore refactoring this code will almost certainly take a long time.
+
+
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:unit-sizes-cat}
+	\caption{Fined grained view HSQLDB categories: Unit sizes}
+	\includegraphics[width=400px, height=125px]{hsqldb_unitsizes_cat.png}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:cyclomatic-complexity-cat}
+	\caption{Fined grained view HSQLDB categories: Cyclomatic complexity}
+	\includegraphics[width=400px, height=125px]{hsqldb_coc_cat.png}
+\end{figure}
 
 Visualizing duplicates is done by combining clones into a single entity. 
 We can easily see the amount of clones by counting the amount of boxes per entity.
@@ -652,10 +671,18 @@ Of course, we can also navigate to each occurrence of every clone by clicking on
 \begin{figure}[!htbp]
 	\centering
 	\label{fig:duplication}
-	\caption{Fined grained view all duplicates SMALLSQL: Duplication}
-	\includegraphics[width=400px, height=200px]{smallsql_duplication.png}
+	\caption{Fined grained view high risk duplicates HSQLDB: Duplication}
+	\includegraphics[width=400px, height=150px]{hsqldb_duplication.png}
 \end{figure}
 
+\begin{figure}[!htbp]
+	\centering
+	\label{fig:duplication-cat}
+	\caption{Fined grained view SMALLSQL categories: Duplication}
+	\includegraphics[width=400px, height=150px]{smallsql_duplication_cat.png}
+\end{figure}
+
+\clearpage
 Note that above screenshots are created using a specific configuration, we can generate different fine-grained views by applying different filters in the menu.
 
 \section{Project Development Stats}
