@@ -1,0 +1,42 @@
+\contentsline {section}{\numberline {1}Design}{4}{}%
+\contentsline {subsection}{\numberline {1.1}Assumptions made}{4}{}%
+\contentsline {subsubsection}{\numberline {1.1.1}Only considering Java files}{4}{}%
+\contentsline {subsubsection}{\numberline {1.1.2}What is a 'Line of Code'}{4}{}%
+\contentsline {subsubsection}{\numberline {1.1.3}Lines of Code}{5}{}%
+\contentsline {subsubsection}{\numberline {1.1.4}Unit Count}{5}{}%
+\contentsline {subsubsection}{\numberline {1.1.5}Unit Size}{5}{}%
+\contentsline {subsubsection}{\numberline {1.1.6}Unit Complexity}{5}{}%
+\contentsline {subsubsection}{\numberline {1.1.7}Duplication}{6}{}%
+\contentsline {subsubsection}{\numberline {1.1.8}Test Coverage}{6}{}%
+\contentsline {subsection}{\numberline {1.2}Visualizing the data}{7}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}Using fine-grained views}{7}{}%
+\contentsline {section}{\numberline {2}Results}{8}{}%
+\contentsline {subsection}{\numberline {2.1}Metrics}{8}{}%
+\contentsline {subsection}{\numberline {2.2}Interpreting the results}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Interpretation of metrics}{9}{}%
+\contentsline {section}{\numberline {3}Evaluation and Reflection}{9}{}%
+\contentsline {subsection}{\numberline {3.1}Validity}{9}{}%
+\contentsline {subsubsection}{\numberline {3.1.1}Lines of Code}{9}{}%
+\contentsline {subsubsection}{\numberline {3.1.2}Unit Size}{10}{}%
+\contentsline {subsubsection}{\numberline {3.1.3}Unit Complexity}{10}{}%
+\contentsline {subsubsection}{\numberline {3.1.4}Duplication}{10}{}%
+\contentsline {subsubsection}{\numberline {3.1.5}Unit Test Coverage}{11}{}%
+\contentsline {subsection}{\numberline {3.2}Evaluating the visualisation}{11}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}The use of colors and data}{11}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Unit Size}{11}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}Unit Complexity}{11}{}%
+\contentsline {subsubsection}{\numberline {3.2.4}Duplication}{12}{}%
+\contentsline {subsubsection}{\numberline {3.2.5}Navigating the visualisation}{12}{}%
+\contentsline {subsubsection}{\numberline {3.2.6}Comments on developing the visualisation}{12}{}%
+\contentsline {subsection}{\numberline {3.3}Cooperation}{13}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}Working as a team}{13}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}Version control}{13}{}%
+\contentsline {section}{\numberline {A}Visualization}{14}{}%
+\contentsline {subsection}{\numberline {A.1}Menu}{14}{}%
+\contentsline {subsection}{\numberline {A.2}Fine-grained views}{14}{}%
+\contentsline {section}{\numberline {B}Pseudocode}{18}{}%
+\contentsline {subsection}{\numberline {B.1}Lines of Code}{18}{}%
+\contentsline {subsection}{\numberline {B.2}Duplication}{18}{}%
+\contentsline {subsection}{\numberline {B.3}Unit Test Coverage}{19}{}%
+\contentsline {section}{\numberline {C}Figures and samples}{19}{}%
+\contentsline {section}{\numberline {D}Project Development Stats}{21}{}%
