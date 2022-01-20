@@ -21,16 +21,19 @@ import visualization::Cache;
 import IO;
 
 
+private bool riskLevelToggle =  false;
 private int riskLevel = 0;
 private str WINDOW_NAME = "Unit Sizes";
 private Figure hoverFigure = box(text("No Figure Selected"));
 list[bool] hovered = [false, false, false, false];
 list[bool] selected = [false, false, false, false];
 
+
 private void visualizeUnitSizes(loc project, int riskLevel) {
 	map[Declaration, int] unitSizes = getUnitSizes(project);
 	render("<project.authority> - <WINDOW_NAME>", 
-			vcat([
+		computeFigure(shouldRedrawRiskToggle, Figure() {
+			return vcat([
 				treemap(
 				[ 
 					createUnitInteractiveBox(<unit, size>)
@@ -39,14 +42,24 @@ private void visualizeUnitSizes(loc project, int riskLevel) {
 				computeFigure(shouldRedraw, Figure() {
 					return hoverFigure;
 				})
-			])		
+			]);		
+		})
 	);
 }
 
+private Color getRiskColor(int linesOfCode) {
+	if(linesOfCode >= SIG_UNIT_SIZE_HIGH_RISK)
+		return color("red");
+	else if(linesOfCode >= SIG_UNIT_SIZE_MODERATE_RISK) {
+		return color("orange");	
+	}
+	return color("green");
+}
+
 private Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] unit) {
-	return box(text(toString(unit.unitValue)),
-				area(unit.unitValue), 
-				fillColor(arbColor()),
+	return box(text(toString(unit.unitValue), fontSize(6)),
+				area(round(unit.unitValue)),
+				fillColor(riskLevelToggle ? getRiskColor(unit.unitValue) : arbColor()),
 				onMouseEnter(void(){setHoverFigure(unit.unit.src);}),
 				onMouseDown(bool (int mouseButton, map[KeyModifier, bool] _) {
 					if(mouseButton == 1) // 1 is left mouse button
@@ -60,9 +73,8 @@ private Figure createUnitInteractiveBox(tuple[Declaration unit, int unitValue] u
 public void setHoverFigure(loc location) {
 	Color bgColor = rgb(90, 100, 209);
 	hoverFigure = vcat([
-					box(text("File: <location.file>"), fillColor(bgColor)),
-					box(text("Path: <location.path>"), fillColor(bgColor)),
-					box(text("Lines of code: <getLocLinesOfCode(location)>"), fillColor(bgColor))	
+					hcat([box(text("File: <location.file>"), fillColor(bgColor)), box(text("Path: <location.path>"), fillColor(bgColor))]),
+					hcat([box(text("Lines of code: <getLocLinesOfCode(location)>"), fillColor(bgColor)), box(button(riskLevelToggle ? "Visualize individual units" : "Visualize risk levels", void(){riskLevelToggle = !riskLevelToggle; redrawRiskToggle();}, fillColor(bgColor)))])
 					], fillColor(bgColor));
 	redraw();
 }
@@ -119,7 +131,7 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("LOW RISK", 1, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Low risk: <SIG_UNIT_SIZE_LOW_RISK> or more lines of code", 1, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_LOW_RISK, 1)), 
 						onMouseEnter(void() { 
 							hovered[1] = true;
@@ -129,7 +141,7 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("MODERATE RISK", 2, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("Moderate risk: <SIG_UNIT_SIZE_MODERATE_RISK> or more lines of code", 2, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_MODERATE_RISK, 2)), 
 						onMouseEnter(void() { 
 							hovered[2] = true;
@@ -139,7 +151,7 @@ public Figure unitSizeItem(loc project) {
 						})
 					),
 					box(
-						createRiskLevelItem("HIGH RISK", 3, hoveredColor, defaultColor, selectedColor), 
+						createRiskLevelItem("High risk: <SIG_UNIT_SIZE_HIGH_RISK> or more lines of code", 3, hoveredColor, defaultColor, selectedColor), 
 						onMouseDown(riskLevelCallback(SIG_UNIT_SIZE_HIGH_RISK, 3)), 
 						onMouseEnter(void() { 
 							hovered[3] = true;
